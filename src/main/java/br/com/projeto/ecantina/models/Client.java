@@ -2,7 +2,9 @@ package br.com.projeto.ecantina.models;
 
 import java.util.List;
 
-public class Client {
+public class Client extends User {
+
+    // Own attributes 
 
     private Long id;
     
@@ -11,6 +13,12 @@ public class Client {
     private String cpf;
 
     private String urlImage;
+
+    // Relations
+
+    private List<Order> orders;
+
+    private List<Card> cards;
 
     private List<LoyaltyCard> loyaltyCards;
 
@@ -47,9 +55,26 @@ public class Client {
 
     public Client() {}
 
-    public Client(String cpf, String address) {
+    public Client(String email, String password, String name, String cpf, String address) {
+        super(email, password, name, TypeUser.CLIENT);
         this.cpf = cpf;
         this.address = address; 
+    }
+
+    public List<Card> getCards() {
+        return cards;
+    }
+
+    public void setCards(List<Card> cards) {
+        this.cards = cards;
+    }
+
+    public List<Order> getOrders() {
+        return orders;
+    }
+
+    public void setOrders(List<Order> orders) {
+        this.orders = orders;
     }
 
     public Long getId() {

@@ -11,7 +11,7 @@ public class Establishment {
 
     private String cnpj;
 
-    private String adress;
+    private String address;
 
     private Integer capacity;
 
@@ -19,9 +19,9 @@ public class Establishment {
 
     public Establishment() {}
 
-    public Establishment(String cnpj, String adress, Integer capacity) {
+    public Establishment(String cnpj, String address, Integer capacity) {
         this.cnpj = cnpj;
-        this.adress = adress;
+        this.address = address;
         this.capacity = capacity;
     }
     
@@ -29,7 +29,7 @@ public class Establishment {
     public int hashCode() {
         final int prime = 31;
         int result = 1;
-        result = prime * result + ((adress == null) ? 0 : adress.hashCode());
+        result = prime * result + ((address == null) ? 0 : address.hashCode());
         result = prime * result + ((cnpj == null) ? 0 : cnpj.hashCode());
         result = prime * result + ((id == null) ? 0 : id.hashCode());
         return result;
@@ -44,10 +44,10 @@ public class Establishment {
         if (getClass() != obj.getClass())
             return false;
         Establishment other = (Establishment) obj;
-        if (adress == null) {
-            if (other.adress != null)
+        if (address == null) {
+            if (other.address != null)
                 return false;
-        } else if (!adress.equals(other.adress))
+        } else if (!address.equals(other.address))
             return false;
         if (cnpj == null) {
             if (other.cnpj != null)
@@ -82,12 +82,12 @@ public class Establishment {
         this.cnpj = cnpj;
     }
 
-    public String getAdress() {
-        return adress;
+    public String getAddress() {
+        return address;
     }
 
-    public void setAdress(String adress) {
-        this.adress = adress;
+    public void setAddress(String address) {
+        this.address = address;
     }
 
     public Integer getCapacity() {

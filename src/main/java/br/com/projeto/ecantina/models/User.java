@@ -1,18 +1,21 @@
 package br.com.projeto.ecantina.models;
 
-public class User {
+public abstract class User {
     
     private Long id;
     private String email;
     private String password;
     private String name;
-    private String type;
+
+
+    private TypeUser typeUser;
 
     public User() {}
 
-    public User(String email, String password) {
+    public User(String email, String password, String name, TypeUser typeUser) {
         this.email = email;
         this.password = password;
+        this.typeUser = typeUser;
     }
 
     @Override
@@ -56,6 +59,10 @@ public class User {
         return id;
     }
 
+    public void setId(Long id) {
+        this.id = id;
+    }
+
     public String getEmail() {
         return email;
     }
@@ -80,11 +87,11 @@ public class User {
         this.name = name;
     }
 
-    public String getType() {
-        return type;
+    public TypeUser getTypeUser() {
+        return typeUser;
     }
 
-    public void setType(String type) {
-        this.type = type;
-    }  
+    public void setTypeUser(TypeUser typeUser) {
+        this.typeUser = typeUser;
+    }
 }

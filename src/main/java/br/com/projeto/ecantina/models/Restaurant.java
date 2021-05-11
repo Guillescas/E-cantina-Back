@@ -9,6 +9,10 @@ public class Restaurant {
 
     private List<Product> products;
 
+    private List<LoyaltyCard> loyaltyCards;
+
+    private List<Order> orders;
+
     private Establishment establishment;
 
     private TypeRestaurant typeRestaurant;
@@ -54,6 +58,22 @@ public class Restaurant {
         } else if (!id.equals(other.id))
             return false;
         return true;
+    }
+
+    public void setOrders(List<Order> orders) {
+        this.orders = orders;
+    }
+
+    public List<Order> getOrders() {
+        return orders;
+    }
+
+    public void setLoyaltyCards(List<LoyaltyCard> loyaltyCards) {
+        this.loyaltyCards = loyaltyCards;
+    }
+
+    public List<LoyaltyCard> getLoyaltyCards() {
+        return loyaltyCards;
     }
 
     public Establishment getEstablishment() {

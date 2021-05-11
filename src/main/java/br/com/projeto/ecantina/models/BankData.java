@@ -1,8 +1,12 @@
 package br.com.projeto.ecantina.models;
 
+import java.util.List;
+
 public class BankData {
     
     private Long id;
+
+    private List<Card> cards;
 
     private String bank;
 
@@ -57,5 +61,13 @@ public class BankData {
 
     public void setBank(String bank) {
         this.bank = bank;
+    }
+
+    public List<Card> getCards() {
+        return cards;
+    }
+
+    public void setCards(List<Card> cards) {
+        this.cards = cards;
     }
 }

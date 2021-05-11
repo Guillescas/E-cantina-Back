@@ -7,6 +7,8 @@ public class Order {
     
     private Long id;
 
+    private Restaurant restaurant;
+
     private Client client;
 
     private List<Product> products;
@@ -23,10 +25,56 @@ public class Order {
 
     public Order() {}
 
-    public Order(Client client, List<Product> products, String observation) {
+    public Order(Restaurant restaurant, Client client, List<Product> products, String observation) {
+        this.setRestaurant(restaurant);
         this.client = client;
         this.products = products;
         this.observation = observation;
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((client == null) ? 0 : client.hashCode());
+        result = prime * result + ((id == null) ? 0 : id.hashCode());
+        result = prime * result + ((restaurant == null) ? 0 : restaurant.hashCode());
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        Order other = (Order) obj;
+        if (client == null) {
+            if (other.client != null)
+                return false;
+        } else if (!client.equals(other.client))
+            return false;
+        if (id == null) {
+            if (other.id != null)
+                return false;
+        } else if (!id.equals(other.id))
+            return false;
+        if (restaurant == null) {
+            if (other.restaurant != null)
+                return false;
+        } else if (!restaurant.equals(other.restaurant))
+            return false;
+        return true;
+    }
+
+    public Restaurant getRestaurant() {
+        return restaurant;
+    }
+
+    public void setRestaurant(Restaurant restaurant) {
+        this.restaurant = restaurant;
     }
 
     public Long getId() {
