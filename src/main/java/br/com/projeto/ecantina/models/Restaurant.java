@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 @Entity(name = "restaurants")
@@ -21,8 +22,8 @@ public class Restaurant extends User{
     @Column(length = 255)
     private String description;
 
-    @Column
     @ManyToOne
+    @JoinColumn(name = "establishment_id", referencedColumnName = "id")
     private Establishment establishment;
 
     public Restaurant() {}

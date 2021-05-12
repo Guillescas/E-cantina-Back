@@ -19,7 +19,7 @@ public class Establishment extends User{
     @Column(nullable = false)
     private BigDecimal rent;
 
-    @OneToMany
+    @OneToMany(mappedBy = "establishment")
     private List<Restaurant> restaurants;
 
     public Establishment() {}
