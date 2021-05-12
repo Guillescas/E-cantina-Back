@@ -46,9 +46,8 @@ public class RequestUserDto {
         return new Client(getEmail(), getPassword(), getName());
     }
 
-    public User convert(EstablishmentRepository establishmentRepository) {
+    public User convertRestaurant(EstablishmentRepository establishmentRepository) {
         Establishment establishment = establishmentRepository.findByName(getEstablishment());
-
         return new Restaurant(email, password, name, establishment);
     }
 }

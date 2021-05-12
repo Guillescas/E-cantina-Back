@@ -4,11 +4,8 @@ import org.springframework.data.domain.Page;
 
 import br.com.projeto.ecantina.models.Address;
 import br.com.projeto.ecantina.models.Client;
-import br.com.projeto.ecantina.models.Establishment;
-import br.com.projeto.ecantina.models.Restaurant;
-import br.com.projeto.ecantina.models.User;
 
-public class ResponseUserDto {
+public class ResponseClientDto {
     
     private Long id;
     private String email;
@@ -16,37 +13,15 @@ public class ResponseUserDto {
     private String name;
     private String type;
 
-    // User attribute
     private String cpf;    
     private String urlImage;
     private Address address;
 
-    public ResponseUserDto(User user) {
-        this.id = user.getId();
-        this.email = user.getEmail();
-        this.password = user.getPassword();
-        this.name = user.getName();
-    }
-
-    public ResponseUserDto(User user, Client client) {
-        this.id = user.getId();
-        this.email = user.getEmail();
-        this.password = user.getPassword();
-        this.name = user.getName();
-    }
-
-    public ResponseUserDto(User user, Restaurant restaurant) {
-        this.id = user.getId();
-        this.email = user.getEmail();
-        this.password = user.getPassword();
-        this.name = user.getName();
-    }
-
-    public ResponseUserDto(User user, Establishment establishment) {
-        this.id = user.getId();
-        this.email = user.getEmail();
-        this.password = user.getPassword();
-        this.name = user.getName();
+    public ResponseClientDto(Client client) {
+        this.id = client.getId();
+        this.email = client.getEmail();
+        this.password = client.getPassword();
+        this.name = client.getName();
     }
 
     public Long getId() {
@@ -108,11 +83,7 @@ public class ResponseUserDto {
         return type;
     }
 
-    public static Page<ResponseUserDto> convertRestaurant(Page<Restaurant> users) {
-        return users.map(ResponseUserDto::new);
-    }
-
-    public static Page<ResponseUserDto> convertEstablishment(Page<Establishment> users) {
-        return users.map(ResponseUserDto::new);
+    public static Page<ResponseClientDto> convert(Page<Client> users) {
+        return users.map(ResponseClientDto::new);
     }
 }
