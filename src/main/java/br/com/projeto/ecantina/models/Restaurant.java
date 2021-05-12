@@ -26,6 +26,10 @@ public class Restaurant extends User{
 
     @OneToMany
     @JoinColumn(name = "restaurant_id")
+    private List<Order> orders;
+
+    @OneToMany
+    @JoinColumn(name = "restaurant_id")
     private List<Product> products;
 
     @ManyToOne
