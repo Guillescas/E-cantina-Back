@@ -1,5 +1,8 @@
 package br.com.projeto.ecantina.dto.response;
 
+import br.com.projeto.ecantina.models.Address;
+import br.com.projeto.ecantina.models.Client;
+import br.com.projeto.ecantina.models.Restaurant;
 import br.com.projeto.ecantina.models.User;
 
 public class ResponseUserDto {
@@ -10,12 +13,38 @@ public class ResponseUserDto {
     private String name;
     private String type;
 
+    // User attribute
+    private String cpf;    
+    private String urlImagem;
+    private Address address;
+
     public ResponseUserDto(User user) {
         this.id = user.getId();
         this.email = user.getEmail();
         this.password = user.getPassword();
         this.name = user.getName();
     }
+
+    public ResponseUserDto(User user, Client client) {
+        this.id = user.getId();
+        this.email = user.getEmail();
+        this.password = user.getPassword();
+        this.name = user.getName();
+    }
+
+    public ResponseUserDto(User user, Restaurant restaurant) {
+        this.id = user.getId();
+        this.email = user.getEmail();
+        this.password = user.getPassword();
+        this.name = user.getName();
+    }
+
+    // public ResponseUserDto(User user, Establishment establishment) {
+    //     this.id = user.getId();
+    //     this.email = user.getEmail();
+    //     this.password = user.getPassword();
+    //     this.name = user.getName();
+    // }
 
     public Long getId() {
         return id;
