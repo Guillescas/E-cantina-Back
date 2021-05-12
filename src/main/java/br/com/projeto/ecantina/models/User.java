@@ -17,7 +17,7 @@ public abstract class User {
     @Column(length = 50, nullable = false)
     private String email;
 
-    @Column(length = 72, nullable = false)
+    @Column(length = 65, nullable = false)
     private String password;
 
     @Column(length = 50, nullable = false)

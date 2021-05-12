@@ -6,6 +6,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 
 @Entity
@@ -30,7 +31,11 @@ public class Address {
     @Column(length = 30, nullable = true)
     private String complement;
 
-    @OneToOne(optional = true)
+    @ManyToOne
+    @JoinColumn(name= "client_id", referencedColumnName = "id")
+    private Client client;
+
+    @OneToOne
     @JoinColumn(name = "establishment_id", referencedColumnName = "id")
     private Establishment establishment;
     

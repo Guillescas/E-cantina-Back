@@ -1,11 +1,13 @@
 package br.com.projeto.ecantina.models;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 @Entity(name = "restaurants")
 public class Restaurant extends User{
@@ -17,10 +19,14 @@ public class Restaurant extends User{
     private BigDecimal rating;
     
     @Column
-    private Boolean open;
+    private Boolean open = false;
     
     @Column(length = 255)
     private String description;
+
+    @OneToMany
+    @JoinColumn(name = "restaurant_id")
+    private List<Product> products;
 
     @ManyToOne
     @JoinColumn(name = "establishment_id", referencedColumnName = "id")
@@ -30,13 +36,11 @@ public class Restaurant extends User{
 
     public Restaurant(String email, String password, String name) {
         super(email, password, name);
-        this.open = false;
     }
 
     public Restaurant(String email, String password, String name, Establishment establishment) {
         super(email, password, name);
         this.establishment = establishment;
-        this.open = false;
     }
 
     @Override
