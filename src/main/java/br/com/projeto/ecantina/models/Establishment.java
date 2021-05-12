@@ -6,6 +6,7 @@ import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
 @Entity
 public class Establishment extends User{
@@ -21,6 +22,9 @@ public class Establishment extends User{
 
     @OneToMany(mappedBy = "establishment")
     private List<Restaurant> restaurants;
+
+    @OneToOne(mappedBy = "establishment")
+    private Address address;
 
     public Establishment() {}
 
