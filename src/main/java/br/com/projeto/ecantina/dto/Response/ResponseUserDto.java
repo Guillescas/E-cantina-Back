@@ -1,5 +1,7 @@
 package br.com.projeto.ecantina.dto.response;
 
+import org.springframework.data.domain.Page;
+
 import br.com.projeto.ecantina.models.Address;
 import br.com.projeto.ecantina.models.Client;
 import br.com.projeto.ecantina.models.Restaurant;
@@ -15,7 +17,7 @@ public class ResponseUserDto {
 
     // User attribute
     private String cpf;    
-    private String urlImagem;
+    private String urlImage;
     private Address address;
 
     public ResponseUserDto(User user) {
@@ -54,6 +56,34 @@ public class ResponseUserDto {
         this.id = id;
     }
 
+    public String getCpf() {
+        return cpf;
+    }
+
+    public void setCpf(String cpf) {
+        this.cpf = cpf;
+    }
+
+    public Address getAddress() {
+        return address;
+    }
+
+    public void setAddress(Address address) {
+        this.address = address;
+    }
+
+    public String getUrlImage() {
+        return urlImage;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public void setUrlImage(String urlImage) {
+        this.urlImage = urlImage;
+    }
+
     public String getEmail() {
         return email;
     }
@@ -77,4 +107,7 @@ public class ResponseUserDto {
         return type;
     }
 
+    public static Page<ResponseUserDto> convert(Page<Restaurant> users) {
+        return users.map(ResponseUserDto::new);
+    }
 }
