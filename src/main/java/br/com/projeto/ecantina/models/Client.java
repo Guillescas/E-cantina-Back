@@ -11,7 +11,7 @@ import javax.persistence.OneToMany;
 @Entity(name = "client")
 public class Client extends User{
     
-    @Column(length = 14, nullable = false)
+    @Column(length = 14, nullable = true)
     private String cpf;
 
     @Column

@@ -1,4 +1,4 @@
-package br.com.projeto.ecantina.dto.Response;
+package br.com.projeto.ecantina.dto.response;
 
 import br.com.projeto.ecantina.models.User;
 

@@ -1,4 +1,4 @@
-package br.com.projeto.ecantina.dto.Request;
+package br.com.projeto.ecantina.dto.request;
 
 import br.com.projeto.ecantina.models.Client;
 import br.com.projeto.ecantina.models.User;
