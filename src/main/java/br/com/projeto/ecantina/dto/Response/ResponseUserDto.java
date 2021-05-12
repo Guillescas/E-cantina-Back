@@ -4,6 +4,7 @@ import org.springframework.data.domain.Page;
 
 import br.com.projeto.ecantina.models.Address;
 import br.com.projeto.ecantina.models.Client;
+import br.com.projeto.ecantina.models.Establishment;
 import br.com.projeto.ecantina.models.Restaurant;
 import br.com.projeto.ecantina.models.User;
 
@@ -41,12 +42,12 @@ public class ResponseUserDto {
         this.name = user.getName();
     }
 
-    // public ResponseUserDto(User user, Establishment establishment) {
-    //     this.id = user.getId();
-    //     this.email = user.getEmail();
-    //     this.password = user.getPassword();
-    //     this.name = user.getName();
-    // }
+    public ResponseUserDto(User user, Establishment establishment) {
+        this.id = user.getId();
+        this.email = user.getEmail();
+        this.password = user.getPassword();
+        this.name = user.getName();
+    }
 
     public Long getId() {
         return id;
@@ -107,7 +108,11 @@ public class ResponseUserDto {
         return type;
     }
 
-    public static Page<ResponseUserDto> convert(Page<Restaurant> users) {
+    public static Page<ResponseUserDto> convertRestaurant(Page<Restaurant> users) {
+        return users.map(ResponseUserDto::new);
+    }
+
+    public static Page<ResponseUserDto> convertEstablishment(Page<Establishment> users) {
         return users.map(ResponseUserDto::new);
     }
 }

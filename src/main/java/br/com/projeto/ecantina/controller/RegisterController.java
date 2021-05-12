@@ -22,10 +22,12 @@ import org.springframework.web.util.UriComponentsBuilder;
 import br.com.projeto.ecantina.dto.request.RequestUserDto;
 import br.com.projeto.ecantina.dto.response.ResponseUserDto;
 import br.com.projeto.ecantina.models.Client;
+import br.com.projeto.ecantina.models.Establishment;
 import br.com.projeto.ecantina.models.Restaurant;
 import br.com.projeto.ecantina.models.TypeUser;
 import br.com.projeto.ecantina.models.User;
 import br.com.projeto.ecantina.repository.ClientRepository;
+import br.com.projeto.ecantina.repository.EstablishmentRepository;
 import br.com.projeto.ecantina.repository.RestaurantRepository;
 
 @RestController
@@ -39,19 +41,23 @@ public class RegisterController {
     @Autowired
     private RestaurantRepository restaurantRepository;
 
-    // @GetMapping 
-    // public Page<ResponseUserDto> list(@RequestParam(required = false) String nameRestaurant, @RequestParam(required = false) String nameEstablishment, @PageableDefault(sort = "rating", direction = Direction.ASC, size = 10) Pageable pageable,
-    //         @RequestParam(required = false) String typeUser) {
+    @Autowired
+    private EstablishmentRepository establishmentRepository;
 
-    //     if (typeUser.equals(TypeUser.Client.toString())) {
+    @GetMapping 
+    public Page<ResponseUserDto> list(@RequestParam(required = false) String nameRestaurant, @RequestParam(required = false) String nameEstablishment, @PageableDefault(sort = "rating", direction = Direction.ASC, size = 10) Pageable pageable,
+            @RequestParam(required = false) String typeUser) {
 
-    //         Page<Restaurant> allRestaurants = restaurantRepository.findAll(pageable);
-    //         return ResponseUserDto.convert(allRestaurants);
-    //     } else {
+        if (typeUser.equals(TypeUser.Client.toString())) {
 
-    //         Page<Establishment>
-    //     }
-    // }
+            Page<Restaurant> allRestaurants = restaurantRepository.findAll(pageable);
+            return ResponseUserDto.convertRestaurant(allRestaurants);
+        } else {
+
+            Page<Establishment> allEstablishment = establishmentRepository.findAll(pageable);
+            return ResponseUserDto.convertEstablishment(allEstablishment);
+        }
+    }
 
     @PostMapping
     @Transactional
@@ -63,5 +69,6 @@ public class RegisterController {
         URI uri = uriComponentsBuilder.path("/cadastrar/{id}").buildAndExpand(client.getId()).toUri();
 
         return ResponseEntity.created(uri).body(new ResponseUserDto(client));
+
     }
 }
