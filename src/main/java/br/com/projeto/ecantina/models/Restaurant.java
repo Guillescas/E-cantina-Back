@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
 
 @Entity(name = "restaurants")
 public class Restaurant extends User{
@@ -20,10 +21,20 @@ public class Restaurant extends User{
     @Column(length = 255)
     private String description;
 
+    @Column
+    @ManyToOne
+    private Establishment establishment;
+
     public Restaurant() {}
 
     public Restaurant(String email, String password, String name) {
         super(email, password, name);
+        this.open = false;
+    }
+
+    public Restaurant(String email, String password, String name, Establishment establishment) {
+        super(email, password, name);
+        this.establishment = establishment;
         this.open = false;
     }
 
