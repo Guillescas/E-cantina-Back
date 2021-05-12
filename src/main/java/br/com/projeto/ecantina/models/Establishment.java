@@ -19,7 +19,6 @@ public class Establishment extends User{
     @Column(nullable = false)
     private BigDecimal rent;
 
-    @Column
     @OneToMany
     private List<Restaurant> restaurants;
 
