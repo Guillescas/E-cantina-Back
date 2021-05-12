@@ -2,21 +2,18 @@ package br.com.projeto.ecantina.models;
 
 import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
 
 @Entity(name = "client")
 public class Client extends User{
     
-    @Column(length = 14, nullable = false)
+    @Column(length = 14, nullable = true)
     private String cpf;
 
     @Column
-    @OneToMany(fetch = FetchType.LAZY,
-        cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "client")
     private List<Address> address;
 
     @Column
