@@ -12,8 +12,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import br.com.projeto.ecantina.dto.Request.RequestUserDto;
-import br.com.projeto.ecantina.dto.Response.ResponseUserDto;
+import br.com.projeto.ecantina.dto.request.RequestUserDto;
+import br.com.projeto.ecantina.dto.response.ResponseUserDto;
 import br.com.projeto.ecantina.models.Client;
 import br.com.projeto.ecantina.repository.ClientRepository;
 
