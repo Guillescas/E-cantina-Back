@@ -3,8 +3,10 @@ package br.com.projeto.ecantina.models;
 import java.math.BigDecimal;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
@@ -25,7 +27,7 @@ public class Establishment extends User {
     @JoinColumn(name = "establishment_id")
     private List<Restaurant> restaurants;
 
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Address address;
 
     
@@ -36,10 +38,12 @@ public class Establishment extends User {
         this.capacity = capacity;
     }
 
-    public Establishment(String email, String password, String name, Integer capacity, Address address) {
+    public Establishment(String email, String password, String name, String cnpj, Integer capacity, BigDecimal rent, Address address) {
         super(email, password, name);
         this.capacity = capacity;
         this.address = address;
+        this.rent = rent;
+        this.cnpj = cnpj;
     }
 
     public String getCnpj() {

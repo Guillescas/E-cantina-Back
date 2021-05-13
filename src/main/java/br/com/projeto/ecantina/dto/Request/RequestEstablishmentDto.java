@@ -108,6 +108,7 @@ public class RequestEstablishmentDto {
 
     public Establishment convert() {
         Address address = new Address(getStreet(), getCep(), getNeighborhood(), getNumber(), getComplement());
-        return new Establishment(getEmail(), getPassword(), getName(), getCapacity(), address);
+        // addressRepository.sav
+        return new Establishment(getEmail(), getPassword(), getName(), getCnpj(), getCapacity(), getRent(), address);
     }
 }
