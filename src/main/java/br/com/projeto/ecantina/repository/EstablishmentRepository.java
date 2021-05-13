@@ -10,5 +10,5 @@ public interface EstablishmentRepository extends JpaRepository<Establishment, Lo
     
     Establishment findByName(String establishment);
 
-    Optional<Establishment> findByUsername(String username);
+    Optional<Establishment> findByEmail(String username);
 }

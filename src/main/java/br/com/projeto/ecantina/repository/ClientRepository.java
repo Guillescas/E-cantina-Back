@@ -8,5 +8,5 @@ import br.com.projeto.ecantina.models.Client;
 
 public interface ClientRepository extends JpaRepository<Client, Long> {
     
-    Optional<Client> findByUsername(String username);
+    Optional<Client> findByEmail(String username);
 }

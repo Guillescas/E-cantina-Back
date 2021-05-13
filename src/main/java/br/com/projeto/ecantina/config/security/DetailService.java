@@ -29,9 +29,9 @@ public class DetailService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        Optional<Client> client = clientRepository.findByUsername(username);
-        Optional<Establishment> establishment = establishmentRepository.findByUsername(username);
-        Optional<Restaurant> restaurant = restaurantRepository.findByUsername(username);
+        Optional<Client> client = clientRepository.findByEmail(username);
+        Optional<Establishment> establishment = establishmentRepository.findByEmail(username);
+        Optional<Restaurant> restaurant = restaurantRepository.findByEmail(username);
 
         if (client.isPresent()) {
             return client.get();

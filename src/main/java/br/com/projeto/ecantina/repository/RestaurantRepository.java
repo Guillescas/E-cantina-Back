@@ -14,5 +14,5 @@ public interface RestaurantRepository extends JpaRepository<Restaurant, Long> {
     @Query(nativeQuery = true, value = "SELECT * FROM restaurants r WHERE r.establishment_id = ?1")
     Page<Restaurant> findEstablishmentRestaurants(Long establishmentName, Pageable pageable);
 
-    Optional<Restaurant> findByUsername(String username);
+    Optional<Restaurant> findByEmail(String username);
 }
