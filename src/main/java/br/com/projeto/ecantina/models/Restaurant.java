@@ -35,6 +35,10 @@ public class Restaurant extends User{
     @JoinColumn(name = "restaurant_id")
     private List<Product> products;
 
+    @OneToMany
+    @JoinColumn(name = "restaurant_id")
+    private List<DiscountCoupon> DiscountCoupon;
+
     public Restaurant() {}
 
     public Restaurant(String email, String password, String name) {

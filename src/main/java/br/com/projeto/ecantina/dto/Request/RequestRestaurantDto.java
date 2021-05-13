@@ -12,7 +12,7 @@ public class RequestRestaurantDto {
     private String cnpj;
     private String type;
     private String description;
-
+    
     private String establishmentName;
 
     public String getEstablishmentName() {

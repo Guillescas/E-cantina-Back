@@ -19,7 +19,7 @@ import br.com.projeto.ecantina.models.Client;
 import br.com.projeto.ecantina.repository.ClientRepository;
 
 @RestController
-@RequestMapping("/usuario")
+@RequestMapping("/client")
 @CrossOrigin
 public class ClientController {
     
