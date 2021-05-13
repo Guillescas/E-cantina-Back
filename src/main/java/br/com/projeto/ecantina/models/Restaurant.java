@@ -1,12 +1,15 @@
 package br.com.projeto.ecantina.models;
 
 import java.math.BigDecimal;
+import java.util.Collection;
 import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
+
+import org.springframework.security.core.GrantedAuthority;
 
 @Entity(name = "restaurants")
 public class Restaurant extends User{
@@ -120,5 +123,35 @@ public class Restaurant extends User{
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return this.userTypes;
+    }
+    
+    @Override
+    public String getUsername() {
+        return getEmail();
+    }
+    
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+    
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+    
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+    
+    @Override
+    public boolean isEnabled() {
+        return true;
     }
 }

@@ -1,11 +1,14 @@
 package br.com.projeto.ecantina.models;
 
+import java.util.Collection;
 import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
+
+import org.springframework.security.core.GrantedAuthority;
 
 /**
  * <p> This class is used for representing one type of {@code User} that we have in this system,
@@ -126,5 +129,35 @@ public class Client extends User {
 
     public void setUrlImage(String urlImage) {
         this.urlImage = urlImage;
+    }
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return this.userTypes;
+    }
+    
+    @Override
+    public String getUsername() {
+        return getEmail();
+    }
+    
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+    
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+    
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+    
+    @Override
+    public boolean isEnabled() {
+        return true;
     }
 }
