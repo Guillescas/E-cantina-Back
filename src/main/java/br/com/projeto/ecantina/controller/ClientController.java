@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import br.com.projeto.ecantina.dto.request.RequestUserDto;
+import br.com.projeto.ecantina.dto.request.RequestClientDto;
 import br.com.projeto.ecantina.dto.response.ResponseClientDto;
 import br.com.projeto.ecantina.models.Client;
 import br.com.projeto.ecantina.repository.ClientRepository;
@@ -28,7 +28,7 @@ public class ClientController {
 
     @PostMapping
     @Transactional
-    public ResponseEntity<ResponseClientDto> create(@RequestBody RequestUserDto requestUserDto,
+    public ResponseEntity<ResponseClientDto> create(@RequestBody RequestClientDto requestUserDto,
             UriComponentsBuilder uriComponentsBuilder) {
 
         Client client = (Client) requestUserDto.convertClient();

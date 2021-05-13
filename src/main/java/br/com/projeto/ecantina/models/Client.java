@@ -41,6 +41,14 @@ public class Client extends User {
     @JoinColumn(name = "client_id")
     private List<Order> orders;
 
+    @OneToMany
+    @JoinColumn(name = "client_id")
+    private List<Card> cards;
+
+    @OneToMany
+    @JoinColumn(name = "client_id")
+    private List<LoyaltyCard> loyaltyCards;
+
     @Column
     private String urlImage;
 
@@ -82,6 +90,18 @@ public class Client extends User {
         } else if (!cpf.equals(other.cpf))
             return false;
         return true;
+    }
+
+    public List<LoyaltyCard> getLoyaltyCards() {
+        return loyaltyCards;
+    }
+
+    public List<Card> getCards() {
+        return cards;
+    }
+
+    public List<Order> getOrders() {
+        return orders;
     }
 
     public String getCpf() {

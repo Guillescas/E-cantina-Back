@@ -6,7 +6,6 @@ import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
 @Entity(name = "restaurants")
@@ -26,15 +25,15 @@ public class Restaurant extends User{
 
     @OneToMany
     @JoinColumn(name = "restaurant_id")
+    private List<LoyaltyCard> loyaltyCards;
+
+    @OneToMany
+    @JoinColumn(name = "restaurant_id")
     private List<Order> orders;
     
     @OneToMany
     @JoinColumn(name = "restaurant_id")
     private List<Product> products;
-
-    @ManyToOne
-    @JoinColumn(name = "establishment_id", referencedColumnName = "id")
-    private Establishment establishment;
 
     public Restaurant() {}
 
@@ -42,14 +41,8 @@ public class Restaurant extends User{
         super(email, password, name);
     }
 
-    public Restaurant(String email, String password, String name, Establishment establishment) {
+    public Restaurant(String email, String password, String name, String cnpj) {
         super(email, password, name);
-        this.establishment = establishment;
-    }
-
-    public Restaurant(String email, String password, String name, String cnpj, Establishment establishment) {
-        super(email, password, name);
-        this.establishment = establishment;
     }
 
     @Override
@@ -75,6 +68,14 @@ public class Restaurant extends User{
         } else if (!cnpj.equals(other.cnpj))
             return false;
         return true;
+    }
+
+    public List<LoyaltyCard> getLoyaltyCards() {
+        return loyaltyCards;
+    }
+
+    public List<Order> getOrders() {
+        return orders;
     }
 
     public List<Product> getProducts() {

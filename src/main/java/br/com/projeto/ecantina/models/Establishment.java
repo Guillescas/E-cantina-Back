@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
@@ -20,7 +21,8 @@ public class Establishment extends User {
     @Column(nullable = false)
     private BigDecimal rent;
 
-    @OneToMany(mappedBy = "establishment")
+    @OneToMany
+    @JoinColumn(name = "establishment_id")
     private List<Restaurant> restaurants;
 
     @OneToOne

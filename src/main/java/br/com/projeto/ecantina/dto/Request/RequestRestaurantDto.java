@@ -75,7 +75,7 @@ public class RequestRestaurantDto {
         Establishment establishment = establishmentRepository.findByName(establishmentName);
         Restaurant restaurant = new Restaurant(getEmail(), getPassword(), getName());
         
-        // establishment.getRestaurants().add()
+        establishment.getRestaurants().add(restaurant);
 
         return restaurant;
     }   
