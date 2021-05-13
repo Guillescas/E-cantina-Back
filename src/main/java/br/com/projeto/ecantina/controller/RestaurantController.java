@@ -21,12 +21,13 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import br.com.projeto.ecantina.dto.request.RequestRestaurantDto;
 import br.com.projeto.ecantina.dto.response.ResponseRestaurantDto;
+import br.com.projeto.ecantina.models.Establishment;
 import br.com.projeto.ecantina.models.Restaurant;
 import br.com.projeto.ecantina.repository.EstablishmentRepository;
 import br.com.projeto.ecantina.repository.RestaurantRepository;
 
 @RestController
-@RequestMapping("/usuario/restaurante")
+@RequestMapping("/restaurante")
 @CrossOrigin
 public class RestaurantController {
 
@@ -41,13 +42,21 @@ public class RestaurantController {
             @RequestParam(required = false) String nameEstablishment,
             @PageableDefault(sort = "id", direction = Direction.ASC, size = 10) Pageable pageable) {
 
+        if (nameEstablishment != null) {
+            Establishment establishment = establishmentRepository.findByName(nameEstablishment);
+
+            Page<Restaurant> restaurants = restaurantRepository.findEstablishmentRestaurants(establishment.getId(), pageable);
+            return ResponseRestaurantDto.convert(restaurants);
+        }
+
         Page<Restaurant> allRestaurants = restaurantRepository.findAll(pageable);
         return ResponseRestaurantDto.convert(allRestaurants);
     }
 
     @PostMapping
     @Transactional
-    public ResponseEntity<ResponseRestaurantDto> create(@RequestBody RequestRestaurantDto requestRestaurantDto, UriComponentsBuilder uriComponentsBuilder) {
+    public ResponseEntity<ResponseRestaurantDto> create(@RequestBody RequestRestaurantDto requestRestaurantDto,
+            UriComponentsBuilder uriComponentsBuilder) {
 
         Restaurant restaurant = requestRestaurantDto.convert(establishmentRepository);
         restaurantRepository.save(restaurant);
