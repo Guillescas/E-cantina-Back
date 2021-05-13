@@ -20,9 +20,6 @@ public class Product {
     @Column(length = 50, nullable = false)
     private String name;
 
-    @Column
-    private Integer quantity;
-
     @Column(length = 30, nullable = false)
     private String type;
 
@@ -42,6 +39,12 @@ public class Product {
         this.name = name;
         this.type = type;
         this.price = price;
+    }
+
+    public Product(String name, String type, String price) {
+        this.name = name;
+        this.type = type;
+        this.price = new BigDecimal(price);
     }
 
     @Override
@@ -83,14 +86,6 @@ public class Product {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public Integer getQuantity() {
-        return quantity;
-    }
-
-    public void setQuantity(Integer quantity) {
-        this.quantity = quantity;
     }
 
     public String getType() {

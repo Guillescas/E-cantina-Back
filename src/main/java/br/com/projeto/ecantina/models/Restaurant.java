@@ -77,6 +77,10 @@ public class Restaurant extends User{
         return true;
     }
 
+    public List<Product> getProducts() {
+        return products;
+    }
+
     public String getCnpj() {
         return cnpj;
     }
