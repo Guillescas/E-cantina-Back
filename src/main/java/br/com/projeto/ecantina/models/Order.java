@@ -1,6 +1,8 @@
 package br.com.projeto.ecantina.models;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -9,6 +11,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 @Entity(name = "orders")
 public class Order {
@@ -31,6 +34,12 @@ public class Order {
 
     @Column(nullable = false)
     private Boolean valid = true;
+
+    // @Column
+    // private BigDecimal total;
+
+    // @OneToMany
+    // private List<ProductList> productLists;
 
     @ManyToOne(optional = false)
     @JoinColumn(name = "client_id", referencedColumnName = "id")
@@ -82,6 +91,22 @@ public class Order {
             return false;
         return true;
     }
+
+    // public BigDecimal getTotal() {
+    //     return total;
+    // }
+
+    // public List<ProductList> getProductLists() {
+    //     return productLists;
+    // }
+
+    // public void setTotal(BigDecimal total) {
+    //     this.total = total;
+    // }
+
+    // public void setProductLists(List<ProductList> productLists) {
+    //     this.productLists = productLists;
+    // }
 
     public Long getId() {
         return id;

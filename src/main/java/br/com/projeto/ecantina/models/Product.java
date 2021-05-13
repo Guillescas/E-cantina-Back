@@ -32,9 +32,9 @@ public class Product {
     @Column(nullable = false)
     private BigDecimal price;
 
-    @ManyToOne(optional = false)
-    @JoinColumn(name = "restaurant_id", referencedColumnName = "id")
-    private Restaurant restaurant;
+    // @ManyToOne(optional = false)
+    // @JoinColumn(name = "restaurant_id", referencedColumnName = "id")
+    // private Restaurant restaurant;
 
     public Product() {}
 

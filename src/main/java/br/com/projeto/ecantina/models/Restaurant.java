@@ -27,7 +27,7 @@ public class Restaurant extends User{
     @OneToMany
     @JoinColumn(name = "restaurant_id")
     private List<Order> orders;
-
+    
     @OneToMany
     @JoinColumn(name = "restaurant_id")
     private List<Product> products;
@@ -43,6 +43,11 @@ public class Restaurant extends User{
     }
 
     public Restaurant(String email, String password, String name, Establishment establishment) {
+        super(email, password, name);
+        this.establishment = establishment;
+    }
+
+    public Restaurant(String email, String password, String name, String cnpj, Establishment establishment) {
         super(email, password, name);
         this.establishment = establishment;
     }
