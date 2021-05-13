@@ -62,7 +62,6 @@ public class LoyaltyCard {
       return false;
     return true;
   }
-
   
   public Long getId() {
     return id;

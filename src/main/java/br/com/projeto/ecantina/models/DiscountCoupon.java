@@ -2,12 +2,15 @@ package br.com.projeto.ecantina.models;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 
 @Entity(name="discount_coupon")
 public class DiscountCoupon {
@@ -21,6 +24,10 @@ public class DiscountCoupon {
 
   @Column(updatable = false, nullable = false)
   private LocalDate finishedAt;
+
+  @OneToMany
+  @JoinColumn(name = "discount_coupon_id")
+  private List<Product> products;
 
   public DiscountCoupon() {}
 
@@ -65,6 +72,10 @@ public class DiscountCoupon {
     } else if (!id.equals(other.id))
       return false;
     return true;
+  }
+
+  public List<Product> getProducts() {
+      return products;
   }
 
   public BigDecimal getValue() {

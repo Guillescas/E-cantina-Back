@@ -47,8 +47,7 @@ public class Address {
 
     public Address() {}
 
-    public Address(String streetName, String cep, String neighborhood, Integer number, String complement,
-            Client client, Establishment establishment) {
+    public Address(String streetName, String cep, String neighborhood, Integer number, String complement) {
         this.streetName = streetName;
         this.cep = cep;
         this.neighborhood = neighborhood;
@@ -82,7 +81,6 @@ public class Address {
             return false;
         return true;
     }
-
     
     public Long getId() {
         return id;
