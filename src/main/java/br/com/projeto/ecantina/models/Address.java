@@ -81,7 +81,6 @@ public class Address {
             return false;
         return true;
     }
-
     
     public Long getId() {
         return id;

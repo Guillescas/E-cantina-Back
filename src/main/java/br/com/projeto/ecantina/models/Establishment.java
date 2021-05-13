@@ -36,7 +36,6 @@ public class Establishment extends User {
         this.capacity = capacity;
     }
 
-
     public String getCnpj() {
         return cnpj;
     }

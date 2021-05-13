@@ -80,6 +80,13 @@ public class Card {
     return true;
   }
   
+  public BankData getBank() {
+      return bank;
+  }
+
+  public void setBank(BankData bank) {
+      this.bank = bank;
+  }
 
   public Long getId() {
     return id;

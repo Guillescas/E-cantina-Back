@@ -74,6 +74,10 @@ public class Restaurant extends User{
         return true;
     }
 
+    public List<DiscountCoupon> getDiscountCoupon() {
+        return DiscountCoupon;
+    }
+
     public List<LoyaltyCard> getLoyaltyCards() {
         return loyaltyCards;
     }

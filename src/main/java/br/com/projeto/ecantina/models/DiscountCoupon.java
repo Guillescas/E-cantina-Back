@@ -74,6 +74,10 @@ public class DiscountCoupon {
     return true;
   }
 
+  public List<Product> getProducts() {
+      return products;
+  }
+
   public BigDecimal getValue() {
     return value;
   }

@@ -7,6 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 
 @Entity(name = "products_list")
 public class ProductList {
@@ -15,12 +16,17 @@ public class ProductList {
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
 
-    @Column()
+    @Column
     private Integer quantity;
 
     @Column
     private BigDecimal value;
 
+    @ManyToOne
+    private Order order;
+
+    @ManyToOne
+    private Product product;
 
     public ProductList() {}
 
@@ -55,6 +61,21 @@ public class ProductList {
         return true;
     }
 
+    public Order getOrder() {
+        return order;
+    }
+
+    public Product getProduct() {
+        return product;
+    }
+
+    public void setOrder(Order order) {
+        this.order = order;
+    }
+
+    public void setProduct(Product product) {
+        this.product = product;
+    }
 
     public Long getId() {
         return id;
