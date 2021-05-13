@@ -28,7 +28,7 @@ public class ClientController {
 
     @PostMapping
     @Transactional
-    public ResponseEntity<ResponseClientDto> register(@RequestBody RequestUserDto requestUserDto,
+    public ResponseEntity<ResponseClientDto> create(@RequestBody RequestUserDto requestUserDto,
             UriComponentsBuilder uriComponentsBuilder) {
 
         Client client = (Client) requestUserDto.convertClient();

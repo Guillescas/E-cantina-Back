@@ -4,17 +4,22 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 
-@Entity(name = "client")
+@Entity(name = "clients")
 public class Client extends User{
     
     @Column(length = 14, nullable = true)
     private String cpf;
 
-    @Column
-    @OneToMany(mappedBy = "client")
+    @OneToMany
+    @JoinColumn(name = "client_id")
     private List<Address> address;
+
+    @OneToMany
+    @JoinColumn(name = "client_id")
+    private List<Order> orders;
 
     @Column
     private String urlImage;
@@ -28,7 +33,7 @@ public class Client extends User{
      * @Guillescas
      * @lucasrossi0
      * @NunuWelinton
-     * 
+     * @OzneKx
      */
     public Client(String email, String password, String name) {
         super(email, password, name);
