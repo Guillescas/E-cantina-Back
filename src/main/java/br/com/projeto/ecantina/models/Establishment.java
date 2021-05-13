@@ -36,6 +36,12 @@ public class Establishment extends User {
         this.capacity = capacity;
     }
 
+    public Establishment(String email, String password, String name, Integer capacity, Address address) {
+        super(email, password, name);
+        this.capacity = capacity;
+        this.address = address;
+    }
+
     public String getCnpj() {
         return cnpj;
     }
