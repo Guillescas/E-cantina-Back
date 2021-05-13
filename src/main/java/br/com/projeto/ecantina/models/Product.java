@@ -7,13 +7,11 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 
 @Entity(name= "products")
 public class Product {
     
-    @Id
+    @Idz
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
 
@@ -28,10 +26,6 @@ public class Product {
 
     @Column(nullable = false)
     private BigDecimal price;
-
-    // @ManyToOne(optional = false)
-    // @JoinColumn(name = "restaurant_id", referencedColumnName = "id")
-    // private Restaurant restaurant;
 
     public Product() {}
 

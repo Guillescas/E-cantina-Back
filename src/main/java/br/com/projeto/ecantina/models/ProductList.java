@@ -23,14 +23,6 @@ public class ProductList {
     @Column
     private BigDecimal value;
 
-    // @ManyToOne
-    // @JoinColumn(name = "products_id", referencedColumnName = "id")
-    // private Product product;
-
-    // @ManyToOne
-    // @JoinColumn(name = "orders_id", referencedColumnName = "id")
-    // private Order order;
-
     public ProductList() {}
 
     // public ProductList(Product product, Order order, Integer quantity) {

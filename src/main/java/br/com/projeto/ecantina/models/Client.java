@@ -8,7 +8,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 
 @Entity(name = "clients")
-public class Client extends User{
+public class Client extends User {
     
     @Column(length = 14, nullable = true)
     private String cpf;
