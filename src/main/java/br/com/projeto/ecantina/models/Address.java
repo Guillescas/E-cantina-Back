@@ -5,10 +5,24 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
 
+/**
+ * <p> Represents the {@code compound key} that we have in the system.
+ * 
+ * @implSpec The default is when a user that have this attribute add in his profile a new address, 
+ *           use the<pre> setAddress(address) or listOfAddress.add(address) </pre> for link the new
+ *           address to his profile.
+ * 
+ * @author @LucasAuSilva
+ * @author @Guillescas
+ * @author @NunuWelinton
+ * @author @OzneKx
+ * @author @lucasrossi0
+ * 
+ * @see User
+ * @see Establishment
+ * @since 1.0
+*/
 @Entity(name="address")
 public class Address {
 
@@ -31,15 +45,6 @@ public class Address {
     @Column(length = 30, nullable = true)
     private String complement;
 
-    @ManyToOne
-    @JoinColumn(name= "client_id", referencedColumnName = "id")
-    private Client client;
-
-    @OneToOne
-    @JoinColumn(name = "establishment_id", referencedColumnName = "id")
-    private Establishment establishment;
-    
-
     public Address() {}
 
     public Address(String streetName, String cep, String neighborhood, Integer number, String complement,
@@ -49,8 +54,6 @@ public class Address {
         this.neighborhood = neighborhood;
         this.number = number;
         this.complement = complement;
-        this.client = client;
-        this.establishment = establishment;
     }
 
 
@@ -61,6 +64,8 @@ public class Address {
         result = prime * result + ((id == null) ? 0 : id.hashCode());
         return result;
     }
+
+
     @Override
     public boolean equals(Object obj) {
         if (this == obj)

@@ -23,7 +23,7 @@ public class Establishment extends User {
     @OneToMany(mappedBy = "establishment")
     private List<Restaurant> restaurants;
 
-    @OneToOne(mappedBy = "establishment")
+    @OneToOne
     private Address address;
 
     
