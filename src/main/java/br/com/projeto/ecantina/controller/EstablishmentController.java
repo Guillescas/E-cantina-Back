@@ -5,8 +5,12 @@ import java.net.URI;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Page;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,6 +29,14 @@ public class EstablishmentController {
 
     @Autowired
     EstablishmentRepository establishmentRepository;
+
+    @GetMapping
+    public Page<ResponseEstablishmentDto> list(@PageableDefault(sort = "id", size = 10) Pageable pageable) {
+
+        Page<Establishment> allEstablishments = establishmentRepository.findAll(pageable);
+
+        return ResponseEstablishmentDto.convert(allEstablishments);
+    }
 
     @PostMapping
     @Transactional
