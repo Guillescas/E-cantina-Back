@@ -20,7 +20,7 @@ import br.com.projeto.ecantina.repository.ProductRepository;
 import br.com.projeto.ecantina.repository.RestaurantRepository;
 
 @RestController
-@RequestMapping("/produtos")
+@RequestMapping("/produto")
 @CrossOrigin
 public class ProductController {
 

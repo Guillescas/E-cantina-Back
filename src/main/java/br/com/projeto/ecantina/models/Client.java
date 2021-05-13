@@ -7,6 +7,26 @@ import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 
+/**
+ * <p> This class is used for representing one type of {@code User} that we have in this system,
+ * thats why we are extending the User class, so in database we have the {@code id}, {@code email}, 
+ * {@code password} and {@code name} for this class as well. This representation is for a client that will
+ * buy products in from the {@link Restaurant} user. 
+ * 
+ * @implSpec Use this method only for create a new object in a dto request or something like that,
+ *            don't ever, use in the controller directly.
+ * 
+ * @author @LucasAuSilva
+ * @author @Guillescas
+ * @author @NunuWelinton
+ * @author @OzneKx
+ * @author @lucasrossi0
+ * 
+ * @see User
+ * @see Order
+ * @see Address
+ * @since 1.0
+*/
 @Entity(name = "clients")
 public class Client extends User {
     
@@ -20,6 +40,14 @@ public class Client extends User {
     @OneToMany
     @JoinColumn(name = "client_id")
     private List<Order> orders;
+
+    @OneToMany
+    @JoinColumn(name = "client_id")
+    private List<Card> cards;
+
+    @OneToMany
+    @JoinColumn(name = "client_id")
+    private List<LoyaltyCard> loyaltyCards;
 
     @Column
     private String urlImage;
@@ -62,6 +90,18 @@ public class Client extends User {
         } else if (!cpf.equals(other.cpf))
             return false;
         return true;
+    }
+
+    public List<LoyaltyCard> getLoyaltyCards() {
+        return loyaltyCards;
+    }
+
+    public List<Card> getCards() {
+        return cards;
+    }
+
+    public List<Order> getOrders() {
+        return orders;
     }
 
     public String getCpf() {

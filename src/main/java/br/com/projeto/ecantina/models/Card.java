@@ -8,6 +8,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 
 @Entity(name = "card")
 public class Card {
@@ -31,6 +32,8 @@ public class Card {
   @Column(length = 3, nullable = false)
   private String cvv;
 
+  @ManyToOne
+  BankData bank;
 
   public Card() {}
 
@@ -40,6 +43,15 @@ public class Card {
     this.validThru = validThru;
     this.price = price;
     this.cvv = cvv;
+  }
+
+  public Card(String cardNumber, String owner, LocalDate validThru, BigDecimal price, String cvv, BankData bank) {
+    this.cardNumber = cardNumber;
+    this.owner = owner;
+    this.validThru = validThru;
+    this.price = price;
+    this.cvv = cvv;
+    this.bank = bank;
   }
 
 
@@ -68,6 +80,13 @@ public class Card {
     return true;
   }
   
+  public BankData getBank() {
+      return bank;
+  }
+
+  public void setBank(BankData bank) {
+      this.bank = bank;
+  }
 
   public Long getId() {
     return id;

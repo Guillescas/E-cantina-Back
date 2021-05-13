@@ -1,12 +1,9 @@
 package br.com.projeto.ecantina.dto.request;
 
 import br.com.projeto.ecantina.models.Client;
-import br.com.projeto.ecantina.models.Establishment;
-import br.com.projeto.ecantina.models.Restaurant;
 import br.com.projeto.ecantina.models.User;
-import br.com.projeto.ecantina.repository.EstablishmentRepository;
 
-public class RequestUserDto {
+public class RequestClientDto {
     
     private String email;
     private String password;
@@ -57,10 +54,5 @@ public class RequestUserDto {
 
     public User convertClient() {
         return new Client(getEmail(), getPassword(), getName());
-    }
-
-    public User convertRestaurant(EstablishmentRepository establishmentRepository) {
-        Establishment establishment = establishmentRepository.findByName(getEstablishment());
-        return new Restaurant(getEmail(), getPassword(), getName(), getCnpj(), establishment);
     }
 }
