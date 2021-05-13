@@ -11,7 +11,7 @@ import javax.persistence.Id;
 @Entity(name= "products")
 public class Product {
     
-    @Idz
+    @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
 
