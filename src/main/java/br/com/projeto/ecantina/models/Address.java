@@ -9,7 +9,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 
-@Entity
+@Entity(name="address")
 public class Address {
 
     @Id
@@ -39,6 +39,21 @@ public class Address {
     @JoinColumn(name = "establishment_id", referencedColumnName = "id")
     private Establishment establishment;
     
+
+    public Address() {}
+
+    public Address(String streetName, String cep, String neighborhood, Integer number, String complement,
+            Client client, Establishment establishment) {
+        this.streetName = streetName;
+        this.cep = cep;
+        this.neighborhood = neighborhood;
+        this.number = number;
+        this.complement = complement;
+        this.client = client;
+        this.establishment = establishment;
+    }
+
+
     @Override
     public int hashCode() {
         final int prime = 31;
@@ -63,6 +78,7 @@ public class Address {
         return true;
     }
 
+    
     public Long getId() {
         return id;
     }
