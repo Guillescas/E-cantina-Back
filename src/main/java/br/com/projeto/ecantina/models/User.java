@@ -11,6 +11,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.MappedSuperclass;
 
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 @MappedSuperclass
 public abstract class User implements UserDetails {
@@ -38,7 +39,7 @@ public abstract class User implements UserDetails {
 
     public User(String email, String password, String name) {
         this.email = email;
-        this.password = password;
+        this.password = new BCryptPasswordEncoder().encode(password);
         this.name = name;
     }
 
