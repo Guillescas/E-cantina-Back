@@ -1,17 +1,25 @@
 package br.com.projeto.ecantina.dto.request;
 
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+
 import br.com.projeto.ecantina.models.Client;
 import br.com.projeto.ecantina.models.User;
 
 public class RequestClientDto {
     
+    @Email
+    @NotBlank
     private String email;
-    private String password;
-    private String name;
-    private String type;
 
-    private String establishmentName;
-    private String cnpj;
+    @NotBlank
+    private String password;
+
+    @NotBlank
+    private String name;
+
+    @NotBlank
+    private String type;
 
     public String getEmail() {
         return email;
@@ -38,18 +46,6 @@ public class RequestClientDto {
 
     public String getType() {
         return type;
-    }
-
-    public String getEstablishment() {
-        return establishmentName;
-    }
-
-    public String getCnpj() {
-        return cnpj;
-    }
-
-    public void setCnpj(String cnpj) {
-        this.cnpj = cnpj;
     }
 
     public User convertClient() {

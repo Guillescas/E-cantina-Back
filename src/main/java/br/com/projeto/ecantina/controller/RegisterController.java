@@ -3,10 +3,10 @@ package br.com.projeto.ecantina.controller;
 import java.net.URI;
 
 import javax.transaction.Transactional;
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -28,7 +28,6 @@ import br.com.projeto.ecantina.repository.RestaurantRepository;
 
 @RestController
 @RequestMapping("/register")
-@CrossOrigin
 public class RegisterController {
 
     @Autowired
@@ -43,23 +42,23 @@ public class RegisterController {
     @PostMapping("/establishment")
     @Transactional
     public ResponseEntity<ResponseEstablishmentDto> create(
-            @RequestBody RequestEstablishmentDto requestEstablishmentDto, UriComponentsBuilder uriComponentsBuilder) {
+            @RequestBody @Valid RequestEstablishmentDto requestEstablishmentDto, UriComponentsBuilder uriComponentsBuilder) {
 
                 Establishment establishment = requestEstablishmentDto.convert();
                 establishmentRepository.save(establishment);
 
-                URI uri = uriComponentsBuilder.path("register/{id}").buildAndExpand(establishment.getId()).toUri();
+                URI uri = uriComponentsBuilder.path("/establishment/{id}").buildAndExpand(establishment.getId()).toUri();
                 return ResponseEntity.created(uri).body(new ResponseEstablishmentDto(establishment));
     }
 
-    @PostMapping("/client")
+    @PostMapping()
     @Transactional
-    public ResponseEntity<ResponseClientDto> create(@RequestBody RequestClientDto requestUserDto,
+    public ResponseEntity<ResponseClientDto> create(@RequestBody @Valid RequestClientDto requestUserDto,
             UriComponentsBuilder uriComponentsBuilder) {
 
         Client client = (Client) requestUserDto.convertClient();
         clientRepository.save(client);
-        URI uri = uriComponentsBuilder.path("/cadastrar/{id}").buildAndExpand(client.getId()).toUri();
+        URI uri = uriComponentsBuilder.path("/register/{id}").buildAndExpand(client.getId()).toUri();
 
         return ResponseEntity.created(uri).body(new ResponseClientDto(client));
     }
@@ -72,7 +71,7 @@ public class RegisterController {
         Restaurant restaurant = requestRestaurantDto.convert(establishmentRepository);
         restaurantRepository.save(restaurant);
 
-        URI uri = uriComponentsBuilder.path("/cadastro").buildAndExpand(restaurant.getId()).toUri();
+        URI uri = uriComponentsBuilder.path("/restaurant/{id}").buildAndExpand(restaurant.getId()).toUri();
         return ResponseEntity.created(uri).body(new ResponseRestaurantDto(restaurant));
     }
 }
