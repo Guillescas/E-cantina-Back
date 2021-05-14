@@ -2,24 +2,63 @@ package br.com.projeto.ecantina.dto.request;
 
 import java.math.BigDecimal;
 
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Positive;
+import javax.validation.constraints.Size;
+
+import org.hibernate.validator.constraints.br.CNPJ;
+
 import br.com.projeto.ecantina.models.Address;
 import br.com.projeto.ecantina.models.Establishment;
 
 public class RequestEstablishmentDto {
 
     // Establishment
+    @Email(message = "{email.format}")
+    @NotBlank(message = "{email.blank}")
     private String email;
+
+    @NotBlank(message = "{password.blank}")
+    @Size(min = 8, message = "{password.size}")
     private String password;
+
+    @NotBlank(message = "{name.blank}")
     private String name;
+
+    @NotBlank(message = "{type.blank}")
+    private String type;
+    
+    @NotNull(message = "{capacity.null}")
+    @Positive(message = "{capacity.positive}")
     private Integer capacity;
+
+    @NotNull(message = "{rent.null}")
+    @Positive(message = "{rent.positive}")
     private BigDecimal rent;
+
+    @CNPJ(message = "{cnpj.format}")
+    @NotBlank(message = "{cnpj.blank}")
     private String cnpj;
 
     // Address
+    @NotBlank(message = "{street.blank}")
+    @Size(max = 100, message = "{street.size}")
     private String street;
+
+    @NotNull(message = "{number.null}")
     private Integer number;
+
+    @Size(max = 30, message = "{complement.size}")
     private String complement;
+
+    @NotBlank(message = "{neighborhood.blank}")
+    @Size(max = 50, message = "{neighborhood.size}")
     private String neighborhood;
+
+    @NotBlank(message = "{cep.blank}")
+    @Size(max = 9, message = "{cep.size}")
     private String cep;
 
     public String getEmail() {

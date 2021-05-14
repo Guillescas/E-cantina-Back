@@ -1,16 +1,35 @@
 package br.com.projeto.ecantina.dto.request;
 
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
+
+import org.hibernate.validator.constraints.br.CNPJ;
+
 import br.com.projeto.ecantina.models.Establishment;
 import br.com.projeto.ecantina.models.Restaurant;
 import br.com.projeto.ecantina.repository.EstablishmentRepository;
 
 public class RequestRestaurantDto {
     
+    @Email
+    @NotBlank
     private String email;
+
+    @NotBlank
+    @Size(min = 8, message = "{password.size}")
     private String password;
+
+    @NotBlank
     private String name;
-    private String cnpj;
+
+    @NotBlank
     private String type;
+
+    @CNPJ
+    private String cnpj;
+
+    @Size(max = 255)
     private String description;
     
     private String establishmentName;

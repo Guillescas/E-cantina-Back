@@ -9,18 +9,18 @@ import br.com.projeto.ecantina.models.User;
 
 public class RequestClientDto {
     
-    @Email
-    @NotBlank
+    @Email(message = "{email.format}")
+    @NotBlank(message = "{email.blank}")
     private String email;
 
-    @NotBlank
-    @Size(min = 8)
+    @NotBlank(message = "{password.blank}")
+    @Size(min = 8, message = "{password.size}")
     private String password;
 
-    @NotBlank
+    @NotBlank(message = "{name.blank}")
     private String name;
 
-    @NotBlank
+    @NotBlank(message = "{type.blank}")
     private String type;
 
     public String getEmail() {
