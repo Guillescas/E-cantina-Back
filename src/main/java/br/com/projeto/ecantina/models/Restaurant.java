@@ -1,15 +1,14 @@
 package br.com.projeto.ecantina.models;
 
 import java.math.BigDecimal;
-import java.util.Collection;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-
-import org.springframework.security.core.GrantedAuthority;
 
 @Entity(name = "restaurants")
 public class Restaurant extends User{
@@ -25,6 +24,12 @@ public class Restaurant extends User{
     
     @Column(length = 255)
     private String description;
+
+    @Column(nullable = false, updatable = false)
+    private String type;
+
+    @ManyToOne(cascade = CascadeType.PERSIST)
+    private Category categories;
 
     @OneToMany
     @JoinColumn(name = "restaurant_id")
@@ -45,11 +50,12 @@ public class Restaurant extends User{
     public Restaurant() {}
 
     public Restaurant(String email, String password, String name) {
-        super(email, password, name);
+        super(email, password, name, "restaurant");
     }
 
     public Restaurant(String email, String password, String name, String cnpj) {
-        super(email, password, name);
+        super(email, password, name, "restaurant");
+        this.cnpj = cnpj;
     }
 
     @Override
@@ -125,11 +131,6 @@ public class Restaurant extends User{
         this.description = description;
     }
 
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        return this.userTypes;
-    }
-    
     @Override
     public String getUsername() {
         return getEmail();

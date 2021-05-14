@@ -1,5 +1,6 @@
 package br.com.projeto.ecantina.models;
 
+import java.util.Collection;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -10,6 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.MappedSuperclass;
 
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
@@ -32,15 +34,19 @@ public abstract class User implements UserDetails {
     @Column(length = 50, nullable = false)
     protected String name;
 
+    @Column(updatable = false, nullable = false)
+    private String type;
+
     @ManyToMany(fetch = FetchType.EAGER)
     protected List<UserType> userTypes;
 
     public User() {}
 
-    public User(String email, String password, String name) {
+    public User(String email, String password, String name, String type) {
         this.email = email;
         this.password = new BCryptPasswordEncoder().encode(password);
         this.name = name;
+        this.type = type;
     }
 
     @Override
@@ -78,6 +84,15 @@ public abstract class User implements UserDetails {
         } else if (!password.equals(other.password))
             return false;
         return true;
+    }
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return this.userTypes;
+    }
+
+    public String getType() {
+        return type;
     }
 
     public Long getId() {

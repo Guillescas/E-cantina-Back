@@ -1,22 +1,22 @@
 package br.com.projeto.ecantina.models;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
-import org.springframework.security.core.GrantedAuthority;
-
 @Entity
-public class UserType implements GrantedAuthority {
-
-    private static final long serialVersionUID = 1L;
+public class Category {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
 
+    @Column(nullable = false, length = 50)
     private String name;
+
+    
 
     @Override
     public int hashCode() {
@@ -35,7 +35,7 @@ public class UserType implements GrantedAuthority {
             return false;
         if (getClass() != obj.getClass())
             return false;
-        UserType other = (UserType) obj;
+        Category other = (Category) obj;
         if (id == null) {
             if (other.id != null)
                 return false;
@@ -49,25 +49,23 @@ public class UserType implements GrantedAuthority {
         return true;
     }
 
-    public Long getId() {
-        return id;
+    public Category(String name) {
+        this.name = name;
     }
 
-    public String getName() {
-        return name;
+    public Long getId() {
+        return id;
     }
 
     public void setId(Long id) {
         this.id = id;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    @Override
-    public String getAuthority() {
+    public String getName() {
         return name;
     }
 
+    public void setName(String name) {
+        this.name = name;
+    }
 }

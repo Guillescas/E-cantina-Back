@@ -8,6 +8,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
 import br.com.projeto.ecantina.models.Restaurant;
+import br.com.projeto.ecantina.models.User;
 
 public interface RestaurantRepository extends JpaRepository<Restaurant, Long> {
 
@@ -15,4 +16,6 @@ public interface RestaurantRepository extends JpaRepository<Restaurant, Long> {
     Page<Restaurant> findEstablishmentRestaurants(Long establishmentName, Pageable pageable);
 
     Optional<Restaurant> findByEmail(String username);
+
+    User findUserById(Long idUser);
 }

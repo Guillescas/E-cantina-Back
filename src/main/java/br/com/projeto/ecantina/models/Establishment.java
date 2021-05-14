@@ -1,7 +1,6 @@
 package br.com.projeto.ecantina.models;
 
 import java.math.BigDecimal;
-import java.util.Collection;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -11,8 +10,6 @@ import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
-
-import org.springframework.security.core.GrantedAuthority;
 
 @Entity(name = "establishments")
 public class Establishment extends User {
@@ -37,12 +34,12 @@ public class Establishment extends User {
     public Establishment() {}
 
     public Establishment(String email, String password, String name, Integer capacity) {
-        super(email, password, name);
+        super(email, password, name, "establishment");
         this.capacity = capacity;
     }
 
     public Establishment(String email, String password, String name, String cnpj, Integer capacity, BigDecimal rent, Address address) {
-        super(email, password, name);
+        super(email, password, name, "establishment");
         this.capacity = capacity;
         this.address = address;
         this.rent = rent;
@@ -87,11 +84,6 @@ public class Establishment extends User {
 
     public void setAddress(Address address) {
         this.address = address;
-    }
-
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        return this.userTypes;
     }
     
     @Override
