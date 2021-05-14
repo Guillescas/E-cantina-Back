@@ -27,7 +27,7 @@ import br.com.projeto.ecantina.repository.EstablishmentRepository;
 import br.com.projeto.ecantina.repository.RestaurantRepository;
 
 @RestController
-@RequestMapping("/restaurante")
+@RequestMapping("/restaurant")
 @CrossOrigin
 public class RestaurantController {
 
@@ -45,7 +45,8 @@ public class RestaurantController {
         if (nameEstablishment != null) {
             Establishment establishment = establishmentRepository.findByName(nameEstablishment);
 
-            Page<Restaurant> restaurants = restaurantRepository.findEstablishmentRestaurants(establishment.getId(), pageable);
+            Page<Restaurant> restaurants = restaurantRepository.findEstablishmentRestaurants(establishment.getId(),
+                    pageable);
             return ResponseRestaurantDto.convert(restaurants);
         }
 
@@ -61,7 +62,7 @@ public class RestaurantController {
         Restaurant restaurant = requestRestaurantDto.convert(establishmentRepository);
         restaurantRepository.save(restaurant);
 
-        URI uri = uriComponentsBuilder.path("/cadastro").buildAndExpand(restaurant.getId()).toUri();
+        URI uri = uriComponentsBuilder.path("/restaurant/{id}").buildAndExpand(restaurant.getId()).toUri();
         return ResponseEntity.created(uri).body(new ResponseRestaurantDto(restaurant));
     }
 }

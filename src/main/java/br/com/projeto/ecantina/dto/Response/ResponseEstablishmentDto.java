@@ -1,7 +1,10 @@
 package br.com.projeto.ecantina.dto.response;
 
+import java.math.BigDecimal;
+
 import org.springframework.data.domain.Page;
 
+import br.com.projeto.ecantina.models.Address;
 import br.com.projeto.ecantina.models.Establishment;
 
 public class ResponseEstablishmentDto {
@@ -10,12 +13,36 @@ public class ResponseEstablishmentDto {
     private String email;
     private String password;
     private String name;
+    private Integer capacity;
+    private BigDecimal rent;
+    private String cnpj;
+    private Address address;
 
     public ResponseEstablishmentDto(Establishment establishment) {
         this.id = establishment.getId();
         this.email = establishment.getEmail();
         this.password = establishment.getPassword();
         this.name = establishment.getName();
+        this.capacity = establishment.getCapacity();
+        this.cnpj = establishment.getCnpj();
+        this.rent = establishment.getRent();
+        this.address = establishment.getAddress();
+    }
+
+    public Address getAddress() {
+        return address;
+    }
+
+    public Integer getCapacity() {
+        return capacity;
+    }
+
+    public String getCnpj() {
+        return cnpj;
+    }
+
+    public BigDecimal getRent() {
+        return rent;
     }
 
     public Long getId() {

@@ -2,15 +2,28 @@ package br.com.projeto.ecantina.dto.request;
 
 import java.util.Optional;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Positive;
+import javax.validation.constraints.Size;
+
 import br.com.projeto.ecantina.models.Product;
 import br.com.projeto.ecantina.models.Restaurant;
 import br.com.projeto.ecantina.repository.RestaurantRepository;
 
 public class RequestProductDto {
     
+    @NotBlank(message = "{name.blank}")
+    @Size(max = 50, message = "{name.size}")
     private String name;
+    
+    @NotBlank(message = "price.blank")
+    @Positive(message = "price.positive")
     private String price;
+
+    @Size(max = 300, message = "description.size")
     private String description;
+
+    @NotBlank(message = "type.blank")
     private String type;
 
     private String restaurantId;

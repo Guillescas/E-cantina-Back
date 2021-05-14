@@ -8,13 +8,15 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 
 /**
- * <p> This class is used for representing one type of {@code User} that we have in this system,
- * thats why we are extending the User class, so in database we have the {@code id}, {@code email}, 
- * {@code password} and {@code name} for this class as well. This representation is for a client that will
- * buy products in from the {@link Restaurant} user. 
+ * <p>
+ * This class is used for representing one type of {@code User} that we have in
+ * this system, thats why we are extending the User class, so in database we
+ * have the {@code id}, {@code email}, {@code password} and {@code name} for
+ * this class as well. This representation is for a client that will buy
+ * products in from the {@link Restaurant} user.
  * 
- * @implSpec Use this method only for create a new object in a dto request or something like that,
- *            don't ever, use in the controller directly.
+ * @implSpec Use this method only for create a new object in a dto request or
+ *           something like that, don't ever, use in the controller directly.
  * 
  * @author @LucasAuSilva
  * @author @Guillescas
@@ -26,10 +28,10 @@ import javax.persistence.OneToMany;
  * @see Order
  * @see Address
  * @since 1.0
-*/
+ */
 @Entity(name = "clients")
 public class Client extends User {
-    
+
     @Column(length = 14, nullable = true)
     private String cpf;
 
@@ -52,19 +54,24 @@ public class Client extends User {
     @Column
     private String urlImage;
 
-    public Client() {}
+    public Client() {
+    }
 
     /**
      * Use for register a client in the system.
      * 
-     * @LucasAuSilva
-     * @Guillescas
-     * @lucasrossi0
-     * @NunuWelinton
-     * @OzneKx
+     * @implSpec The attribute {@code type} is defined automatic and it is
+     *           {@code "client"}.
+     * @implNote Don't send any of the params null, the unique attribute that is
+     *           nullable is the cpf.
+     * 
+     * @param email    The {@code email} of the {@code Client}.
+     * @param password The {@code password} of the {@code Client}.
+     * @param name     The {@code name} of the {@code Client}.
+     * 
      */
     public Client(String email, String password, String name) {
-        super(email, password, name);
+        super(email, password, name, "client");
     }
 
     @Override
@@ -126,5 +133,30 @@ public class Client extends User {
 
     public void setUrlImage(String urlImage) {
         this.urlImage = urlImage;
+    }
+
+    @Override
+    public String getUsername() {
+        return getEmail();
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
     }
 }
