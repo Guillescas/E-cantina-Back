@@ -8,8 +8,6 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 import javax.validation.constraints.Size;
 
-import org.hibernate.validator.constraints.br.CNPJ;
-
 import br.com.projeto.ecantina.models.Address;
 import br.com.projeto.ecantina.models.Establishment;
 
@@ -38,7 +36,7 @@ public class RequestEstablishmentDto {
     @Positive(message = "{rent.positive}")
     private BigDecimal rent;
 
-    @CNPJ(message = "{cnpj.format}")
+
     @NotBlank(message = "{cnpj.blank}")
     private String cnpj;
 

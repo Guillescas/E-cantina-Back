@@ -4,8 +4,6 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
-import org.hibernate.validator.constraints.br.CNPJ;
-
 import br.com.projeto.ecantina.models.Establishment;
 import br.com.projeto.ecantina.models.Restaurant;
 import br.com.projeto.ecantina.repository.EstablishmentRepository;
@@ -20,16 +18,16 @@ public class RequestRestaurantDto {
     @Size(min = 8, message = "{password.size}")
     private String password;
 
-    @NotBlank
+    @NotBlank(message = "{name.blank}")
     private String name;
 
-    @NotBlank
+    @NotBlank(message = "{type.blank}")
     private String type;
 
-    @CNPJ
+    @NotBlank(message = "{cnpj.blank}")
     private String cnpj;
 
-    @Size(max = 255)
+    @Size(max = 255, message = "{description.size}")
     private String description;
     
     private String establishmentName;

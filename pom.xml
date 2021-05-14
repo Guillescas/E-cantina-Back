@@ -78,7 +78,7 @@
 			<scope>test</scope>
 		</dependency>
 
-		<dependency>
+		<!-- <dependency>
 			<groupId>br.com.caelum.stella</groupId>
 			<artifactId>caelum-stella-core</artifactId>
 			<version>2.1.2</version>
@@ -95,7 +95,7 @@
 			<groupId>br.com.caelum.stella</groupId>
 			<artifactId>caelum-stella-hibernate-user-types</artifactId>
 			<version>2.1.2</version>
-		</dependency>
+		</dependency> -->
 	</dependencies>
 
 	<build>
