@@ -2,6 +2,7 @@ package br.com.projeto.ecantina.dto.request;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import br.com.projeto.ecantina.models.Establishment;
@@ -30,6 +31,7 @@ public class RequestRestaurantDto {
     @Size(max = 255, message = "{description.size}")
     private String description;
     
+    @NotNull(message = "{establishmentName.blank}")
     private String establishmentName;
 
     public String getEstablishmentName() {
@@ -89,7 +91,7 @@ public class RequestRestaurantDto {
     }
 
     public Restaurant convert(EstablishmentRepository establishmentRepository) {
-        Establishment establishment = establishmentRepository.findByName(establishmentName);
+        Establishment establishment = establishmentRepository.findByName(getEstablishmentName());
         Restaurant restaurant = new Restaurant(getEmail(), getPassword(), getName());
         
         establishment.getRestaurants().add(restaurant);
