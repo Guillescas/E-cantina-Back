@@ -30,7 +30,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Autowired
     EstablishmentRepository establishmentRepository;
-    
+
     @Autowired
     private DetailService detailService;
 
@@ -42,36 +42,36 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     protected AuthenticationManager authenticationManager() throws Exception {
         return super.authenticationManager();
     }
-    
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable();
 
-        AuthenticationTokenFilter authTokenFilter = new AuthenticationTokenFilter(tokenService, clientRepository, restaurantRepository, establishmentRepository);
+        AuthenticationTokenFilter authTokenFilter = new AuthenticationTokenFilter(tokenService, clientRepository,
+                restaurantRepository, establishmentRepository);
 
         http.authorizeRequests()
-            .antMatchers(HttpMethod.POST, "/client").permitAll()
-            .antMatchers(HttpMethod.POST, "/restaurant").permitAll()
-            .antMatchers(HttpMethod.POST, "/establishment").permitAll()
-            .antMatchers(HttpMethod.POST, "/login").permitAll()
-            .anyRequest().authenticated()
-        .and()
-            .cors()
-        .and()
-            .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-        .and() 
-            .addFilterBefore(authTokenFilter, UsernamePasswordAuthenticationFilter.class);
+                .antMatchers(HttpMethod.POST, "/client").permitAll()
+                .antMatchers(HttpMethod.POST, "/restaurant").permitAll()
+                .antMatchers(HttpMethod.POST, "/establishment").permitAll()
+                .antMatchers(HttpMethod.POST, "/login").permitAll()
+                .anyRequest().authenticated()
+            .and()
+                .cors()
+            .and()
+                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+            .and()
+                .addFilterBefore(authTokenFilter, UsernamePasswordAuthenticationFilter.class);
     }
-
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-         auth.userDetailsService(detailService)
-         .passwordEncoder(new BCryptPasswordEncoder());
-        
+        auth.userDetailsService(detailService).passwordEncoder(new BCryptPasswordEncoder());
+
     }
 
     @Override
-    public void configure(WebSecurity web) throws Exception {}
+    public void configure(WebSecurity web) throws Exception {
+    }
 
 }
