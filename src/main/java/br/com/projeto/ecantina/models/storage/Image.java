@@ -11,9 +11,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 @Component
 public class Image {
-    
-    @Value("${profile.image.root}")
-    private String root;
 
     @Value("${profile.image.directory-images}")
     private String directoryImages;
@@ -23,13 +20,21 @@ public class Image {
     }
 
     public void save(String directory, MultipartFile file) {
-        Path directoryPath = Paths.get(this.root, directory);
-        Path filePath = directoryPath.resolve(file.getOriginalFilename());
+        Path absolutePath = Paths.get("").toAbsolutePath();
+        System.out.println(absolutePath.normalize().toString());
+
+        String root = absolutePath.normalize().toString();
+
+        Path directoryPath = Paths.get(root, directory);
+        Path filePath = directoryPath.resolve("restaurant.jpg");
+
+    
 
         try {
 
             Files.createDirectories(directoryPath);
-            file.transferTo(filePath.toFile());
+            // file.transferTo(filePath.toFile());
+            Files.copy(file.getInputStream(), filePath);
 
         } catch (IOException ex) {
 
