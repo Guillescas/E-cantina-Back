@@ -16,7 +16,7 @@ import javax.persistence.OneToMany;
 public class DiscountCoupon {
 
   @Id
-  @GeneratedValue(strategy = GenerationType.SEQUENCE)
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
   @Column(nullable = false)

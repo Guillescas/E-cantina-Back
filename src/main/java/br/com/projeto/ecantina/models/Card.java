@@ -14,7 +14,7 @@ import javax.persistence.ManyToOne;
 public class Card {
 
   @Id
-  @GeneratedValue(strategy = GenerationType.SEQUENCE)
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
   @Column(length = 19, nullable = false)
