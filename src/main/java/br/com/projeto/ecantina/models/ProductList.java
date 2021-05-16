@@ -13,7 +13,7 @@ import javax.persistence.ManyToOne;
 public class ProductList {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column
