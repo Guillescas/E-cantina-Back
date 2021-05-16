@@ -3,6 +3,7 @@ package br.com.projeto.ecantina.controller;
 import java.net.URI;
 
 import javax.transaction.Transactional;
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -22,18 +23,18 @@ import br.com.projeto.ecantina.repository.ClientRepository;
 @RequestMapping("/client")
 @CrossOrigin
 public class ClientController {
-    
+
     @Autowired
     private ClientRepository clientRepository;
 
-    @PostMapping
+    @PostMapping()
     @Transactional
-    public ResponseEntity<ResponseClientDto> create(@RequestBody RequestClientDto requestUserDto,
+    public ResponseEntity<ResponseClientDto> create(@RequestBody @Valid RequestClientDto requestClientDto,
             UriComponentsBuilder uriComponentsBuilder) {
 
-        Client client = (Client) requestUserDto.convertClient();
+        Client client = requestClientDto.convertClient();
         clientRepository.save(client);
-        URI uri = uriComponentsBuilder.path("/cadastrar/{id}").buildAndExpand(client.getId()).toUri();
+        URI uri = uriComponentsBuilder.path("/client/{id}").buildAndExpand(client.getId()).toUri();
 
         return ResponseEntity.created(uri).body(new ResponseClientDto(client));
     }
