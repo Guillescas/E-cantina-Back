@@ -1,18 +1,24 @@
 package br.com.projeto.ecantina.dto.request;
 
+import java.util.Optional;
+
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import br.com.projeto.ecantina.config.validation.notations.EmailEquals;
+import br.com.projeto.ecantina.models.Category;
 import br.com.projeto.ecantina.models.Establishment;
 import br.com.projeto.ecantina.models.Restaurant;
+import br.com.projeto.ecantina.repository.CategoryRepository;
 import br.com.projeto.ecantina.repository.EstablishmentRepository;
 
 public class RequestRestaurantDto {
     
-    @Email
-    @NotBlank
+    @Email(message = "{email.format}")
+    @NotBlank(message = "{email.blank}")
+    @EmailEquals(message = "{email.equals}")
     private String email;
 
     @NotBlank
@@ -30,6 +36,9 @@ public class RequestRestaurantDto {
     
     @NotNull(message = "{establishmentName.blank}")
     private String establishmentName;
+
+    @NotBlank(message = "{category.blank}")
+    private String category;
 
     public String getEstablishmentName() {
         return establishmentName;
@@ -59,8 +68,12 @@ public class RequestRestaurantDto {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public String getCategory() {
+        return this.category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
     }
 
     public String getCnpj() {
@@ -79,9 +92,17 @@ public class RequestRestaurantDto {
         this.description = description;
     }
 
-    public Restaurant convert(EstablishmentRepository establishmentRepository) {
+    public Restaurant convert(EstablishmentRepository establishmentRepository, CategoryRepository categoryRepository) {
+
         Establishment establishment = establishmentRepository.findByName(getEstablishmentName());
-        Restaurant restaurant = new Restaurant(getEmail(), getPassword(), getName());
+        Optional<Category> findCategory = categoryRepository.findByName(getCategory());
+        Restaurant restaurant = null;
+
+        if (findCategory.isPresent()) {
+            restaurant = new Restaurant(getEmail(), getPassword(), getName(), findCategory.get());
+        } else {
+            restaurant = new Restaurant(email, password, name, new Category(category));
+        }
         
         establishment.getRestaurants().add(restaurant);
 

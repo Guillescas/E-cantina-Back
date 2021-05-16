@@ -8,6 +8,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 import javax.validation.constraints.Size;
 
+import br.com.projeto.ecantina.config.validation.notations.EmailEquals;
 import br.com.projeto.ecantina.models.Address;
 import br.com.projeto.ecantina.models.Establishment;
 
@@ -16,6 +17,7 @@ public class RequestEstablishmentDto {
     // Establishment
     @Email(message = "{email.format}")
     @NotBlank(message = "{email.blank}")
+    @EmailEquals(message = "{email.equals}")
     private String email;
 
     @NotBlank(message = "{password.blank}")

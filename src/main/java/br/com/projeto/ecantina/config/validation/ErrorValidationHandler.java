@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+import br.com.projeto.ecantina.config.exceptions.EmailNotValidException;
+
 @RestControllerAdvice
 public class ErrorValidationHandler {
 
@@ -30,6 +32,14 @@ public class ErrorValidationHandler {
             ResponseRegisterError error = new ResponseRegisterError(e.getField(), message);
             rreDto.add(error);
         });
+
+        return rreDto;
+    }
+
+    @ResponseStatus(code = HttpStatus.CONFLICT)
+    @ExceptionHandler(value = EmailNotValidException.class)
+    public ResponseRegisterError handle(EmailNotValidException exception) {
+        ResponseRegisterError rreDto = new ResponseRegisterError("Email", exception.getMessage());
 
         return rreDto;
     }

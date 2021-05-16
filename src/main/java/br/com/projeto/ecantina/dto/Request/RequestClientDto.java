@@ -4,13 +4,14 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
+import br.com.projeto.ecantina.config.validation.notations.EmailEquals;
 import br.com.projeto.ecantina.models.Client;
-import br.com.projeto.ecantina.models.UserType;
 
 public class RequestClientDto {
-    
+
     @Email(message = "{email.format}")
     @NotBlank(message = "{email.blank}")
+    @EmailEquals(message = "{email.equals}")
     private String email;
 
     @NotBlank(message = "{password.blank}")
@@ -31,6 +32,7 @@ public class RequestClientDto {
     public String getPassword() {
         return password;
     }
+
     public void setPassword(String password) {
         this.password = password;
     }
@@ -44,8 +46,10 @@ public class RequestClientDto {
     }
 
     public Client convertClient() {
+
         Client client = new Client(getEmail(), getPassword(), getName());
         // client.getAuthorities().add(new UserType("ROLE_CLIENT"));
         return client;
+
     }
 }

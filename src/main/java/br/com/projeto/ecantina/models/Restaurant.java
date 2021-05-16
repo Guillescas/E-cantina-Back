@@ -46,7 +46,7 @@ public class Restaurant extends User{
 
     public Restaurant() {}
 
-    public Restaurant(String email, String password, String name) {
+    public Restaurant(String email, String password, String name, Category category) {
         super(email, password, name, "restaurant");
     }
 
@@ -126,6 +126,10 @@ public class Restaurant extends User{
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public Category getCategory() {
+        return null;
     }
 
     // @Override

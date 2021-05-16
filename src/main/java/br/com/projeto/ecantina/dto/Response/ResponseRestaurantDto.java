@@ -2,6 +2,7 @@ package br.com.projeto.ecantina.dto.response;
 
 import org.springframework.data.domain.Page;
 
+import br.com.projeto.ecantina.models.Category;
 import br.com.projeto.ecantina.models.Restaurant;
 
 public class ResponseRestaurantDto {
@@ -9,11 +10,13 @@ public class ResponseRestaurantDto {
     private Long id;
     private String email;
     private String name;
+    private Category category;
 
     public ResponseRestaurantDto(Restaurant restaurant) {
         this.id = restaurant.getId();
         this.email = restaurant.getEmail();
         this.name = restaurant.getName();
+        this.category = restaurant.getCategory();
     }
 
     public Long getId() {
@@ -22,6 +25,10 @@ public class ResponseRestaurantDto {
 
     public void setId(Long id) {
         this.id = id;
+    }
+    
+    public Category getCategory() {
+        return category;
     }
 
     public String getEmail() {

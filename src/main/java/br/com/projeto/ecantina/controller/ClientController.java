@@ -37,5 +37,6 @@ public class ClientController {
         URI uri = uriComponentsBuilder.path("/client/{id}").buildAndExpand(client.getId()).toUri();
 
         return ResponseEntity.created(uri).body(new ResponseClientDto(client));
+
     }
 }

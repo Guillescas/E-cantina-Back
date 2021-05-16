@@ -3,6 +3,7 @@ package br.com.projeto.ecantina.controller;
 import java.net.URI;
 
 import javax.transaction.Transactional;
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -23,6 +24,7 @@ import br.com.projeto.ecantina.dto.request.RequestRestaurantDto;
 import br.com.projeto.ecantina.dto.response.ResponseRestaurantDto;
 import br.com.projeto.ecantina.models.Establishment;
 import br.com.projeto.ecantina.models.Restaurant;
+import br.com.projeto.ecantina.repository.CategoryRepository;
 import br.com.projeto.ecantina.repository.EstablishmentRepository;
 import br.com.projeto.ecantina.repository.RestaurantRepository;
 
@@ -36,6 +38,8 @@ public class RestaurantController {
 
     @Autowired
     private EstablishmentRepository establishmentRepository;
+
+    @Autowired CategoryRepository categoryRepository;
 
     @GetMapping
     public Page<ResponseRestaurantDto> list(@RequestParam(required = false) String nameRestaurant,
@@ -56,10 +60,10 @@ public class RestaurantController {
 
     @PostMapping
     @Transactional
-    public ResponseEntity<ResponseRestaurantDto> create(@RequestBody RequestRestaurantDto requestRestaurantDto,
+    public ResponseEntity<ResponseRestaurantDto> create(@RequestBody @Valid RequestRestaurantDto requestRestaurantDto,
             UriComponentsBuilder uriComponentsBuilder) {
 
-        Restaurant restaurant = requestRestaurantDto.convert(establishmentRepository);
+        Restaurant restaurant = requestRestaurantDto.convert(establishmentRepository, categoryRepository);
         restaurantRepository.save(restaurant);
 
         URI uri = uriComponentsBuilder.path("/restaurant/{id}").buildAndExpand(restaurant.getId()).toUri();
