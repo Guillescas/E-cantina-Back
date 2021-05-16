@@ -16,7 +16,7 @@ public class ResponseRestaurantDto {
         this.id = restaurant.getId();
         this.email = restaurant.getEmail();
         this.name = restaurant.getName();
-        this.category = restaurant.getCategory();
+        this.category = restaurant.getCategories();
     }
 
     public Long getId() {

@@ -48,6 +48,7 @@ public class Restaurant extends User{
 
     public Restaurant(String email, String password, String name, Category category) {
         super(email, password, name, "restaurant");
+        this.categories = category;
     }
 
     public Restaurant(String email, String password, String name, String cnpj) {
@@ -128,8 +129,8 @@ public class Restaurant extends User{
         this.description = description;
     }
 
-    public Category getCategory() {
-        return null;
+    public Category getCategories() {
+        return categories;
     }
 
     // @Override
