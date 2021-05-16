@@ -16,7 +16,7 @@ public class Category {
     @Column(nullable = false, length = 50)
     private String name;
 
-    
+    public Category() {}
 
     @Override
     public int hashCode() {

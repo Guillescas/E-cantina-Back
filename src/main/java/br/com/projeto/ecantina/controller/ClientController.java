@@ -27,7 +27,7 @@ public class ClientController {
     @Autowired
     private ClientRepository clientRepository;
 
-    @PostMapping()
+    @PostMapping
     @Transactional
     public ResponseEntity<ResponseClientDto> create(@RequestBody @Valid RequestClientDto requestClientDto,
             UriComponentsBuilder uriComponentsBuilder) {

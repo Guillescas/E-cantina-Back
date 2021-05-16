@@ -8,13 +8,11 @@ public class ResponseRestaurantDto {
     
     private Long id;
     private String email;
-    private String password;
     private String name;
 
     public ResponseRestaurantDto(Restaurant restaurant) {
         this.id = restaurant.getId();
         this.email = restaurant.getEmail();
-        this.password = restaurant.getPassword();
         this.name = restaurant.getName();
     }
 
@@ -32,14 +30,6 @@ public class ResponseRestaurantDto {
 
     public void setEmail(String email) {
         this.email = email;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
     }
 
     public String getName() {

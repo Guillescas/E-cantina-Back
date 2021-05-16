@@ -22,9 +22,6 @@ public class RequestRestaurantDto {
     @NotBlank(message = "{name.blank}")
     private String name;
 
-    @NotBlank(message = "{type.blank}")
-    private String type;
-
     @NotBlank(message = "{cnpj.blank}")
     private String cnpj;
 
@@ -72,14 +69,6 @@ public class RequestRestaurantDto {
 
     public void setCnpj(String cnpj) {
         this.cnpj = cnpj;
-    }
-
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
     }
 
     public String getDescription() {

@@ -25,9 +25,6 @@ public class Restaurant extends User{
     @Column(length = 255)
     private String description;
 
-    @Column(nullable = false, updatable = false)
-    private String type;
-
     @ManyToOne(cascade = CascadeType.PERSIST)
     private Category categories;
 
@@ -131,28 +128,28 @@ public class Restaurant extends User{
         this.description = description;
     }
 
-    @Override
-    public String getUsername() {
-        return getEmail();
-    }
+    // @Override
+    // public String getUsername() {
+    //     return getEmail();
+    // }
     
-    @Override
-    public boolean isAccountNonExpired() {
-        return true;
-    }
+    // @Override
+    // public boolean isAccountNonExpired() {
+    //     return true;
+    // }
     
-    @Override
-    public boolean isAccountNonLocked() {
-        return true;
-    }
+    // @Override
+    // public boolean isAccountNonLocked() {
+    //     return true;
+    // }
     
-    @Override
-    public boolean isCredentialsNonExpired() {
-        return true;
-    }
+    // @Override
+    // public boolean isCredentialsNonExpired() {
+    //     return true;
+    // }
     
-    @Override
-    public boolean isEnabled() {
-        return true;
-    }
+    // @Override
+    // public boolean isEnabled() {
+    //     return true;
+    // }
 }

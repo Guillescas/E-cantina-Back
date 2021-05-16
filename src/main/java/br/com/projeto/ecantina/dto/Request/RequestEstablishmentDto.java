@@ -24,9 +24,6 @@ public class RequestEstablishmentDto {
 
     @NotBlank(message = "{name.blank}")
     private String name;
-
-    @NotBlank(message = "{type.blank}")
-    private String type;
     
     @NotNull(message = "{capacity.null}")
     @Positive(message = "{capacity.positive}")

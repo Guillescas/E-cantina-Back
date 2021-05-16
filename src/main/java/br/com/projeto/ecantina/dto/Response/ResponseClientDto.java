@@ -22,6 +22,7 @@ public class ResponseClientDto {
         this.email = client.getEmail();
         this.password = client.getPassword();
         this.name = client.getName();
+        this.type = client.getType();
     }
 
     public Long getId() {

@@ -5,6 +5,7 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
 import br.com.projeto.ecantina.models.Client;
+import br.com.projeto.ecantina.models.UserType;
 
 public class RequestClientDto {
     
@@ -18,9 +19,6 @@ public class RequestClientDto {
 
     @NotBlank(message = "{name.blank}")
     private String name;
-
-    @NotBlank(message = "{type.blank}")
-    private String type;
 
     public String getEmail() {
         return email;
@@ -45,11 +43,9 @@ public class RequestClientDto {
         this.name = name;
     }
 
-    public String getType() {
-        return type;
-    }
-
     public Client convertClient() {
-        return new Client(getEmail(), getPassword(), getName());
+        Client client = new Client(getEmail(), getPassword(), getName());
+        // client.getAuthorities().add(new UserType("ROLE_CLIENT"));
+        return client;
     }
 }

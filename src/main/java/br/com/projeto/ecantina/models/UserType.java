@@ -18,6 +18,12 @@ public class UserType implements GrantedAuthority {
 
     private String name;
 
+    public UserType() {}
+
+    public UserType(String name) {
+        this.name = name;
+    }
+
     @Override
     public int hashCode() {
         final int prime = 31;
