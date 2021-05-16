@@ -5,7 +5,6 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
 import br.com.projeto.ecantina.models.Client;
-import br.com.projeto.ecantina.models.User;
 
 public class RequestClientDto {
     
@@ -50,7 +49,7 @@ public class RequestClientDto {
         return type;
     }
 
-    public User convertClient() {
+    public Client convertClient() {
         return new Client(getEmail(), getPassword(), getName());
     }
 }

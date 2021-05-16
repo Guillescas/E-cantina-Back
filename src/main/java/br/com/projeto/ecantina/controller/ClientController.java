@@ -29,10 +29,10 @@ public class ClientController {
 
     @PostMapping()
     @Transactional
-    public ResponseEntity<ResponseClientDto> create(@RequestBody @Valid RequestClientDto requestUserDto,
+    public ResponseEntity<ResponseClientDto> create(@RequestBody @Valid RequestClientDto requestClientDto,
             UriComponentsBuilder uriComponentsBuilder) {
 
-        Client client = (Client) requestUserDto.convertClient();
+        Client client = requestClientDto.convertClient();
         clientRepository.save(client);
         URI uri = uriComponentsBuilder.path("/client/{id}").buildAndExpand(client.getId()).toUri();
 
