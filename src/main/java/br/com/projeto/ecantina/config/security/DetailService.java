@@ -8,12 +8,10 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import br.com.projeto.ecantina.models.Client;
-import br.com.projeto.ecantina.models.Establishment;
-import br.com.projeto.ecantina.models.Restaurant;
+import br.com.projeto.ecantina.models.User;
 import br.com.projeto.ecantina.repository.ClientRepository;
-import br.com.projeto.ecantina.repository.EstablishmentRepository;
 import br.com.projeto.ecantina.repository.RestaurantRepository;
+import br.com.projeto.ecantina.repository.UserRepository;
 
 @Service
 public class DetailService implements UserDetailsService {
@@ -25,20 +23,14 @@ public class DetailService implements UserDetailsService {
     RestaurantRepository restaurantRepository;
 
     @Autowired
-    EstablishmentRepository establishmentRepository;
+    UserRepository userRepository;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        Optional<Client> client = clientRepository.findByEmail(username);
-        Optional<Establishment> establishment = establishmentRepository.findByEmail(username);
-        Optional<Restaurant> restaurant = restaurantRepository.findByEmail(username);
+        Optional<User> user = userRepository.findByEmail(username);
 
-        if (client.isPresent()) {
-            return client.get();
-        } else if (establishment.isPresent()) {
-            return establishment.get();
-        } else if (restaurant.isPresent()) {
-            return restaurant.get();
+        if (user.isPresent()) {
+            return user.get();
         }
 
         throw new UsernameNotFoundException("Dados inválidos");

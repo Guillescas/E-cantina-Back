@@ -59,7 +59,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.POST, "/upload").permitAll()
                 .antMatchers(HttpMethod.GET, "/upload").hasRole("CLIENT")
                 .antMatchers(HttpMethod.GET, "/upload").hasRole("RESTAURANT")
-                .antMatchers(HttpMethod.GET, "/client").hasRole("ADMIN")
+                .antMatchers(HttpMethod.GET, "/client").hasRole("CLIENT")
                 .antMatchers(HttpMethod.DELETE, "/restaurant/*").hasRole("RESTAURANT")
                 .antMatchers(HttpMethod.PUT, "/restaurant/*").hasRole("RESTAURANT")
                 .anyRequest().permitAll()
