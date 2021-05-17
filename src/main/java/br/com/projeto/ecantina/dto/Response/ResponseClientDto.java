@@ -9,7 +9,6 @@ public class ResponseClientDto {
     
     private Long id;
     private String email;
-    private String password;
     private String name;
     private String type;
 
@@ -20,7 +19,6 @@ public class ResponseClientDto {
     public ResponseClientDto(Client client) {
         this.id = client.getId();
         this.email = client.getEmail();
-        this.password = client.getPassword();
         this.name = client.getName();
         this.type = client.getType();
     }
@@ -66,12 +64,6 @@ public class ResponseClientDto {
     }
     public void setEmail(String email) {
         this.email = email;
-    }
-    public String getPassword() {
-        return password;
-    }
-    public void setPassword(String password) {
-        this.password = password;
     }
     public String getName() {
         return name;

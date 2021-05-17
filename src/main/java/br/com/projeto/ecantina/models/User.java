@@ -1,17 +1,18 @@
 package br.com.projeto.ecantina.models;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 
 import org.springframework.security.core.GrantedAuthority;
@@ -41,13 +42,7 @@ public abstract class User implements UserDetails {
     @Column(updatable = false, nullable = false)
     private String type;
 
-    @ManyToMany
-    @JoinTable(
-        name = "users_roles",
-        joinColumns = @JoinColumn(
-            name = "user_id", referencedColumnName = "id"),
-        inverseJoinColumns = @JoinColumn(
-            name = "role_id", referencedColumnName = "id"))
+    @ManyToMany(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
     protected List<UserType> userTypes;
 
     public User() {}
@@ -57,6 +52,7 @@ public abstract class User implements UserDetails {
         this.password = new BCryptPasswordEncoder().encode(password);
         this.name = name;
         this.type = type;
+        this.userTypes = new ArrayList<>();
     }
 
     @Override

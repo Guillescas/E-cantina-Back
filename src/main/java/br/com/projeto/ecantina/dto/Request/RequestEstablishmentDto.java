@@ -11,6 +11,7 @@ import javax.validation.constraints.Size;
 import br.com.projeto.ecantina.config.validation.notations.EmailEquals;
 import br.com.projeto.ecantina.models.Address;
 import br.com.projeto.ecantina.models.Establishment;
+import br.com.projeto.ecantina.models.UserType;
 
 public class RequestEstablishmentDto {
 
@@ -144,7 +145,8 @@ public class RequestEstablishmentDto {
 
     public Establishment convert() {
         Address address = new Address(getStreet(), getCep(), getNeighborhood(), getNumber(), getComplement());
-        // addressRepository.sav
-        return new Establishment(getEmail(), getPassword(), getName(), getCnpj(), getCapacity(), getRent(), address);
+        Establishment establishment = new Establishment(getEmail(), getPassword(), getName(), getCnpj(), getCapacity(), getRent(), address);
+        establishment.getUserTypes().add(new UserType("ROLE_CLIENT"));
+        return establishment;
     }
 }

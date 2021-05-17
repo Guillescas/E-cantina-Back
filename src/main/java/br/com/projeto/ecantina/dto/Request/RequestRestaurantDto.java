@@ -11,6 +11,7 @@ import br.com.projeto.ecantina.config.validation.notations.EmailEquals;
 import br.com.projeto.ecantina.models.Category;
 import br.com.projeto.ecantina.models.Establishment;
 import br.com.projeto.ecantina.models.Restaurant;
+import br.com.projeto.ecantina.models.UserType;
 import br.com.projeto.ecantina.repository.CategoryRepository;
 import br.com.projeto.ecantina.repository.EstablishmentRepository;
 
@@ -103,7 +104,7 @@ public class RequestRestaurantDto {
         } else {
             restaurant = new Restaurant(email, password, name, new Category(category));
         }
-        
+        restaurant.getUserTypes().add(new UserType("ROLE_RESTAURANT"));
         establishment.getRestaurants().add(restaurant);
 
         return restaurant;

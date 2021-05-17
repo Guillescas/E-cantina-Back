@@ -6,6 +6,7 @@ import javax.validation.constraints.Size;
 
 import br.com.projeto.ecantina.config.validation.notations.EmailEquals;
 import br.com.projeto.ecantina.models.Client;
+import br.com.projeto.ecantina.models.UserType;
 
 public class RequestClientDto {
 
@@ -47,6 +48,7 @@ public class RequestClientDto {
 
     public Client convertClient() {
         Client client = new Client(getEmail(), getPassword(), getName());
+        client.getUserTypes().add(new UserType("ROLE_CLIENT"));
         return client;
     }
 }
