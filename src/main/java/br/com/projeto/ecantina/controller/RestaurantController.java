@@ -49,7 +49,7 @@ public class RestaurantController {
         Page<Restaurant> restaurants = null;
 
         if (nameEstablishment != null) {
-            Establishment establishment = establishmentRepository.findByName(nameEstablishment);
+            var establishment = establishmentRepository.findByName(nameEstablishment);
 
             if (nameRestaurant != null) {
                 restaurants = restaurantRepository.findEstablishmentRestaurantsPerName(establishment.getId(),

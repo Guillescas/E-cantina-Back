@@ -36,11 +36,11 @@ public class ErrorValidationHandler {
         return rreDto;
     }
 
-    @ResponseStatus(code = HttpStatus.CONFLICT)
-    @ExceptionHandler(value = EmailNotValidException.class)
-    public ResponseRegisterError handle(EmailNotValidException exception) {
-        ResponseRegisterError rreDto = new ResponseRegisterError("Email", exception.getMessage());
+    // TODO NULLPOINTER EXCEPTION
+    // @ResponseStatus(code = HttpStatus.BAD_REQUEST)
+    // @ExceptionHandler(value = NullPointerException.class)
+    // public ResponseRegisterError handle(NullPointerException exception) {
 
-        return rreDto;
-    }
+    //     return rreDto;
+    // }
 }

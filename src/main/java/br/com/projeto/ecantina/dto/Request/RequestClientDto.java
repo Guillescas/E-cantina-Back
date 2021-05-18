@@ -47,7 +47,7 @@ public class RequestClientDto {
     }
 
     public Client convertClient() {
-        Client client = new Client(getEmail(), getPassword(), getName());
+        var client = new Client(getEmail(), getPassword(), getName());
         client.getUserTypes().add(new UserType("ROLE_CLIENT"));
         return client;
     }
