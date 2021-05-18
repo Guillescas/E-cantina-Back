@@ -13,8 +13,6 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-import br.com.projeto.ecantina.config.exceptions.EmailNotValidException;
-
 @RestControllerAdvice
 public class ErrorValidationHandler {
 
@@ -41,8 +39,12 @@ public class ErrorValidationHandler {
     public ResponseRegisterError handle(NullPointerException exception) {
 
         String msg = exception.getMessage();
-        String[] error = msg.split(":");
+        if(msg.contains(":")) {
+            String[] error = msg.split(":");
+            return new ResponseRegisterError(error[0], error[1]);
+        } else {
+            return new ResponseRegisterError("Error", msg);
+        }
 
-        return new ResponseRegisterError(error[0], error[1]);
     }
 }
