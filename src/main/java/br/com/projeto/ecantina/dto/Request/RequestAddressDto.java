@@ -53,7 +53,7 @@ public class RequestAddressDto {
             client.get().getAddress().add(address);
             return address;
         } else {
-            throw new NullPointerException("Cliente não foi encontrado");
+            throw new NullPointerException("Cliente:Não foi encontrado");
         }
     }
 }

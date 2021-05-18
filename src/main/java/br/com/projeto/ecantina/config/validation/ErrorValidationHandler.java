@@ -36,11 +36,13 @@ public class ErrorValidationHandler {
         return rreDto;
     }
 
-    // TODO NULLPOINTER EXCEPTION
-    // @ResponseStatus(code = HttpStatus.BAD_REQUEST)
-    // @ExceptionHandler(value = NullPointerException.class)
-    // public ResponseRegisterError handle(NullPointerException exception) {
+    @ResponseStatus(code = HttpStatus.NOT_FOUND)
+    @ExceptionHandler(value = NullPointerException.class)
+    public ResponseRegisterError handle(NullPointerException exception) {
 
-    //     return rreDto;
-    // }
+        String msg = exception.getMessage();
+        String[] error = msg.split(":");
+
+        return new ResponseRegisterError(error[0], error[1]);
+    }
 }
