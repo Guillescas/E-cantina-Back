@@ -4,6 +4,8 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+
 import br.com.projeto.ecantina.models.Order;
 import br.com.projeto.ecantina.models.ProductList;
 
@@ -65,6 +67,10 @@ public class ResponseOrderDto {
 
     public List<ProductList> getProductLists() {
         return productLists;
+    }
+
+    public static Page<ResponseOrderDto> convert(Page<Order> orders) {
+        return orders.map(ResponseOrderDto::new);
     }
 
     

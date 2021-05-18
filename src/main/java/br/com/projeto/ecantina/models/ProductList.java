@@ -26,9 +26,6 @@ public class ProductList {
     private BigDecimal total;
 
     @ManyToOne
-    private Order order;
-
-    @ManyToOne
     private Product product;
 
     public ProductList() {}
@@ -39,7 +36,6 @@ public class ProductList {
         this.value = product.getPrice();
         this.total = getValue().multiply(new BigDecimal(getQuantity()));
     }
-
 
     @Override
     public int hashCode() {
@@ -70,16 +66,8 @@ public class ProductList {
         return total;
     }
 
-    public Order getOrder() {
-        return order;
-    }
-
     public Product getProduct() {
         return product;
-    }
-
-    public void setOrder(Order order) {
-        this.order = order;
     }
 
     public void setProduct(Product product) {

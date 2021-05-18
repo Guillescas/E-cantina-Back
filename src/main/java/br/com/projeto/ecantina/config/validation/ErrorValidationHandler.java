@@ -33,18 +33,4 @@ public class ErrorValidationHandler {
 
         return rreDto;
     }
-
-    @ResponseStatus(code = HttpStatus.NOT_FOUND)
-    @ExceptionHandler(value = NullPointerException.class)
-    public ResponseRegisterError handle(NullPointerException exception) {
-
-        String msg = exception.getMessage();
-        if(msg.contains(":")) {
-            String[] error = msg.split(":");
-            return new ResponseRegisterError(error[0], error[1]);
-        } else {
-            return new ResponseRegisterError("Error", msg);
-        }
-
-    }
 }

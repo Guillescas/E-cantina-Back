@@ -3,13 +3,16 @@ package br.com.projeto.ecantina.models;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 
 @Entity(name = "orders")
@@ -37,16 +40,22 @@ public class Order implements Serializable {
     @Column
     private BigDecimal total;
 
-    @OneToMany(mappedBy = "order")
-    private List<ProductList> productLists;
+    @OneToMany(cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "order_id")
+    private List<ProductList> productLists = new ArrayList<>();
 
 
     public Order() {}
 
-    public Order(List<ProductList> productLists, String observation, BigDecimal total) {
+    public Order(String observation, BigDecimal total) {
         this.observation = observation;
-        this.productLists = productLists;
         this.total = total;
+    }
+
+    public Order(String observation, BigDecimal total, List<ProductList> productLists) {
+        this.observation = observation;
+        this.total = total;
+        this.productLists = productLists;
     }
 
     @Override
