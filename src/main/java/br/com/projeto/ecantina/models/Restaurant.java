@@ -37,7 +37,7 @@ public class Restaurant extends User{
 
     @OneToMany
     @JoinColumn(name = "restaurant_id")
-    private List<Order> orders;
+    private Set<Order> orders;
     
     @OneToMany
     @JoinColumn(name = "restaurant_id")
@@ -45,7 +45,7 @@ public class Restaurant extends User{
 
     @OneToMany
     @JoinColumn(name = "restaurant_id")
-    private List<DiscountCoupon> DiscountCoupon;
+    private List<DiscountCoupon> discountCoupon;
 
     public Restaurant() {}
 
@@ -84,15 +84,19 @@ public class Restaurant extends User{
         return true;
     }
 
+    public Boolean getPaid() {
+        return paid;
+    }
+
     public List<DiscountCoupon> getDiscountCoupon() {
-        return DiscountCoupon;
+        return discountCoupon;
     }
 
     public Set<LoyaltyCard> getLoyaltyCards() {
         return loyaltyCards;
     }
 
-    public List<Order> getOrders() {
+    public Set<Order> getOrders() {
         return orders;
     }
 

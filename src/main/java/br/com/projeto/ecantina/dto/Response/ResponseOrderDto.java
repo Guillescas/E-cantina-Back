@@ -69,7 +69,5 @@ public class ResponseOrderDto {
 
     public static Page<ResponseOrderDto> convert(Page<Order> orders) {
         return orders.map(ResponseOrderDto::new);
-    }
-
-    
+    }    
 }

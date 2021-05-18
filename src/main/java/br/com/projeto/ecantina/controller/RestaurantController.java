@@ -1,6 +1,7 @@
 package br.com.projeto.ecantina.controller;
 
 import java.net.URI;
+import java.util.Optional;
 
 import javax.transaction.Transactional;
 import javax.validation.Valid;
@@ -13,6 +14,7 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,6 +24,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import br.com.projeto.ecantina.dto.request.RequestRestaurantDto;
 import br.com.projeto.ecantina.dto.response.ResponseRestaurantDto;
+import br.com.projeto.ecantina.dto.response.detailresponse.ResponseDetailRestaurantDto;
 import br.com.projeto.ecantina.models.Establishment;
 import br.com.projeto.ecantina.models.Restaurant;
 import br.com.projeto.ecantina.repository.CategoryRepository;
@@ -63,6 +66,18 @@ public class RestaurantController {
 
         Page<Restaurant> allRestaurants = restaurantRepository.findAll(pageable);
         return ResponseRestaurantDto.convert(allRestaurants);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<ResponseDetailRestaurantDto> detail(@PathVariable Long id) {
+
+        Optional<Restaurant> restaurant = restaurantRepository.findById(id);
+        if(restaurant.isPresent()) {
+
+            return ResponseEntity.ok(new ResponseDetailRestaurantDto(restaurant.get()));
+        }
+
+        return ResponseEntity.notFound().build();
     }
 
     @PostMapping
