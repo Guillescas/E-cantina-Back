@@ -22,6 +22,9 @@ public class ProductList {
     @Column
     private BigDecimal value;
 
+    @Column 
+    private BigDecimal total;
+
     @ManyToOne
     private Order order;
 
@@ -30,9 +33,11 @@ public class ProductList {
 
     public ProductList() {}
 
-    public ProductList(Integer quantity, BigDecimal value) {
+    public ProductList(Integer quantity, Product product) {
         this.quantity = quantity;
-        this.value = value;
+        this.product = product;
+        this.value = product.getPrice();
+        this.total = getValue().multiply(new BigDecimal(getQuantity()));
     }
 
 
@@ -59,6 +64,10 @@ public class ProductList {
         } else if (!id.equals(other.id))
             return false;
         return true;
+    }
+
+    public BigDecimal getTotal() {
+        return total;
     }
 
     public Order getOrder() {

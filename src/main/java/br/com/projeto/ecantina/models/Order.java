@@ -43,10 +43,11 @@ public class Order implements Serializable {
 
     public Order() {}
 
-    public Order(String observation) {
+    public Order(List<ProductList> productLists, String observation, BigDecimal total) {
         this.observation = observation;
+        this.productLists = productLists;
+        this.total = total;
     }
-
 
     @Override
     public int hashCode() {
