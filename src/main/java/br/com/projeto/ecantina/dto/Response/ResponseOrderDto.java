@@ -1,9 +1,10 @@
 package br.com.projeto.ecantina.dto.response;
 
 import java.math.BigDecimal;
-import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
+import org.springframework.data.annotation.Transient;
 import org.springframework.data.domain.Page;
 
 import br.com.projeto.ecantina.models.Order;
@@ -13,9 +14,9 @@ public class ResponseOrderDto {
     
     private Boolean finished = false;
 
-    private LocalDate createdAt = LocalDate.now();
+    private String createdAt;
 
-    private LocalDate finishAt = LocalDate.now().plusDays(2);
+    private String finishAt;
 
     private String observation;
 
@@ -25,10 +26,13 @@ public class ResponseOrderDto {
 
     private List<ProductList> productLists;
 
+    @Transient
+    private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+
     public ResponseOrderDto(Order order) {
         this.finished = order.getFinished();
-        this.createdAt = order.getCreatedAt();
-        this.finishAt = order.getFinishAt();
+        this.createdAt = order.getCreatedAt().format(formatter);
+        this.finishAt = order.getFinishAt().format(formatter);
         this.observation = order.getObservation();
         this.valid = order.getValid();
         this.total = order.getTotal();
@@ -39,16 +43,12 @@ public class ResponseOrderDto {
         return finished;
     }
 
-    public LocalDate getCreatedAt() {
+    public String getCreatedAt() {
         return createdAt;
     }
 
-    public LocalDate getFinishAt() {
+    public String getFinishAt() {
         return finishAt;
-    }
-
-    public void setFinishAt(LocalDate finishAt) {
-        this.finishAt = finishAt;
     }
 
     public String getObservation() {

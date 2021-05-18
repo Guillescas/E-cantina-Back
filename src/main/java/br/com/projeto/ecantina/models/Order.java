@@ -25,10 +25,10 @@ public class Order {
     private Boolean finished = false;
 
     @Column(updatable = false, nullable = false)
-    private LocalDate createdAt = LocalDate.now();
+    private LocalDate createdAt;
 
     @Column(updatable = false, nullable = false)
-    private LocalDate finishAt = LocalDate.now().plusDays(2);
+    private LocalDate finishAt;
 
     @Column(length = 300)
     private String observation;
@@ -48,12 +48,16 @@ public class Order {
     public Order(String observation, BigDecimal total) {
         this.observation = observation;
         this.total = total;
+        this.createdAt = LocalDate.now();
+        this.finishAt = LocalDate.now().plusDays(2);
     }
 
     public Order(String observation, BigDecimal total, List<ProductList> productLists) {
         this.observation = observation;
         this.total = total;
         this.productLists = productLists;
+        this.createdAt = LocalDate.now();
+        this.finishAt = LocalDate.now().plusDays(2);
     }
 
     @Override
@@ -126,7 +130,13 @@ public class Order {
     }
 
     public Boolean getValid() {
-        return valid;
+        if (this.createdAt.isBefore(this.finishAt) || !finished.booleanValue()) {
+            return this.valid;
+        } else {
+            setValid(false);
+            setFinished(true);
+            return this.valid;
+        }
     }
 
     public void setValid(Boolean valid) {

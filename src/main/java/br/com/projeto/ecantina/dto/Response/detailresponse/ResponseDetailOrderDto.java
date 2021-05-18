@@ -1,7 +1,9 @@
 package br.com.projeto.ecantina.dto.response.detailresponse;
 
 import java.math.BigDecimal;
-import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
+import org.springframework.data.annotation.Transient;
 
 import br.com.projeto.ecantina.models.Order;
 
@@ -9,9 +11,9 @@ public class ResponseDetailOrderDto {
 
     private Boolean finished;
 
-    private LocalDate createdAt;
+    private String createdAt;
 
-    private LocalDate finishAt;
+    private String finishAt;
 
     private String observation;
 
@@ -19,20 +21,23 @@ public class ResponseDetailOrderDto {
 
     private BigDecimal total;
 
+    @Transient
+    private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+
     public ResponseDetailOrderDto(Order order) {
-        this.createdAt = order.getCreatedAt();
-        this.finishAt = order.getFinishAt();
+        this.createdAt = order.getCreatedAt().format(formatter);
+        this.finishAt = order.getFinishAt().format(formatter);
         this.finished = order.getFinished();
         this.observation = order.getObservation();
         this.valid = order.getValid();
         this.total = order.getTotal();
     }
 
-    public LocalDate getCreatedAt() {
+    public String getCreatedAt() {
         return createdAt;
     }
 
-    public LocalDate getFinishAt() {
+    public String getFinishAt() {
         return finishAt;
     }
 
