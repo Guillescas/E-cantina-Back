@@ -1,5 +1,7 @@
 package br.com.projeto.ecantina.dto.response;
 
+import java.util.List;
+
 import org.springframework.data.domain.Page;
 
 import br.com.projeto.ecantina.models.Address;
@@ -14,62 +16,38 @@ public class ResponseClientDto {
 
     private String cpf;    
     private String urlImage;
-    private Address address;
+    private List<Address> address;
 
     public ResponseClientDto(Client client) {
         this.id = client.getId();
         this.email = client.getEmail();
         this.name = client.getName();
         this.type = client.getType();
+        this.address = client.getAddress();
     }
 
     public Long getId() {
         return id;
     }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
     public String getCpf() {
         return cpf;
     }
 
-    public void setCpf(String cpf) {
-        this.cpf = cpf;
-    }
-
-    public Address getAddress() {
+    public List<Address> getAddress() {
         return address;
-    }
-
-    public void setAddress(Address address) {
-        this.address = address;
     }
 
     public String getUrlImage() {
         return urlImage;
     }
 
-    public void setType(String type) {
-        this.type = type;
-    }
-
-    public void setUrlImage(String urlImage) {
-        this.urlImage = urlImage;
-    }
-
     public String getEmail() {
         return email;
     }
-    public void setEmail(String email) {
-        this.email = email;
-    }
+
     public String getName() {
         return name;
-    }
-    public void setName(String name) {
-        this.name = name;
     }
 
     public String getType() {

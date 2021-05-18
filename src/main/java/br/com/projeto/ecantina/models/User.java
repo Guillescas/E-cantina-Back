@@ -43,11 +43,11 @@ public abstract class User implements UserDetails {
     private String type;
 
     @ManyToMany(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
-    protected List<UserType> userTypes;
+    private List<UserType> userTypes;
 
-    public User() {}
+    protected User() {}
 
-    public User(String email, String password, String name, String type) {
+    protected User(String email, String password, String name, String type) {
         this.email = email;
         this.password = new BCryptPasswordEncoder().encode(password);
         this.name = name;

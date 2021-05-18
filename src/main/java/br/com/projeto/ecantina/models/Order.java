@@ -1,5 +1,6 @@
 package br.com.projeto.ecantina.models;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
@@ -12,7 +13,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
 @Entity(name = "orders")
-public class Order {
+public class Order implements Serializable {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

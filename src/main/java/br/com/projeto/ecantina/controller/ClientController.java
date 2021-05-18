@@ -19,6 +19,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import br.com.projeto.ecantina.dto.request.RequestClientDto;
 import br.com.projeto.ecantina.dto.response.ResponseClientDto;
+import br.com.projeto.ecantina.dto.response.detailresponse.ResponseDetailClientDto;
 import br.com.projeto.ecantina.models.Client;
 import br.com.projeto.ecantina.repository.ClientRepository;
 
@@ -43,13 +44,14 @@ public class ClientController {
 
     }
 
-    // @GetMapping("/{id}")
-    // public ResponseEntity<ResponseClientDto> detail(@PathVariable Long id) {
-    //     Optional<Client> clientOptional = clientRepository.findById(id);
+    @GetMapping("/{id}")
+    public ResponseEntity<ResponseDetailClientDto> detail(@PathVariable Long id) {
+        Optional<Client> client = clientRepository.findById(id);
 
-    //     if(clientOptional.isPresent()) {
-
-    //         return ResponseEntity.ok(new );
-    //     }
-    // } 
+        if(client.isPresent()) {
+            return ResponseEntity.ok(new ResponseDetailClientDto(client.get()));
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
 }

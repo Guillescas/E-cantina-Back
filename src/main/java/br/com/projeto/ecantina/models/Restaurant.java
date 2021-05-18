@@ -18,6 +18,8 @@ public class Restaurant extends User{
     
     @Column
     private BigDecimal rating;
+
+    private Boolean paid = true;
     
     @Column
     private Boolean open = false;
@@ -132,29 +134,9 @@ public class Restaurant extends User{
     public Category getCategories() {
         return categories;
     }
-
-    // @Override
-    // public String getUsername() {
-    //     return getEmail();
-    // }
     
-    // @Override
-    // public boolean isAccountNonExpired() {
-    //     return true;
-    // }
-    
-    // @Override
-    // public boolean isAccountNonLocked() {
-    //     return true;
-    // }
-    
-    // @Override
-    // public boolean isCredentialsNonExpired() {
-    //     return true;
-    // }
-    
-    // @Override
-    // public boolean isEnabled() {
-    //     return true;
-    // }
+    @Override
+    public boolean isAccountNonLocked() {
+        return this.paid;
+    }
 }
