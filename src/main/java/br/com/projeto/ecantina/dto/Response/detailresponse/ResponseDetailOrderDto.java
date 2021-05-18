@@ -15,7 +15,7 @@ public class ResponseDetailOrderDto {
 
     private String observation;
 
-    private Boolean valid = true;
+    private Boolean valid;
 
     private BigDecimal total;
 

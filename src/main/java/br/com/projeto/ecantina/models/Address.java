@@ -1,7 +1,5 @@
 package br.com.projeto.ecantina.models;
 
-import java.io.Serializable;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -26,7 +24,7 @@ import javax.persistence.Id;
  * @since 1.0
 */
 @Entity(name="address")
-public class Address implements Serializable {
+public class Address {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

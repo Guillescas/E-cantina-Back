@@ -1,6 +1,7 @@
 package br.com.projeto.ecantina.models;
 
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -41,7 +42,7 @@ public class Client extends User {
 
     @OneToMany
     @JoinColumn(name = "client_id")
-    private List<Order> orders;
+    private Set<Order> orders;
 
     @OneToMany
     @JoinColumn(name = "client_id")
@@ -107,7 +108,7 @@ public class Client extends User {
         return cards;
     }
 
-    public List<Order> getOrders() {
+    public Set<Order> getOrders() {
         return orders;
     }
 

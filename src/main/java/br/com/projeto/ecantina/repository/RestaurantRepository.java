@@ -13,7 +13,7 @@ import br.com.projeto.ecantina.models.User;
 public interface RestaurantRepository extends JpaRepository<Restaurant, Long> {
 
     @Query(nativeQuery = true, value = "SELECT * FROM restaurants r WHERE r.establishment_id = ?1")
-    Page<Restaurant> findEstablishmentRestaurants(Long establishmentName, Pageable pageable);
+    Page<Restaurant> findEstablishmentRestaurants(Long establishmentId, Pageable pageable);
 
     @Query(nativeQuery = true, value = "SELECT * FROM restaurants r INNER JOIN user u ON r.id = u.id INNER JOIN " +
         "establishments e ON r.establishment_id = ?1 AND u.name LIKE ?2%")

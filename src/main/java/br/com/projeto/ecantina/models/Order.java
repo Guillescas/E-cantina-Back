@@ -1,6 +1,5 @@
 package br.com.projeto.ecantina.models;
 
-import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -16,7 +15,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 
 @Entity(name = "orders")
-public class Order implements Serializable {
+public class Order {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -43,7 +42,6 @@ public class Order implements Serializable {
     @OneToMany(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "order_id")
     private List<ProductList> productLists = new ArrayList<>();
-
 
     public Order() {}
 

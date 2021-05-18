@@ -1,6 +1,5 @@
 package br.com.projeto.ecantina.models;
 
-import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
@@ -12,7 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
 @Entity(name = "card")
-public class Card implements Serializable {
+public class Card {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)

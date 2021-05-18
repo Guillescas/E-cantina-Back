@@ -71,16 +71,17 @@ public class OrderController {
         return ResponseEntity.created(uri).body(new ResponseOrderDto(order));
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/{orderId}")
     public ResponseEntity<ResponseDetailOrderDto> detail(@PathVariable Long orderId) {
         Optional<Order> orderFind = orderRepository.findById(orderId);
+
         if(orderFind.isPresent()) {
             return ResponseEntity.ok(new ResponseDetailOrderDto(orderFind.get()));
         } 
         return ResponseEntity.notFound().build();
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/{orderId}")
     @Transactional
     public ResponseEntity<Object> delete(@PathVariable Long orderId) {
 

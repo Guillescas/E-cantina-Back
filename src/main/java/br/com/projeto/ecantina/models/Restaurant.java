@@ -2,6 +2,7 @@ package br.com.projeto.ecantina.models;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -32,7 +33,7 @@ public class Restaurant extends User{
 
     @OneToMany
     @JoinColumn(name = "restaurant_id")
-    private List<LoyaltyCard> loyaltyCards;
+    private Set<LoyaltyCard> loyaltyCards;
 
     @OneToMany
     @JoinColumn(name = "restaurant_id")
@@ -87,7 +88,7 @@ public class Restaurant extends User{
         return DiscountCoupon;
     }
 
-    public List<LoyaltyCard> getLoyaltyCards() {
+    public Set<LoyaltyCard> getLoyaltyCards() {
         return loyaltyCards;
     }
 
