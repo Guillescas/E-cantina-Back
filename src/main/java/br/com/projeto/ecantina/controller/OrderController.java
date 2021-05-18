@@ -6,12 +6,14 @@ import java.util.Optional;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,7 +23,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import br.com.projeto.ecantina.dto.request.RequestOrderDto;
 import br.com.projeto.ecantina.dto.response.ResponseOrderDto;
-import br.com.projeto.ecantina.models.Client;
+import br.com.projeto.ecantina.dto.response.detailresponse.ResponseDetailOrderDto;
 import br.com.projeto.ecantina.models.Order;
 import br.com.projeto.ecantina.repository.ClientRepository;
 import br.com.projeto.ecantina.repository.OrderRepository;
@@ -67,5 +69,27 @@ public class OrderController {
         URI uri = uriComponentsBuilder.path("/order/{id}").buildAndExpand(order.getId()).toUri();
 
         return ResponseEntity.created(uri).body(new ResponseOrderDto(order));
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<ResponseDetailOrderDto> detail(@PathVariable Long orderId) {
+        Optional<Order> orderFind = orderRepository.findById(orderId);
+        if(orderFind.isPresent()) {
+            return ResponseEntity.ok(new ResponseDetailOrderDto(orderFind.get()));
+        } 
+        return ResponseEntity.notFound().build();
+    }
+
+    @DeleteMapping("/{id}")
+    @Transactional
+    public ResponseEntity<Object> delete(@PathVariable Long orderId) {
+
+        Optional<Order> order = orderRepository.findById(orderId);
+        if(order.isPresent()) {
+            orderRepository.delete(order.get());
+            return ResponseEntity.ok().build();
+        }
+
+        return ResponseEntity.notFound().build();
     }
 }

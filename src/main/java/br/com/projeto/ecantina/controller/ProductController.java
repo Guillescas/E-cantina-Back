@@ -42,9 +42,10 @@ public class ProductController {
     ProductRepository productRepository;
 
     @GetMapping
-    public Page<ResponseProductDto> list(@PageableDefault(sort = "type") Pageable pageable, @RequestParam(required = false) Long restaurantId) {
-        
-        if(restaurantId != null) {
+    public Page<ResponseProductDto> list(@PageableDefault(sort = "type") Pageable pageable,
+            @RequestParam(required = false) Long restaurantId) {
+
+        if (restaurantId != null) {
             Page<Product> products = productRepository.findByRestaurantId(restaurantId, pageable);
             return ResponseProductDto.convert(products);
         } else {
@@ -57,7 +58,7 @@ public class ProductController {
     public ResponseEntity<ResponseProductDto> detail(@PathVariable Long productId) {
 
         Optional<Product> product = productRepository.findById(productId);
-        if(product.isPresent()) {
+        if (product.isPresent()) {
             return ResponseEntity.ok(new ResponseProductDto(product.get()));
         }
         return ResponseEntity.notFound().build();
@@ -78,15 +79,16 @@ public class ProductController {
 
     @PatchMapping("/{id}")
     @Transactional
-    public ResponseEntity<ResponseProductDto> update(@PathVariable Long productId, @RequestBody RequestUpdateProductDto requestUpdateProductDto) {
+    public ResponseEntity<ResponseProductDto> update(@PathVariable Long productId,
+            @RequestBody RequestUpdateProductDto requestUpdateProductDto) {
 
         Optional<Product> productFind = productRepository.findById(productId);
-        if(productFind.isPresent()) {
+        if (productFind.isPresent()) {
             Product product = requestUpdateProductDto.update(productId, productRepository);
             return ResponseEntity.ok(new ResponseProductDto(product));
-        } else {
-            return ResponseEntity.notFound().build();
         }
+        return ResponseEntity.notFound().build();
+
     }
 
     @DeleteMapping("/{id}")
@@ -94,11 +96,11 @@ public class ProductController {
     public ResponseEntity<Object> remove(@PathVariable Long productId) {
 
         Optional<Product> product = productRepository.findById(productId);
-        if(product.isPresent()) {
+        if (product.isPresent()) {
             productRepository.delete(product.get());
             return ResponseEntity.ok().build();
-        } else {
-            return ResponseEntity.notFound().build();
         }
+        return ResponseEntity.notFound().build();
+
     }
 }

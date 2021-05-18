@@ -25,8 +25,6 @@ public class ResponseOrderDto {
 
     private List<ProductList> productLists;
 
-    
-
     public ResponseOrderDto(Order order) {
         this.finished = order.getFinished();
         this.createdAt = order.getCreatedAt();
