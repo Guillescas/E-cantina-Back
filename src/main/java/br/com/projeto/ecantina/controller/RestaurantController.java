@@ -46,11 +46,18 @@ public class RestaurantController {
             @RequestParam(required = false) String nameEstablishment,
             @PageableDefault(sort = "id", direction = Direction.ASC, size = 10) Pageable pageable) {
 
+        Page<Restaurant> restaurants = null;
+
         if (nameEstablishment != null) {
             Establishment establishment = establishmentRepository.findByName(nameEstablishment);
 
-            Page<Restaurant> restaurants = restaurantRepository.findEstablishmentRestaurants(establishment.getId(),
-                    pageable);
+            if (nameRestaurant != null) {
+                restaurants = restaurantRepository.findEstablishmentRestaurantsPerName(establishment.getId(),
+                        nameRestaurant, pageable);
+            } else {
+                restaurants = restaurantRepository.findEstablishmentRestaurants(establishment.getId(), pageable);
+            }
+
             return ResponseRestaurantDto.convert(restaurants);
         }
 
