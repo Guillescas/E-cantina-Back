@@ -10,13 +10,13 @@ import javax.persistence.Id;
 public class Category {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(nullable = false, length = 50)
     private String name;
 
-    
+    public Category() {}
 
     @Override
     public int hashCode() {

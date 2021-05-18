@@ -8,14 +8,17 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 import javax.validation.constraints.Size;
 
+import br.com.projeto.ecantina.config.validation.notations.EmailEquals;
 import br.com.projeto.ecantina.models.Address;
 import br.com.projeto.ecantina.models.Establishment;
+import br.com.projeto.ecantina.models.UserType;
 
 public class RequestEstablishmentDto {
 
     // Establishment
     @Email(message = "{email.format}")
     @NotBlank(message = "{email.blank}")
+    @EmailEquals(message = "{email.equals}")
     private String email;
 
     @NotBlank(message = "{password.blank}")
@@ -24,9 +27,6 @@ public class RequestEstablishmentDto {
 
     @NotBlank(message = "{name.blank}")
     private String name;
-
-    @NotBlank(message = "{type.blank}")
-    private String type;
     
     @NotNull(message = "{capacity.null}")
     @Positive(message = "{capacity.positive}")
@@ -145,7 +145,8 @@ public class RequestEstablishmentDto {
 
     public Establishment convert() {
         Address address = new Address(getStreet(), getCep(), getNeighborhood(), getNumber(), getComplement());
-        // addressRepository.sav
-        return new Establishment(getEmail(), getPassword(), getName(), getCnpj(), getCapacity(), getRent(), address);
+        Establishment establishment = new Establishment(getEmail(), getPassword(), getName(), getCnpj(), getCapacity(), getRent(), address);
+        establishment.getUserTypes().add(new UserType("ROLE_CLIENT"));
+        return establishment;
     }
 }

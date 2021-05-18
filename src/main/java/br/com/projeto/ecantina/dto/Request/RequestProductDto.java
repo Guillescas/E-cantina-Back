@@ -3,6 +3,7 @@ package br.com.projeto.ecantina.dto.request;
 import java.util.Optional;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 import javax.validation.constraints.Size;
 
@@ -16,16 +17,17 @@ public class RequestProductDto {
     @Size(max = 50, message = "{name.size}")
     private String name;
     
-    @NotBlank(message = "price.blank")
-    @Positive(message = "price.positive")
+    @NotNull(message = "{price.null}")
+    @Positive(message = "{price.positive}")
     private String price;
 
-    @Size(max = 300, message = "description.size")
+    @Size(max = 300, message = "{description.size}")
     private String description;
 
-    @NotBlank(message = "type.blank")
+    @NotBlank(message = "{type.blank}")
     private String type;
 
+    @NotNull(message = "{id.null}")
     private String restaurantId;
 
     public String getRestaurantId() {
@@ -61,14 +63,17 @@ public class RequestProductDto {
     }
 
     public Product convert(RestaurantRepository restaurantRepository) {
-        Product product = new Product(getName(), getType(), getPrice());
-
-        Optional<Restaurant> restaurantNewProduct = restaurantRepository.findById(Long.valueOf(getRestaurantId()));
-        Restaurant restaurant = restaurantNewProduct.get();
-        restaurant.getProducts().add(product);
-        restaurantRepository.save(restaurant);
+        Optional<Restaurant> restaurant = restaurantRepository.findById(Long.valueOf(getRestaurantId()));
         
-        return product;
+        if(restaurant.isPresent()) {
+            Product product = new Product(getName(), getType(), getPrice());
+            restaurant.get().getProducts().add(product);
+            restaurantRepository.save(restaurant.get());
+            
+            return product;
+        } else {
+            throw new NullPointerException("Restaurante:Restaurante não encontrado");
+        }
     }
     
 }

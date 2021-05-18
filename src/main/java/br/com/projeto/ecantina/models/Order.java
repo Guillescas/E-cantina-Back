@@ -2,30 +2,33 @@ package br.com.projeto.ecantina.models;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 
 @Entity(name = "orders")
 public class Order {
     
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(nullable = false)
     private Boolean finished = false;
 
     @Column(updatable = false, nullable = false)
-    private LocalDate createdAt = LocalDate.now();
+    private LocalDate createdAt;
 
     @Column(updatable = false, nullable = false)
-    private LocalDate finishAt = LocalDate.now().plusDays(2);
+    private LocalDate finishAt;
 
     @Column(length = 300)
     private String observation;
@@ -36,16 +39,26 @@ public class Order {
     @Column
     private BigDecimal total;
 
-    @OneToMany(mappedBy = "order")
-    private List<ProductList> productLists;
-
+    @OneToMany(cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "order_id")
+    private List<ProductList> productLists = new ArrayList<>();
 
     public Order() {}
 
-    public Order(String observation) {
+    public Order(String observation, BigDecimal total) {
         this.observation = observation;
+        this.total = total;
+        this.createdAt = LocalDate.now();
+        this.finishAt = LocalDate.now().plusDays(2);
     }
 
+    public Order(String observation, BigDecimal total, List<ProductList> productLists) {
+        this.observation = observation;
+        this.total = total;
+        this.productLists = productLists;
+        this.createdAt = LocalDate.now();
+        this.finishAt = LocalDate.now().plusDays(2);
+    }
 
     @Override
     public int hashCode() {
@@ -117,7 +130,13 @@ public class Order {
     }
 
     public Boolean getValid() {
-        return valid;
+        if (this.createdAt.isBefore(this.finishAt) || !finished.booleanValue()) {
+            return this.valid;
+        } else {
+            setValid(false);
+            setFinished(true);
+            return this.valid;
+        }
     }
 
     public void setValid(Boolean valid) {

@@ -1,27 +1,32 @@
 package br.com.projeto.ecantina.models;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 import javax.persistence.ManyToMany;
-import javax.persistence.MappedSuperclass;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
-@MappedSuperclass
+@Entity
+@Inheritance(strategy = InheritanceType.JOINED)
 public abstract class User implements UserDetails {
 
     private static final long serialVersionUID = 1L;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(updatable = false)
     protected Long id;
 
@@ -37,16 +42,17 @@ public abstract class User implements UserDetails {
     @Column(updatable = false, nullable = false)
     private String type;
 
-    @ManyToMany(fetch = FetchType.EAGER)
-    protected List<UserType> userTypes;
+    @ManyToMany(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
+    private List<UserType> userTypes;
 
-    public User() {}
+    protected User() {}
 
-    public User(String email, String password, String name, String type) {
+    protected User(String email, String password, String name, String type) {
         this.email = email;
         this.password = new BCryptPasswordEncoder().encode(password);
         this.name = name;
         this.type = type;
+        this.userTypes = new ArrayList<>();
     }
 
     @Override
@@ -88,7 +94,12 @@ public abstract class User implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
+
         return this.userTypes;
+    }
+
+    public List<UserType> getUserTypes() {
+        return userTypes;
     }
 
     public String getType() {
@@ -125,5 +136,30 @@ public abstract class User implements UserDetails {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    @Override
+    public String getUsername() {
+        return this.getEmail();
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
     }
 }

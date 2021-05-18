@@ -19,6 +19,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import br.com.projeto.ecantina.dto.request.RequestClientDto;
 import br.com.projeto.ecantina.dto.response.ResponseClientDto;
+import br.com.projeto.ecantina.dto.response.detailresponse.ResponseDetailClientDto;
 import br.com.projeto.ecantina.models.Client;
 import br.com.projeto.ecantina.repository.ClientRepository;
 
@@ -30,7 +31,7 @@ public class ClientController {
     @Autowired
     private ClientRepository clientRepository;
 
-    @PostMapping()
+    @PostMapping
     @Transactional
     public ResponseEntity<ResponseClientDto> create(@RequestBody @Valid RequestClientDto requestClientDto,
             UriComponentsBuilder uriComponentsBuilder) {
@@ -40,15 +41,17 @@ public class ClientController {
         URI uri = uriComponentsBuilder.path("/client/{id}").buildAndExpand(client.getId()).toUri();
 
         return ResponseEntity.created(uri).body(new ResponseClientDto(client));
+
     }
 
-    // @GetMapping("/{id}")
-    // public ResponseEntity<ResponseClientDto> detail(@PathVariable Long id) {
-    //     Optional<Client> clientOptional = clientRepository.findById(id);
+    @GetMapping("/{id}")
+    public ResponseEntity<ResponseDetailClientDto> detail(@PathVariable Long id) {
+        Optional<Client> client = clientRepository.findById(id);
 
-    //     if(clientOptional.isPresent()) {
-
-    //         return ResponseEntity.ok(new );
-    //     }
-    // } 
+        if(client.isPresent()) {
+            return ResponseEntity.ok(new ResponseDetailClientDto(client.get()));
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
 }
