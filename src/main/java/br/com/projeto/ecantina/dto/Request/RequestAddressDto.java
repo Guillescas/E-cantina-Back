@@ -2,23 +2,36 @@ package br.com.projeto.ecantina.dto.request;
 
 import java.util.Optional;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
 import br.com.projeto.ecantina.models.Address;
 import br.com.projeto.ecantina.models.Client;
 import br.com.projeto.ecantina.repository.ClientRepository;
 
 public class RequestAddressDto {
 
+    @NotNull(message = "{id.null}")
     private Long clientId;
 
+    @NotBlank(message = "{street.blank}")
+    @Size(max = 100, message = "{street.size}")
     private String street;
 
-    private String cep;
-
-    private String neighborhood;
-
+    @NotNull(message = "{number.null}")
     private Integer number;
 
+    @Size(max = 30, message = "{complement.size}")
     private String complement;
+
+    @NotBlank(message = "{neighborhood.blank}")
+    @Size(max = 50, message = "{neighborhood.size}")
+    private String neighborhood;
+
+    @NotBlank(message = "{cep.blank}")
+    @Size(max = 9, message = "{cep.size}")
+    private String cep;
 
     public String getStreet() {
         return street;
