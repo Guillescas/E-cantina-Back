@@ -2,30 +2,25 @@ package br.com.projeto.ecantina.config.errors;
 
 public class ResponseErrors {
      
-    private String error;
-    private String value;
-    private String stackTrace;
+    private Boolean error;
+    private Integer status;
+    private String message;
 
-    public ResponseErrors(String error, String value) {
-        this.error = error;
-        this.value = value;
+    public ResponseErrors(String message, Integer status) {
+        this.error = true;
+        this.status = status;
+        this.message = message;
     }
 
-    public ResponseErrors(String error, String value, String stackTrace) {
-        this.error = error;
-        this.value = value;
-        this.stackTrace = stackTrace;
-    }
-
-    public String getError() {
+    public Boolean getError() {
         return error;
     }
 
-    public String getValue() {
-        return value;
+    public Integer getStatus() {
+        return status;
     }
 
-    public String getStackTrace() {
-        return stackTrace;
+    public String getMessage() {
+        return message;
     }
 }

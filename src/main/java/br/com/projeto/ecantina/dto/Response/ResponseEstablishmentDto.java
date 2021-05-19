@@ -11,7 +11,6 @@ public class ResponseEstablishmentDto {
     
     private Long id;
     private String email;
-    private String password;
     private String name;
     private Integer capacity;
     private BigDecimal rent;
@@ -21,7 +20,6 @@ public class ResponseEstablishmentDto {
     public ResponseEstablishmentDto(Establishment establishment) {
         this.id = establishment.getId();
         this.email = establishment.getEmail();
-        this.password = establishment.getPassword();
         this.name = establishment.getName();
         this.capacity = establishment.getCapacity();
         this.cnpj = establishment.getCnpj();
@@ -59,14 +57,6 @@ public class ResponseEstablishmentDto {
 
     public void setEmail(String email) {
         this.email = email;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
     }
 
     public String getName() {

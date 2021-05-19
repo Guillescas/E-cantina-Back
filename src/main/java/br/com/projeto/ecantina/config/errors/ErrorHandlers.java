@@ -2,6 +2,7 @@ package br.com.projeto.ecantina.config.errors;
 
 import org.springframework.dao.InvalidDataAccessResourceUsageException;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -16,9 +17,9 @@ public class ErrorHandlers {
         String msg = exception.toString();
         if(msg.contains(":")) {
             String[] error = msg.split(":");
-            return new ResponseErrors(error[0], error[1]);
+            return new ResponseErrors(error[1], HttpStatus.NOT_FOUND.value());
         } else {
-            return new ResponseErrors("Error", msg);
+            return new ResponseErrors(msg, HttpStatus.NOT_FOUND.value());
         }
 
     }
@@ -30,6 +31,16 @@ public class ErrorHandlers {
         String msg = exception.getMessage();
         exception.printStackTrace();
 
-        return new ResponseErrors("Error", msg);
+        return new ResponseErrors(msg, HttpStatus.NOT_FOUND.value());
+    }
+
+    @ResponseStatus(code = HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(value = AuthenticationException.class)
+    public ResponseErrors handle(AuthenticationException exception) {
+
+        String msg = exception.getLocalizedMessage();
+        exception.printStackTrace();
+
+        return new ResponseErrors(msg, HttpStatus.BAD_REQUEST.value());
     }
 }

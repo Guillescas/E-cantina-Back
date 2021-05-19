@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -23,6 +24,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import br.com.projeto.ecantina.config.errors.ResponseErrors;
 import br.com.projeto.ecantina.dto.request.RequestProductDto;
 import br.com.projeto.ecantina.dto.request.RequestUpdateProductDto;
 import br.com.projeto.ecantina.dto.response.ResponseProductDto;
@@ -55,13 +57,13 @@ public class ProductController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<ResponseProductDto> detail(@PathVariable Long productId) {
+    public ResponseEntity<Object> detail(@PathVariable Long productId) {
 
         Optional<Product> product = productRepository.findById(productId);
         if (product.isPresent()) {
             return ResponseEntity.ok(new ResponseProductDto(product.get()));
         }
-        return ResponseEntity.notFound().build();
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ResponseErrors("Produto não encontrado", HttpStatus.NOT_FOUND.value()));
     }
 
     @PostMapping
@@ -79,7 +81,7 @@ public class ProductController {
 
     @PatchMapping("/{id}")
     @Transactional
-    public ResponseEntity<ResponseProductDto> update(@PathVariable Long productId,
+    public ResponseEntity<Object> update(@PathVariable Long productId,
             @RequestBody RequestUpdateProductDto requestUpdateProductDto) {
 
         Optional<Product> productFind = productRepository.findById(productId);
@@ -87,7 +89,7 @@ public class ProductController {
             Product product = requestUpdateProductDto.update(productId, productRepository);
             return ResponseEntity.ok(new ResponseProductDto(product));
         }
-        return ResponseEntity.notFound().build();
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ResponseErrors("Produto não encontrado", HttpStatus.NOT_FOUND.value()));
 
     }
 
@@ -100,7 +102,7 @@ public class ProductController {
             productRepository.delete(product.get());
             return ResponseEntity.ok().build();
         }
-        return ResponseEntity.notFound().build();
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ResponseErrors("Produto não encontrado", HttpStatus.NOT_FOUND.value()));
 
     }
 }

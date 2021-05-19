@@ -7,6 +7,7 @@ import javax.transaction.Transactional;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import br.com.projeto.ecantina.config.errors.ResponseErrors;
 import br.com.projeto.ecantina.dto.request.RequestClientDto;
 import br.com.projeto.ecantina.dto.response.ResponseClientDto;
 import br.com.projeto.ecantina.dto.response.detailresponse.ResponseDetailClientDto;
@@ -45,13 +47,13 @@ public class ClientController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<ResponseDetailClientDto> detail(@PathVariable Long id) {
+    public ResponseEntity<Object> detail(@PathVariable Long id) {
         Optional<Client> client = clientRepository.findById(id);
 
         if(client.isPresent()) {
             return ResponseEntity.ok(new ResponseDetailClientDto(client.get()));
         } else {
-            return ResponseEntity.notFound().build();
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ResponseErrors("Cliente não encontrado", HttpStatus.NOT_FOUND.value()));
         }
     }
 }
