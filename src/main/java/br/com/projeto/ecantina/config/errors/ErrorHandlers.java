@@ -17,9 +17,9 @@ public class ErrorHandlers {
         String msg = exception.toString();
         if(msg.contains(":")) {
             String[] error = msg.split(":");
-            return new ResponseErrors(error[1], HttpStatus.NOT_FOUND.toString());
+            return new ResponseErrors(error[1], HttpStatus.NOT_FOUND.value());
         } else {
-            return new ResponseErrors(msg, HttpStatus.NOT_FOUND.toString());
+            return new ResponseErrors(msg, HttpStatus.NOT_FOUND.value());
         }
 
     }
@@ -31,7 +31,7 @@ public class ErrorHandlers {
         String msg = exception.getMessage();
         exception.printStackTrace();
 
-        return new ResponseErrors(msg, HttpStatus.NOT_FOUND.toString());
+        return new ResponseErrors(msg, HttpStatus.NOT_FOUND.value());
     }
 
     @ResponseStatus(code = HttpStatus.BAD_REQUEST)
@@ -41,6 +41,6 @@ public class ErrorHandlers {
         String msg = exception.getLocalizedMessage();
         exception.printStackTrace();
 
-        return new ResponseErrors(msg, HttpStatus.BAD_REQUEST.toString());
+        return new ResponseErrors(msg, HttpStatus.BAD_REQUEST.value());
     }
 }

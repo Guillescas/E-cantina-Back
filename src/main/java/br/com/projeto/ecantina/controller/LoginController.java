@@ -5,6 +5,7 @@ import java.util.Optional;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import br.com.projeto.ecantina.config.errors.ResponseErrors;
 import br.com.projeto.ecantina.config.security.TokenService;
 import br.com.projeto.ecantina.dto.request.LoginDto;
 import br.com.projeto.ecantina.dto.response.TokenDto;
@@ -36,7 +38,7 @@ public class LoginController {
     UserRepository userRepository;
 
     @PostMapping
-    public ResponseEntity<TokenDto> authenticate(@RequestBody @Valid LoginDto loginDto) {
+    public ResponseEntity<Object> authenticate(@RequestBody @Valid LoginDto loginDto) {
 
         Optional<User> user = userRepository.findByEmail(loginDto.getEmail());
 
@@ -51,7 +53,7 @@ public class LoginController {
 
         } 
 
-        return ResponseEntity.notFound().build();
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ResponseErrors("Usuário não encontrado", HttpStatus.NOT_FOUND.value()));
 
     }
 }

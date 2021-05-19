@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -21,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import br.com.projeto.ecantina.config.errors.ResponseErrors;
 import br.com.projeto.ecantina.dto.request.RequestOrderDto;
 import br.com.projeto.ecantina.dto.response.ResponseOrderDto;
 import br.com.projeto.ecantina.dto.response.detailresponse.ResponseDetailOrderDto;
@@ -72,13 +74,13 @@ public class OrderController {
     }
 
     @GetMapping("/{orderId}")
-    public ResponseEntity<ResponseDetailOrderDto> detail(@PathVariable Long orderId) {
+    public ResponseEntity<Object> detail(@PathVariable Long orderId) {
         Optional<Order> orderFind = orderRepository.findById(orderId);
 
         if(orderFind.isPresent()) {
             return ResponseEntity.ok(new ResponseDetailOrderDto(orderFind.get()));
         } 
-        return ResponseEntity.notFound().build();
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ResponseErrors("Pedido não encontrado", HttpStatus.NOT_FOUND.value()));
     }
 
     @DeleteMapping("/{orderId}")
@@ -91,6 +93,6 @@ public class OrderController {
             return ResponseEntity.ok().build();
         }
 
-        return ResponseEntity.notFound().build();
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ResponseErrors("Pedido não encontrado", HttpStatus.NOT_FOUND.value()));
     }
 }

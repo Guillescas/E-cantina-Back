@@ -11,6 +11,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,6 +23,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import br.com.projeto.ecantina.config.errors.ResponseErrors;
 import br.com.projeto.ecantina.dto.request.RequestRestaurantDto;
 import br.com.projeto.ecantina.dto.response.ResponseRestaurantDto;
 import br.com.projeto.ecantina.dto.response.detailresponse.ResponseDetailRestaurantDto;
@@ -69,7 +71,7 @@ public class RestaurantController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<ResponseDetailRestaurantDto> detail(@PathVariable Long id) {
+    public ResponseEntity<Object> detail(@PathVariable Long id) {
 
         Optional<Restaurant> restaurant = restaurantRepository.findById(id);
         if(restaurant.isPresent()) {
@@ -77,7 +79,7 @@ public class RestaurantController {
             return ResponseEntity.ok(new ResponseDetailRestaurantDto(restaurant.get()));
         }
 
-        return ResponseEntity.notFound().build();
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ResponseErrors("Restaurante Não encontrado", HttpStatus.NOT_FOUND.value()));
     }
 
     @PostMapping
