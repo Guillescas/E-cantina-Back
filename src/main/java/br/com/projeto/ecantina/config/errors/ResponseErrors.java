@@ -3,12 +3,12 @@ package br.com.projeto.ecantina.config.errors;
 public class ResponseErrors {
      
     private Boolean error;
-    private String code;
+    private String status;
     private String message;
 
-    public ResponseErrors(String message, String code) {
+    public ResponseErrors(String message, String status) {
         this.error = true;
-        this.code = code;
+        this.status = status;
         this.message = message;
     }
 
@@ -16,8 +16,8 @@ public class ResponseErrors {
         return error;
     }
 
-    public String getCode() {
-        return code;
+    public String getStatus() {
+        return status;
     }
 
     public String getMessage() {

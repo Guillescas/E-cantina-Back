@@ -27,7 +27,7 @@ public class ErrorValidationHandler {
 
         fieldErrors.forEach(e -> {
             String message = messageSource.getMessage(e, LocaleContextHolder.getLocale());
-            ResponseRegisterError error = new ResponseRegisterError(e.getField(), message);
+            ResponseRegisterError error = new ResponseRegisterError(e.getField(), message, HttpStatus.BAD_REQUEST.toString());
             rreDto.add(error);
         });
 
