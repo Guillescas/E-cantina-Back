@@ -7,7 +7,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.AuthenticationException;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -28,22 +27,16 @@ public class LoginController {
 
     @Autowired
     AuthenticationManager authenticationManager;
-    
+
     @PostMapping
     public ResponseEntity<TokenDto> authenticate(@RequestBody @Valid LoginDto loginDto) {
 
-        try {
+        UsernamePasswordAuthenticationToken dataLogin = loginDto.convert();
+        Authentication authentication = authenticationManager.authenticate(dataLogin);
 
-            UsernamePasswordAuthenticationToken dataLogin = loginDto.convert();
-            Authentication authentication = authenticationManager.authenticate(dataLogin);
+        String token = tokenService.generateToken(authentication);
 
-            String token = tokenService.generateToken(authentication);
+        return ResponseEntity.ok(new TokenDto(token, "Bearer"));
 
-            return ResponseEntity.ok(new TokenDto(token, "Bearer"));
-
-        } catch(AuthenticationException ex) {
-
-            return ResponseEntity.badRequest().build();
-        }
     }
 }
