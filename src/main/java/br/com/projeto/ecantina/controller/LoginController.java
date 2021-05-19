@@ -1,5 +1,7 @@
 package br.com.projeto.ecantina.controller;
 
+import java.util.Optional;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +18,8 @@ import org.springframework.web.bind.annotation.RestController;
 import br.com.projeto.ecantina.config.security.TokenService;
 import br.com.projeto.ecantina.dto.request.LoginDto;
 import br.com.projeto.ecantina.dto.response.TokenDto;
+import br.com.projeto.ecantina.models.User;
+import br.com.projeto.ecantina.repository.UserRepository;
 
 @CrossOrigin
 @RestController
@@ -28,15 +32,26 @@ public class LoginController {
     @Autowired
     AuthenticationManager authenticationManager;
 
+    @Autowired
+    UserRepository userRepository;
+
     @PostMapping
     public ResponseEntity<TokenDto> authenticate(@RequestBody @Valid LoginDto loginDto) {
 
-        UsernamePasswordAuthenticationToken dataLogin = loginDto.convert();
-        Authentication authentication = authenticationManager.authenticate(dataLogin);
+        Optional<User> user = userRepository.findByEmail(loginDto.getEmail());
 
-        String token = tokenService.generateToken(authentication);
+        if(user.isPresent()) {
 
-        return ResponseEntity.ok(new TokenDto(token, "Bearer"));
+            UsernamePasswordAuthenticationToken dataLogin = loginDto.convert();
+            Authentication authentication = authenticationManager.authenticate(dataLogin);
+    
+            String token = tokenService.generateToken(authentication);
+    
+            return ResponseEntity.ok(new TokenDto(token, "Bearer"));
+
+        } 
+
+        return ResponseEntity.notFound().build();
 
     }
 }
