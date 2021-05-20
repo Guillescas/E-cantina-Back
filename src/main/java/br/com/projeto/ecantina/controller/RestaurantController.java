@@ -64,6 +64,10 @@ public class RestaurantController {
             }
 
             return ResponseRestaurantDto.convert(restaurants);
+        } else if(nameRestaurant != null) {
+            restaurants = restaurantRepository.findRestaurantsPerName(nameRestaurant, pageable);
+
+            return ResponseRestaurantDto.convert(restaurants);
         }
 
         Page<Restaurant> allRestaurants = restaurantRepository.findAll(pageable);
