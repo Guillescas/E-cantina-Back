@@ -14,14 +14,10 @@ public class ErrorHandlers {
     @ExceptionHandler(value = NullPointerException.class)
     public ResponseErrors handle(NullPointerException exception) {
 
-        String msg = exception.toString();
-        if(msg.contains(":")) {
-            String[] error = msg.split(":");
-            return new ResponseErrors(error[1], HttpStatus.NOT_FOUND.value());
-        } else {
-            return new ResponseErrors(msg, HttpStatus.NOT_FOUND.value());
-        }
+        String msg = exception.getMessage();
+        exception.printStackTrace();
 
+        return new ResponseErrors(msg, HttpStatus.NOT_FOUND.value());
     }
 
     @ResponseStatus(code = HttpStatus.NOT_FOUND)

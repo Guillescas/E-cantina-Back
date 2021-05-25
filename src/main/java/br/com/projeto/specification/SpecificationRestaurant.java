@@ -14,7 +14,6 @@ public class SpecificationRestaurant {
             criteriaBuilder.like(root.get("name"), "%" + nameRestaurant + "%");
     }
 
-
     public static Specification<Restaurant> establishmentId(Establishment establishment) {
         return (root, criteriaQuery, criteriaBuilder) ->
             criteriaBuilder.equal(root.get("establishment"), establishment);

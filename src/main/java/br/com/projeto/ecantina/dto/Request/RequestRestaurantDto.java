@@ -96,17 +96,23 @@ public class RequestRestaurantDto {
     public Restaurant convert(EstablishmentRepository establishmentRepository, CategoryRepository categoryRepository) {
 
         Optional<Establishment> establishment = establishmentRepository.findByName(getEstablishmentName());
-        Optional<Category> findCategory = categoryRepository.findByName(getCategory());
-        Restaurant restaurant = null;
 
-        if (findCategory.isPresent()) {
-            restaurant = new Restaurant(getEmail(), getPassword(), getName(), findCategory.get());
+        if(establishment.isPresent()) {
+
+            Optional<Category> findCategory = categoryRepository.findByName(getCategory());
+            Restaurant restaurant = null;
+            
+            if (findCategory.isPresent()) {
+                restaurant = new Restaurant(getEmail(), getPassword(), getName(), findCategory.get());
+            } else {
+                restaurant = new Restaurant(email, password, name, new Category(category));
+            }
+            restaurant.getUserTypes().add(new UserType("ROLE_RESTAURANT"));
+            establishment.get().getRestaurants().add(restaurant);
+            
+            return restaurant;
         } else {
-            restaurant = new Restaurant(email, password, name, new Category(category));
+            throw new NullPointerException("Estabelecimento não encontrado!!!");
         }
-        restaurant.getUserTypes().add(new UserType("ROLE_RESTAURANT"));
-        establishment.get().getRestaurants().add(restaurant);
-
-        return restaurant;
     }   
 }
