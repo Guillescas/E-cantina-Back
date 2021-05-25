@@ -2,6 +2,7 @@ package br.com.projeto.ecantina.models;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -18,6 +19,8 @@ public class Restaurant extends User{
     
     @Column
     private BigDecimal rating;
+
+    private Boolean paid = true;
     
     @Column
     private Boolean open = false;
@@ -25,19 +28,16 @@ public class Restaurant extends User{
     @Column(length = 255)
     private String description;
 
-    @Column(nullable = false, updatable = false)
-    private String type;
-
     @ManyToOne(cascade = CascadeType.PERSIST)
     private Category categories;
 
     @OneToMany
     @JoinColumn(name = "restaurant_id")
-    private List<LoyaltyCard> loyaltyCards;
+    private Set<LoyaltyCard> loyaltyCards;
 
     @OneToMany
     @JoinColumn(name = "restaurant_id")
-    private List<Order> orders;
+    private Set<Order> orders;
     
     @OneToMany
     @JoinColumn(name = "restaurant_id")
@@ -45,12 +45,13 @@ public class Restaurant extends User{
 
     @OneToMany
     @JoinColumn(name = "restaurant_id")
-    private List<DiscountCoupon> DiscountCoupon;
+    private List<DiscountCoupon> discountCoupon;
 
     public Restaurant() {}
 
-    public Restaurant(String email, String password, String name) {
+    public Restaurant(String email, String password, String name, Category category) {
         super(email, password, name, "restaurant");
+        this.categories = category;
     }
 
     public Restaurant(String email, String password, String name, String cnpj) {
@@ -83,15 +84,19 @@ public class Restaurant extends User{
         return true;
     }
 
-    public List<DiscountCoupon> getDiscountCoupon() {
-        return DiscountCoupon;
+    public Boolean getPaid() {
+        return paid;
     }
 
-    public List<LoyaltyCard> getLoyaltyCards() {
+    public List<DiscountCoupon> getDiscountCoupon() {
+        return discountCoupon;
+    }
+
+    public Set<LoyaltyCard> getLoyaltyCards() {
         return loyaltyCards;
     }
 
-    public List<Order> getOrders() {
+    public Set<Order> getOrders() {
         return orders;
     }
 
@@ -131,28 +136,12 @@ public class Restaurant extends User{
         this.description = description;
     }
 
-    @Override
-    public String getUsername() {
-        return getEmail();
-    }
-    
-    @Override
-    public boolean isAccountNonExpired() {
-        return true;
+    public Category getCategories() {
+        return categories;
     }
     
     @Override
     public boolean isAccountNonLocked() {
-        return true;
-    }
-    
-    @Override
-    public boolean isCredentialsNonExpired() {
-        return true;
-    }
-    
-    @Override
-    public boolean isEnabled() {
-        return true;
+        return this.paid;
     }
 }

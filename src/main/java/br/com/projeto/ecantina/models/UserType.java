@@ -13,10 +13,16 @@ public class UserType implements GrantedAuthority {
     private static final long serialVersionUID = 1L;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String name;
+
+    public UserType() {}
+
+    public UserType(String name) {
+        this.name = name;
+    }
 
     @Override
     public int hashCode() {

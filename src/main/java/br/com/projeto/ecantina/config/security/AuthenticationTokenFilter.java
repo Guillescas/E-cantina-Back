@@ -12,52 +12,32 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import br.com.projeto.ecantina.models.User;
-import br.com.projeto.ecantina.repository.ClientRepository;
-import br.com.projeto.ecantina.repository.EstablishmentRepository;
-import br.com.projeto.ecantina.repository.RestaurantRepository;
+import br.com.projeto.ecantina.repository.UserRepository;
 
 public class AuthenticationTokenFilter extends OncePerRequestFilter {
 
     private TokenService tokenService;
 
-    private ClientRepository clientRepository;
-
-    private RestaurantRepository restaurantRepository;
-
-    private EstablishmentRepository establishmentRepository;
+    private UserRepository userRepository;
 
     public AuthenticationTokenFilter(TokenService tokenService, 
-            ClientRepository clientRepository,
-            RestaurantRepository restaurantRepository,
-            EstablishmentRepository establishmentRepository) {
+    UserRepository userRepository) {
         this.tokenService = tokenService;
-        this.clientRepository = clientRepository;
-        this.restaurantRepository = restaurantRepository;
-        this.establishmentRepository = establishmentRepository;
+        this.userRepository = userRepository;
     }
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
             throws ServletException, IOException {
 
-        User user = null;
         String token = getToken(request);
         Boolean valid = tokenService.isTokenValid(token);
 
         if (valid) {
             Long idUser = tokenService.getIdUser(token);
             String typeUser = tokenService.getTypeUser(token);
-            switch(typeUser) {
-                case "client":
-                    user = clientRepository.findUserById(idUser);
-                    break;
-                case "restaurant":
-                    user = restaurantRepository.findUserById(idUser);
-                    break;
-                case "establishment":
-                    user = establishmentRepository.findUserById(idUser);
-                    break;
-            }
+            User user = userRepository.findByIdAndType(idUser, typeUser);
+
             UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(user, null, user.getAuthorities());
             SecurityContextHolder.getContext().setAuthentication(authentication);
         }

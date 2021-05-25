@@ -13,7 +13,7 @@ import javax.persistence.ManyToOne;
 public class ProductList {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column
@@ -22,19 +22,20 @@ public class ProductList {
     @Column
     private BigDecimal value;
 
-    @ManyToOne
-    private Order order;
+    @Column 
+    private BigDecimal total;
 
     @ManyToOne
     private Product product;
 
     public ProductList() {}
 
-    public ProductList(Integer quantity, BigDecimal value) {
+    public ProductList(Integer quantity, Product product) {
         this.quantity = quantity;
-        this.value = value;
+        this.product = product;
+        this.value = product.getPrice();
+        this.total = getValue().multiply(new BigDecimal(getQuantity()));
     }
-
 
     @Override
     public int hashCode() {
@@ -61,16 +62,12 @@ public class ProductList {
         return true;
     }
 
-    public Order getOrder() {
-        return order;
+    public BigDecimal getTotal() {
+        return total;
     }
 
     public Product getProduct() {
         return product;
-    }
-
-    public void setOrder(Order order) {
-        this.order = order;
     }
 
     public void setProduct(Product product) {

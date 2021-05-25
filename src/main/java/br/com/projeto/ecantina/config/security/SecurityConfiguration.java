@@ -14,22 +14,23 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
-import br.com.projeto.ecantina.repository.ClientRepository;
-import br.com.projeto.ecantina.repository.EstablishmentRepository;
-import br.com.projeto.ecantina.repository.RestaurantRepository;
+import br.com.projeto.ecantina.repository.UserRepository;
 
 @Configuration
 @EnableWebSecurity
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
-    @Autowired
-    RestaurantRepository restaurantRepository;
+    // @Autowired
+    // RestaurantRepository restaurantRepository;
+
+    // @Autowired
+    // ClientRepository clientRepository;
+
+    // @Autowired
+    // EstablishmentRepository establishmentRepository;
 
     @Autowired
-    ClientRepository clientRepository;
-
-    @Autowired
-    EstablishmentRepository establishmentRepository;
+    private UserRepository userRepository;
 
     @Autowired
     private DetailService detailService;
@@ -47,21 +48,19 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable();
 
-        AuthenticationTokenFilter authTokenFilter = new AuthenticationTokenFilter(tokenService, clientRepository,
-                restaurantRepository, establishmentRepository);
+        AuthenticationTokenFilter authTokenFilter = new AuthenticationTokenFilter(tokenService, userRepository);
 
         http.authorizeRequests()
                 .antMatchers(HttpMethod.POST, "/client").permitAll()
                 .antMatchers(HttpMethod.POST, "/restaurant").permitAll()
                 .antMatchers(HttpMethod.POST, "/establishment").permitAll()
                 .antMatchers(HttpMethod.POST, "/login").permitAll()
-                .antMatchers(HttpMethod.POST, "/product").hasRole("RESTAURANT")
                 .antMatchers(HttpMethod.POST, "/upload").permitAll()
-                .antMatchers(HttpMethod.GET, "/upload").hasRole("CLIENT")
-                .antMatchers(HttpMethod.GET, "/upload").hasRole("RESTAURANT")
-                .antMatchers(HttpMethod.GET, "/client").hasRole("ADMIN")
-                .antMatchers(HttpMethod.DELETE, "/restaurant/*").hasRole("RESTAURANT")
                 .antMatchers(HttpMethod.PUT, "/restaurant/*").hasRole("RESTAURANT")
+                .antMatchers(HttpMethod.DELETE, "/restaurant/*").hasRole("RESTAURANT")
+                .antMatchers(HttpMethod.POST, "/product").hasRole("RESTAURANT")
+                .antMatchers(HttpMethod.POST, "/product/*").hasRole("RESTAURANT")
+                .antMatchers(HttpMethod.GET, "/establishment").hasRole("ADMIN")
                 .anyRequest().authenticated()
             .and()
                 .cors()

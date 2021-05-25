@@ -4,12 +4,17 @@ public class ResponseRegisterError {
     
     private String field;
     private String value;
+    private String status;
 
-    public ResponseRegisterError(String field, String value) {
+    public ResponseRegisterError(String field, String value, String status) {
         this.field = field;
         this.value = value;
+        this.status = status;
     }
 
+    public String getStatus() {
+        return status;
+    }
     public String getField() {
         return field;
     }

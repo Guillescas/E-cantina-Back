@@ -1,6 +1,7 @@
 package br.com.projeto.ecantina.dto.response.detailresponse;
 
 import java.util.List;
+import java.util.Set;
 
 import br.com.projeto.ecantina.models.Address;
 import br.com.projeto.ecantina.models.Card;
@@ -16,7 +17,7 @@ public class ResponseDetailClientDto {
     private String cpf;
 
     private List<Address> address;
-    private List<Order> orders;
+    private Set<Order> orders;
     private List<Card> cards;
     private List<LoyaltyCard> loyaltyCards;
     private String urlImage;
@@ -73,12 +74,8 @@ public class ResponseDetailClientDto {
         this.address = address;
     }
 
-    public List<Order> getOrders() {
+    public Set<Order> getOrders() {
         return orders;
-    }
-
-    public void setOrders(List<Order> orders) {
-        this.orders = orders;
     }
 
     public List<Card> getCards() {
