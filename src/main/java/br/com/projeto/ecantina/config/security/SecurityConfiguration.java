@@ -45,7 +45,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.POST, "/client").permitAll()
                 .antMatchers(HttpMethod.POST, "/restaurant").permitAll()
                 .antMatchers(HttpMethod.POST, "/establishment").permitAll()
-                .antMatchers(HttpMethod.POST, "/login").permitAll()
+                .antMatchers(HttpMethod.POST, "/authentication").permitAll()
                 .antMatchers(HttpMethod.POST, "/upload").permitAll()
                 .antMatchers(HttpMethod.PUT, "/restaurant/*").hasRole("RESTAURANT")
                 .antMatchers(HttpMethod.DELETE, "/restaurant/*").hasRole("RESTAURANT")
