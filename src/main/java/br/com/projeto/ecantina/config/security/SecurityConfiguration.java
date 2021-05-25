@@ -20,15 +20,6 @@ import br.com.projeto.ecantina.repository.UserRepository;
 @EnableWebSecurity
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
-    // @Autowired
-    // RestaurantRepository restaurantRepository;
-
-    // @Autowired
-    // ClientRepository clientRepository;
-
-    // @Autowired
-    // EstablishmentRepository establishmentRepository;
-
     @Autowired
     private UserRepository userRepository;
 
@@ -75,9 +66,4 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         auth.userDetailsService(detailService).passwordEncoder(new BCryptPasswordEncoder());
 
     }
-
-    @Override
-    public void configure(WebSecurity web) throws Exception {
-    }
-
 }

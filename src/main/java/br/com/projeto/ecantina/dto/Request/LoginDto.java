@@ -27,7 +27,6 @@ public class LoginDto {
     public void setPassword(String password) {
         this.password = password;
     }
-    
 
     public UsernamePasswordAuthenticationToken convert() {
         return new UsernamePasswordAuthenticationToken(getEmail(), getPassword());
