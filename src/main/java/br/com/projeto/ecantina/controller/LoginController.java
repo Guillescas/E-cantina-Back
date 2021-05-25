@@ -24,9 +24,9 @@ import br.com.projeto.ecantina.dto.response.TokenDto;
 import br.com.projeto.ecantina.models.User;
 import br.com.projeto.ecantina.repository.UserRepository;
 
-@CrossOrigin
 @RestController
 @RequestMapping("/authentication")
+@CrossOrigin
 public class LoginController {
 
     @Autowired
