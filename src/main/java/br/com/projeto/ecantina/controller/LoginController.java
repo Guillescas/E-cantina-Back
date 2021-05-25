@@ -25,7 +25,7 @@ import br.com.projeto.ecantina.repository.UserRepository;
 
 @CrossOrigin
 @RestController
-@RequestMapping("/login")
+@RequestMapping("/authentication")
 public class LoginController {
 
     @Autowired
