@@ -28,6 +28,9 @@ public class Restaurant extends User{
     @Column(length = 255)
     private String description;
 
+    @ManyToOne
+    private Establishment establishment;
+
     @ManyToOne(cascade = CascadeType.PERSIST)
     private Category categories;
 

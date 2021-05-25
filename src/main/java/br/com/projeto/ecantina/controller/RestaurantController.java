@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort.Direction;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -32,6 +33,7 @@ import br.com.projeto.ecantina.models.Restaurant;
 import br.com.projeto.ecantina.repository.CategoryRepository;
 import br.com.projeto.ecantina.repository.EstablishmentRepository;
 import br.com.projeto.ecantina.repository.RestaurantRepository;
+import br.com.projeto.specification.SpecificationRestaurant;
 
 @RestController
 @RequestMapping("/restaurant")
@@ -44,33 +46,24 @@ public class RestaurantController {
     @Autowired
     private EstablishmentRepository establishmentRepository;
 
-    @Autowired CategoryRepository categoryRepository;
+    @Autowired
+    CategoryRepository categoryRepository;
 
     @GetMapping
     public Page<ResponseRestaurantDto> list(@RequestParam(required = false) String nameRestaurant,
             @RequestParam(required = false) String nameEstablishment,
             @PageableDefault(sort = "id", direction = Direction.ASC, size = 10) Pageable pageable) {
 
-        Page<Restaurant> restaurants = null;
+        Optional<Establishment> establishmentOptional = establishmentRepository.findByName(nameEstablishment);
 
-        if (nameEstablishment != null) {
-            Establishment establishment = establishmentRepository.findByName(nameEstablishment);
-
-            if (nameRestaurant != null) {
-                restaurants = restaurantRepository.findEstablishmentRestaurantsPerName(establishment.getId(),
-                        nameRestaurant, pageable);
-            } else {
-                restaurants = restaurantRepository.findEstablishmentRestaurants(establishment.getId(), pageable);
-            }
-
-            return ResponseRestaurantDto.convert(restaurants);
-        } else if(nameRestaurant != null) {
-            restaurants = restaurantRepository.findRestaurantsPerName(nameRestaurant, pageable);
-
-            return ResponseRestaurantDto.convert(restaurants);
+        Establishment establishment = null;
+        if (establishmentOptional.isPresent()) {
+            establishment = establishmentOptional.get();
         }
 
-        Page<Restaurant> allRestaurants = restaurantRepository.findAll(pageable);
+        Page<Restaurant> allRestaurants = restaurantRepository
+                .findAll(Specification.where(SpecificationRestaurant.restaurantName(nameRestaurant))
+                        .or(SpecificationRestaurant.establishmentId(establishment)), pageable);
         return ResponseRestaurantDto.convert(allRestaurants);
     }
 
@@ -78,12 +71,13 @@ public class RestaurantController {
     public ResponseEntity<Object> detail(@PathVariable Long id) {
 
         Optional<Restaurant> restaurant = restaurantRepository.findById(id);
-        if(restaurant.isPresent()) {
+        if (restaurant.isPresent()) {
 
             return ResponseEntity.ok(new ResponseDetailRestaurantDto(restaurant.get()));
         }
 
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ResponseErrors("Restaurante Não encontrado", HttpStatus.NOT_FOUND.value()));
+        return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                .body(new ResponseErrors("Restaurante Não encontrado", HttpStatus.NOT_FOUND.value()));
     }
 
     @PostMapping

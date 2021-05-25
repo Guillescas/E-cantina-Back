@@ -95,7 +95,7 @@ public class RequestRestaurantDto {
 
     public Restaurant convert(EstablishmentRepository establishmentRepository, CategoryRepository categoryRepository) {
 
-        Establishment establishment = establishmentRepository.findByName(getEstablishmentName());
+        Optional<Establishment> establishment = establishmentRepository.findByName(getEstablishmentName());
         Optional<Category> findCategory = categoryRepository.findByName(getCategory());
         Restaurant restaurant = null;
 
@@ -105,7 +105,7 @@ public class RequestRestaurantDto {
             restaurant = new Restaurant(email, password, name, new Category(category));
         }
         restaurant.getUserTypes().add(new UserType("ROLE_RESTAURANT"));
-        establishment.getRestaurants().add(restaurant);
+        establishment.get().getRestaurants().add(restaurant);
 
         return restaurant;
     }   
