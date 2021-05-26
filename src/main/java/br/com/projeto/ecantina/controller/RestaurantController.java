@@ -33,7 +33,7 @@ import br.com.projeto.ecantina.models.Restaurant;
 import br.com.projeto.ecantina.repository.CategoryRepository;
 import br.com.projeto.ecantina.repository.EstablishmentRepository;
 import br.com.projeto.ecantina.repository.RestaurantRepository;
-import br.com.projeto.specification.SpecificationRestaurant;
+import br.com.projeto.ecantina.specification.SpecificationRestaurant;
 
 @RestController
 @RequestMapping("/restaurant")

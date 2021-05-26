@@ -1,6 +1,4 @@
-package br.com.projeto.specification;
-
-import javax.persistence.criteria.JoinType;
+package br.com.projeto.ecantina.specification;
 
 import org.springframework.data.jpa.domain.Specification;
 
