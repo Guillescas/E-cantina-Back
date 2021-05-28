@@ -66,12 +66,12 @@ public class ClientController {
 
     @PatchMapping("/{id}")
     @Transactional
-    public ResponseEntity<Object> update(@PathVariable Long clientId,
+    public ResponseEntity<Object> update(@PathVariable Long id,
             @RequestBody RequestUpdateClientDto requestUpdateClientDto) {
 
-        Optional<Client> clientFind = clientRepository.findById(clientId);
+        Optional<Client> clientFind = clientRepository.findById(id);
         if (clientFind.isPresent()) {
-            Client client = requestUpdateClientDto.update(clientId, clientRepository, userRepository);
+            Client client = requestUpdateClientDto.update(id, clientRepository, userRepository);
             return ResponseEntity.ok(new ResponseDetailClientDto(client));
         }
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ResponseErrors("Cliente não encontrado", HttpStatus.NOT_FOUND.value()));

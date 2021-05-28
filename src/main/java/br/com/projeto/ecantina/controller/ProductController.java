@@ -57,9 +57,9 @@ public class ProductController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Object> detail(@PathVariable Long productId) {
+    public ResponseEntity<Object> detail(@PathVariable Long id) {
 
-        Optional<Product> product = productRepository.findById(productId);
+        Optional<Product> product = productRepository.findById(id);
         if (product.isPresent()) {
             return ResponseEntity.ok(new ResponseProductDto(product.get()));
         }
@@ -81,12 +81,12 @@ public class ProductController {
 
     @PatchMapping("/{id}")
     @Transactional
-    public ResponseEntity<Object> update(@PathVariable Long productId,
+    public ResponseEntity<Object> update(@PathVariable Long id,
             @RequestBody RequestUpdateProductDto requestUpdateProductDto) {
 
-        Optional<Product> productFind = productRepository.findById(productId);
+        Optional<Product> productFind = productRepository.findById(id);
         if (productFind.isPresent()) {
-            Product product = requestUpdateProductDto.update(productId, productRepository);
+            Product product = requestUpdateProductDto.update(id, productRepository);
             return ResponseEntity.ok(new ResponseProductDto(product));
         }
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ResponseErrors("Produto não encontrado", HttpStatus.NOT_FOUND.value()));
@@ -95,9 +95,9 @@ public class ProductController {
 
     @DeleteMapping("/{id}")
     @Transactional
-    public ResponseEntity<Object> remove(@PathVariable Long productId) {
+    public ResponseEntity<Object> remove(@PathVariable Long id) {
 
-        Optional<Product> product = productRepository.findById(productId);
+        Optional<Product> product = productRepository.findById(id);
         if (product.isPresent()) {
             productRepository.delete(product.get());
             return ResponseEntity.ok().build();
