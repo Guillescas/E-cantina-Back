@@ -74,6 +74,6 @@ public class ClientController {
             Client client = requestUpdateClientDto.update(clientId, clientRepository, userRepository);
             return ResponseEntity.ok(new ResponseDetailClientDto(client));
         }
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ResponseErrors("Cliente não encontrado", HttpStatus.NOT_FOUND.value()));
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ResponseErrors("Cliente  não encontrado", HttpStatus.NOT_FOUND.value()));
     }
 }
