@@ -103,9 +103,9 @@ public class RequestRestaurantDto {
             Restaurant restaurant = null;
             
             if (findCategory.isPresent()) {
-                restaurant = new Restaurant(getEmail(), getPassword(), getName(), findCategory.get());
+                restaurant = new Restaurant(getEmail(), getPassword(), getName(), findCategory.get(), getDescription());
             } else {
-                restaurant = new Restaurant(email, password, name, new Category(category));
+                restaurant = new Restaurant(email, password, name, new Category(category), getDescription());
             }
             restaurant.getUserTypes().add(new UserType("ROLE_RESTAURANT"));
             establishment.get().getRestaurants().add(restaurant);

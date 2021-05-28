@@ -52,14 +52,16 @@ public class Restaurant extends User{
 
     public Restaurant() {}
 
-    public Restaurant(String email, String password, String name, Category category) {
+    public Restaurant(String email, String password, String name, Category category, String description) {
         super(email, password, name, "restaurant");
         this.categories = category;
+        this.description = description;
     }
 
-    public Restaurant(String email, String password, String name, String cnpj) {
+    public Restaurant(String email, String password, String name, String cnpj, String description) {
         super(email, password, name, "restaurant");
         this.cnpj = cnpj;
+        this.description = description;
     }
 
     @Override

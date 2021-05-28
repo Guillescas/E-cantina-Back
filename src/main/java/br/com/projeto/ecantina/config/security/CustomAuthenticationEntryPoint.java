@@ -1,7 +1,6 @@
 package br.com.projeto.ecantina.config.security;
 
 import java.io.IOException;
-import io.jsonwebtoken.SignatureException;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -14,7 +13,6 @@ import org.springframework.security.web.AuthenticationEntryPoint;
 
 import br.com.projeto.ecantina.config.errors.ResponseErrors;
 import io.jsonwebtoken.ExpiredJwtException;
-import io.jsonwebtoken.MalformedJwtException;
 
 public class CustomAuthenticationEntryPoint implements AuthenticationEntryPoint {
 
