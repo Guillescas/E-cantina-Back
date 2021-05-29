@@ -1,4 +1,4 @@
-package br.com.projeto.ecantina.dto.request;
+package br.com.projeto.ecantina.dto.request.restaurantdto;
 
 import java.util.Optional;
 
@@ -103,9 +103,9 @@ public class RequestRestaurantDto {
             Restaurant restaurant = null;
             
             if (findCategory.isPresent()) {
-                restaurant = new Restaurant(getEmail(), getPassword(), getName(), findCategory.get(), getDescription());
+                restaurant = new Restaurant(getEmail(), getPassword(), getName(), getCnpj(),findCategory.get(), getDescription());
             } else {
-                restaurant = new Restaurant(email, password, name, new Category(category), getDescription());
+                restaurant = new Restaurant(getEmail(), getPassword(), getName(), getCnpj(),new Category(category), getDescription());
             }
             restaurant.getUserTypes().add(new UserType("ROLE_RESTAURANT"));
             establishment.get().getRestaurants().add(restaurant);

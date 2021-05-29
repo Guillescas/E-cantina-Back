@@ -7,6 +7,7 @@ import javax.transaction.Transactional;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort.Direction;
@@ -16,6 +17,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -25,7 +27,8 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import br.com.projeto.ecantina.config.errors.ResponseErrors;
-import br.com.projeto.ecantina.dto.request.RequestRestaurantDto;
+import br.com.projeto.ecantina.dto.request.restaurantdto.RequestRestaurantDto;
+import br.com.projeto.ecantina.dto.request.restaurantdto.RequestUpdateRestaurantDto;
 import br.com.projeto.ecantina.dto.response.ResponseRestaurantDto;
 import br.com.projeto.ecantina.dto.response.detailresponse.ResponseDetailRestaurantDto;
 import br.com.projeto.ecantina.models.Establishment;
@@ -33,6 +36,7 @@ import br.com.projeto.ecantina.models.Restaurant;
 import br.com.projeto.ecantina.repository.CategoryRepository;
 import br.com.projeto.ecantina.repository.EstablishmentRepository;
 import br.com.projeto.ecantina.repository.RestaurantRepository;
+import br.com.projeto.ecantina.repository.UserRepository;
 import br.com.projeto.ecantina.specification.SpecificationRestaurant;
 
 @RestController
@@ -47,7 +51,13 @@ public class RestaurantController {
     private EstablishmentRepository establishmentRepository;
 
     @Autowired
+    private UserRepository userRepository;
+
+    @Autowired
     CategoryRepository categoryRepository;
+
+    @Value("Restaurante não encontrado")
+    private String notFound;
 
     @GetMapping
     public Page<ResponseRestaurantDto> list(@RequestParam(required = false) String nameRestaurant,
@@ -77,7 +87,7 @@ public class RestaurantController {
         }
 
         return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                .body(new ResponseErrors("Restaurante Não encontrado", HttpStatus.NOT_FOUND.value()));
+                .body(new ResponseErrors(notFound, HttpStatus.NOT_FOUND.value()));
     }
 
     @PostMapping
@@ -91,4 +101,23 @@ public class RestaurantController {
         URI uri = uriComponentsBuilder.path("/restaurant/{id}").buildAndExpand(restaurant.getId()).toUri();
         return ResponseEntity.created(uri).body(new ResponseRestaurantDto(restaurant));
     }
+
+    @PatchMapping("/{id}")
+    @Transactional
+    public ResponseEntity<Object> update(@PathVariable Long id,@Valid @RequestBody RequestUpdateRestaurantDto requestUpdateRestaurantDto) {
+
+        Optional<Restaurant> restaurantFind = restaurantRepository.findById(id);
+
+        if(restaurantFind.isPresent()) {
+            Restaurant restaurant = requestUpdateRestaurantDto.update(restaurantFind, userRepository, categoryRepository);
+            restaurantRepository.save(restaurant);
+            return ResponseEntity.ok(new ResponseDetailRestaurantDto(restaurant));
+        }
+
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ResponseErrors(notFound, HttpStatus.NOT_FOUND.value()));
+    }
+
+    //TODO resource for rating specific
+    //TODO resource for paid specific
+    //TODO resource for open specific
 }
