@@ -1,5 +1,7 @@
 package br.com.projeto.ecantina.dto.response;
 
+import org.springframework.data.domain.Page;
+
 import br.com.projeto.ecantina.models.Address;
 
 public class ResponseAddressDto {
@@ -40,5 +42,9 @@ public class ResponseAddressDto {
 
     public String getComplement() {
         return complement;
+    }
+
+    public static Page<ResponseAddressDto> convert(Page<Address> allAddress) {
+        return allAddress.map(ResponseAddressDto::new);
     }
 }
