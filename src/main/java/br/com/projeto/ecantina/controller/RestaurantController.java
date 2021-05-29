@@ -1,6 +1,5 @@
 package br.com.projeto.ecantina.controller;
 
-import java.math.BigDecimal;
 import java.net.URI;
 import java.util.Optional;
 
@@ -17,6 +16,7 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -113,6 +113,20 @@ public class RestaurantController {
             Restaurant restaurant = requestUpdateRestaurantDto.update(restaurantFind, userRepository, categoryRepository);
             restaurantRepository.save(restaurant);
             return ResponseEntity.ok(new ResponseDetailRestaurantDto(restaurant));
+        }
+
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ResponseErrors(notFound, HttpStatus.NOT_FOUND.value()));
+    }
+
+    @DeleteMapping("/{id}")
+    @Transactional
+    public ResponseEntity<Object> update(@PathVariable Long id) {
+
+        Optional<Restaurant> restaurantFind = restaurantRepository.findById(id);
+
+        if(restaurantFind.isPresent()) {
+            restaurantRepository.delete(restaurantFind.get());
+            return ResponseEntity.ok().build();
         }
 
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ResponseErrors(notFound, HttpStatus.NOT_FOUND.value()));
