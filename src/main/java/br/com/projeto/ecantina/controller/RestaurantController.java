@@ -1,5 +1,6 @@
 package br.com.projeto.ecantina.controller;
 
+import java.math.BigDecimal;
 import java.net.URI;
 import java.util.Optional;
 
@@ -116,8 +117,4 @@ public class RestaurantController {
 
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ResponseErrors(notFound, HttpStatus.NOT_FOUND.value()));
     }
-
-    //TODO resource for rating specific
-    //TODO resource for paid specific
-    //TODO resource for open specific
 }

@@ -94,6 +94,10 @@ public class Restaurant extends User{
         return true;
     }
 
+    public void setPaid(Boolean paid) {
+        this.paid = paid;
+    }
+
     public void setCategories(Category categories) {
         this.categories = categories;
     }
