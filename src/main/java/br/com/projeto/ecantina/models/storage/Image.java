@@ -15,7 +15,7 @@ import br.com.projeto.ecantina.repository.ImageStorageRepository;
 @Component
 public class Image {
 
-    @Value("${profile.image.directory-images}")
+    @Value("${image.directory-images}")
     private String directoryImages;
 
     public void saveImage(MultipartFile image, Long id, ImageStorageRepository imageStorageRepository) {

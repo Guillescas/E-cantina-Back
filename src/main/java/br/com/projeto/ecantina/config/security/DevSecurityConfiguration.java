@@ -19,9 +19,9 @@ import br.com.projeto.ecantina.repository.UserRepository;
 
 @Configuration
 @EnableWebSecurity
-@Profile("prod")
-public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
-
+@Profile("dev")
+public class DevSecurityConfiguration extends WebSecurityConfigurerAdapter {
+    
     @Autowired
     private UserRepository userRepository;
 
@@ -51,25 +51,26 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         AuthenticationTokenFilter authTokenFilter = new AuthenticationTokenFilter(tokenService, userRepository);
 
         http.authorizeRequests()
-                .antMatchers(HttpMethod.POST, "/client").permitAll()
-                .antMatchers(HttpMethod.POST, "/restaurant").permitAll()
-                .antMatchers(HttpMethod.POST, "/establishment").permitAll()
-                .antMatchers(HttpMethod.POST, "/authentication").permitAll()
-                .antMatchers(HttpMethod.POST, "/upload").permitAll()
-                .antMatchers(HttpMethod.PUT, "/restaurant/*").hasRole(roleRestaurant)
-                .antMatchers(HttpMethod.DELETE, "/restaurant/*").hasRole(roleRestaurant)
-                .antMatchers(HttpMethod.POST, "/product").hasRole(roleRestaurant)
-                .antMatchers(HttpMethod.POST, "/product/*").hasRole(roleRestaurant)
-                .antMatchers(HttpMethod.GET, "/establishment").hasRole("ADMIN")
-                .anyRequest().authenticated()
-                .and()
-                    .exceptionHandling().authenticationEntryPoint(authenticationEntryPoint())
-                .and()
-                    .cors()
-                .and()
-                    .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-                .and()
-                .   addFilterBefore(authTokenFilter, UsernamePasswordAuthenticationFilter.class);
+                // .antMatchers(HttpMethod.POST, "/client").permitAll()
+                // .antMatchers(HttpMethod.POST, "/restaurant").permitAll()
+                // .antMatchers(HttpMethod.POST, "/establishment").permitAll()
+                // .antMatchers(HttpMethod.POST, "/authentication").permitAll()
+                // .antMatchers(HttpMethod.POST, "/upload").permitAll()
+                // .antMatchers(HttpMethod.PUT, "/restaurant/*").hasRole(roleRestaurant)
+                // .antMatchers(HttpMethod.DELETE, "/restaurant/*").hasRole(roleRestaurant)
+                // .antMatchers(HttpMethod.POST, "/product").hasRole(roleRestaurant)
+                // .antMatchers(HttpMethod.POST, "/product/*").hasRole(roleRestaurant)
+                // .antMatchers(HttpMethod.GET, "/establishment").hasRole(roleRestaurant)
+                .antMatchers("/**").permitAll();
+                // .anyRequest().authenticated()
+                // // .and()
+                // //     .exceptionHandling().authenticationEntryPoint(authenticationEntryPoint())
+                // // .and()
+                // //     .cors()
+                // // .and()
+                // //     .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                // // .and()
+                // // .   addFilterBefore(authTokenFilter, UsernamePasswordAuthenticationFilter.class);
     }
 
     @Override

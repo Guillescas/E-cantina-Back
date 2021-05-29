@@ -41,7 +41,7 @@ public class ClientController {
     @Autowired
     private UserRepository userRepository;
     
-    @Value("{client.notFound}")
+    @Value("Cliente não encontrado")
     private String notFound;
 
     @PostMapping
