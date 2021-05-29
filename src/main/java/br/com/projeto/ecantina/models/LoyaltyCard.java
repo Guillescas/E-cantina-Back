@@ -1,5 +1,6 @@
 package br.com.projeto.ecantina.models;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 
 import javax.persistence.Column;
@@ -9,7 +10,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity(name = "loyalty_card")
-public class LoyaltyCard {
+public class LoyaltyCard implements Serializable {
+
+  private static final Long serialVersionUID = 1L;
   
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
