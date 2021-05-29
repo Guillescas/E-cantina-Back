@@ -1,4 +1,4 @@
-package br.com.projeto.ecantina.dto.request.clientdto;
+package br.com.projeto.ecantina.dto.request.updatedto;
 
 import java.util.Optional;
 

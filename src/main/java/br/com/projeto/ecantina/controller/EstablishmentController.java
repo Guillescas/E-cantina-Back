@@ -14,7 +14,9 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -24,10 +26,12 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import br.com.projeto.ecantina.config.errors.ResponseErrors;
 import br.com.projeto.ecantina.dto.request.RequestEstablishmentDto;
+import br.com.projeto.ecantina.dto.request.updatedto.RequestUpdateEstablishmentDto;
 import br.com.projeto.ecantina.dto.response.ResponseEstablishmentDto;
 import br.com.projeto.ecantina.dto.response.detailresponse.ResponseDetailEstablishmentDto;
 import br.com.projeto.ecantina.models.Establishment;
 import br.com.projeto.ecantina.repository.EstablishmentRepository;
+import br.com.projeto.ecantina.repository.UserRepository;
 
 @RestController
 @RequestMapping("/establishment")
@@ -36,6 +40,9 @@ public class EstablishmentController {
 
     @Autowired
     EstablishmentRepository establishmentRepository;
+
+    @Autowired
+    UserRepository userRepository;
 
     @Value("Estabelecimento não encontrado")
     private String notFound;
@@ -71,4 +78,19 @@ public class EstablishmentController {
 
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ResponseErrors(notFound, HttpStatus.NOT_FOUND.value()));
     }
+
+    @PatchMapping("/{id}")
+    @Transactional
+    public ResponseEntity<Object> update(@PathVariable Long id, @RequestBody RequestUpdateEstablishmentDto requestUpdateEstablishmentDto) {
+
+        Optional<Establishment> establishmentFind = establishmentRepository.findById(id);
+        if (establishmentFind.isPresent()) {
+            Establishment establishment = requestUpdateEstablishmentDto.update(establishmentFind, userRepository);
+            establishmentRepository.save(establishment);
+            return ResponseEntity.ok(new ResponseDetailEstablishmentDto(establishment));
+        } 
+
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ResponseErrors(notFound, HttpStatus.NOT_FOUND.value()));
+    }
+
 }

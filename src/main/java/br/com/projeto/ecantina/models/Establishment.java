@@ -27,7 +27,7 @@ public class Establishment extends User {
     @JoinColumn(name = "establishment_id")
     private List<Restaurant> restaurants;
 
-    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Address address;
 
     

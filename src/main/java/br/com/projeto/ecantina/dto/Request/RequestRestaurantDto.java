@@ -1,4 +1,4 @@
-package br.com.projeto.ecantina.dto.request.restaurantdto;
+package br.com.projeto.ecantina.dto.request;
 
 import java.util.Optional;
 

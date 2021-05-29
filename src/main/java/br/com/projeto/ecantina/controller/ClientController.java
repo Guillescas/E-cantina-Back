@@ -22,8 +22,8 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import br.com.projeto.ecantina.config.errors.ResponseErrors;
-import br.com.projeto.ecantina.dto.request.clientdto.RequestClientDto;
-import br.com.projeto.ecantina.dto.request.clientdto.RequestUpdateClientDto;
+import br.com.projeto.ecantina.dto.request.RequestClientDto;
+import br.com.projeto.ecantina.dto.request.updatedto.RequestUpdateClientDto;
 import br.com.projeto.ecantina.dto.response.ResponseClientDto;
 import br.com.projeto.ecantina.dto.response.detailresponse.ResponseDetailClientDto;
 import br.com.projeto.ecantina.models.Client;

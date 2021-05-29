@@ -1,4 +1,4 @@
-package br.com.projeto.ecantina.dto.request.clientdto;
+package br.com.projeto.ecantina.dto.request;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;

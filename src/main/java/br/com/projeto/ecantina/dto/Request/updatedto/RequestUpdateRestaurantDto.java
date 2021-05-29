@@ -1,4 +1,4 @@
-package br.com.projeto.ecantina.dto.request.restaurantdto;
+package br.com.projeto.ecantina.dto.request.updatedto;
 
 import java.math.BigDecimal;
 import java.util.Optional;
@@ -73,7 +73,7 @@ public class RequestUpdateRestaurantDto {
         return this.name;
     }
 
-    public void changeAttributes(Restaurant restaurant, CategoryRepository categoryRepository) {
+    private void changeAttributes(Restaurant restaurant, CategoryRepository categoryRepository) {
 
         if (this.cnpj != null && !getCnpj().isBlank())
             restaurant.setCnpj(getCnpj());
@@ -103,7 +103,7 @@ public class RequestUpdateRestaurantDto {
             CategoryRepository categoryRepository) {
         Restaurant restaurant = restaurantFind.get();
 
-        if (!restaurant.getEmail().equals(getEmail())) {
+        if (!restaurant.getEmail().equals(getEmail()) && this.email != null) {
             Optional<User> user = userRepository.findByEmail(getEmail());
             if (user.isPresent())
                 throw new EmailNotValidException("Email já está em uso");
