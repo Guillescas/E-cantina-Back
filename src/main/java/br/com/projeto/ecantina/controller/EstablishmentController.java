@@ -6,6 +6,7 @@ import java.util.Optional;
 import javax.transaction.Transactional;
 import javax.validation.Valid;
 
+import org.apache.catalina.connector.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
@@ -93,4 +94,16 @@ public class EstablishmentController {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ResponseErrors(notFound, HttpStatus.NOT_FOUND.value()));
     }
 
+    @DeleteMapping("/{id}")
+    @Transactional
+    public ResponseEntity<Object> delete(@PathVariable Long id) {
+
+        Optional<Establishment> establishmentFind = establishmentRepository.findById(id);
+        if (establishmentFind.isPresent()) {
+            establishmentRepository.delete(establishmentFind.get());
+            return ResponseEntity.ok().build();
+        }
+
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ResponseErrors(notFound, HttpStatus.NOT_FOUND.value()));
+    }
 }
