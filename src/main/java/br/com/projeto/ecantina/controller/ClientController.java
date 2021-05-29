@@ -7,9 +7,11 @@ import javax.transaction.Transactional;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -38,6 +40,9 @@ public class ClientController {
 
     @Autowired
     private UserRepository userRepository;
+    
+    @Value("{client.notFound}")
+    private String notFound;
 
     @PostMapping
     @Transactional
@@ -60,7 +65,7 @@ public class ClientController {
             return ResponseEntity.ok(new ResponseDetailClientDto(client.get()));
         } else {
             return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                    .body(new ResponseErrors("Cliente não encontrado", HttpStatus.NOT_FOUND.value()));
+                    .body(new ResponseErrors(notFound, HttpStatus.NOT_FOUND.value()));
         }
     }
 
@@ -74,6 +79,19 @@ public class ClientController {
             Client client = requestUpdateClientDto.update(id, clientRepository, userRepository);
             return ResponseEntity.ok(new ResponseDetailClientDto(client));
         }
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ResponseErrors("Cliente não encontrado", HttpStatus.NOT_FOUND.value()));
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ResponseErrors(notFound, HttpStatus.NOT_FOUND.value()));
+    }
+
+    @DeleteMapping("{id}")
+    @Transactional
+    public ResponseEntity<Object> delete(@PathVariable Long id) {
+
+        Optional<Client> client = clientRepository.findById(id);
+        if(client.isPresent()) {
+            clientRepository.delete(client.get());
+            return ResponseEntity.ok().build();
+        }
+
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ResponseErrors(notFound, HttpStatus.NOT_FOUND.value()));
     }
 }
