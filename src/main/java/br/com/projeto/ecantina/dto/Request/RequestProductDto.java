@@ -1,5 +1,6 @@
 package br.com.projeto.ecantina.dto.request;
 
+import java.math.BigDecimal;
 import java.util.Optional;
 
 import javax.validation.constraints.NotBlank;
@@ -19,7 +20,7 @@ public class RequestProductDto {
     
     @NotNull(message = "{price.null}")
     @Positive(message = "{price.positive}")
-    private String price;
+    private BigDecimal price;
 
     @Size(max = 300, message = "{description.size}")
     private String description;
@@ -42,16 +43,12 @@ public class RequestProductDto {
         this.name = name;
     }
 
-    public String getPrice() {
+    public BigDecimal getPrice() {
         return price;
     }
 
     public String getType() {
         return type;
-    }
-
-    public void setPrice(String price) {
-        this.price = price;
     }
 
     public String getDescription() {
@@ -66,10 +63,8 @@ public class RequestProductDto {
         Optional<Restaurant> restaurant = restaurantRepository.findById(Long.valueOf(getRestaurantId()));
         
         if(restaurant.isPresent()) {
-            Product product = new Product(getName(), getType(), getPrice());
-            restaurant.get().getProducts().add(product);
-            restaurantRepository.save(restaurant.get());
-            
+            Product product = new Product(getName(), getType(), getPrice(), getDescription());
+            restaurant.get().getProducts().add(product);          
             return product;
         } else {
             throw new NullPointerException("Restaurante:Restaurante não encontrado");

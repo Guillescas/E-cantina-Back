@@ -32,10 +32,11 @@ public class Product implements Serializable {
 
     public Product() {}
 
-    public Product(String name, String type, BigDecimal price) {
+    public Product(String name, String type, BigDecimal price, String description) {
         this.name = name;
         this.type = type;
         this.price = price;
+        this.description = description;
     }
 
     public Product(String name, String type, String price) {
