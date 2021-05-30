@@ -42,4 +42,6 @@ public class ErrorHandlers {
 
         return new ResponseErrors(msg, HttpStatus.BAD_REQUEST.value());
     }
+
+    //TODO HttpMessageNotReadableException : excecao de não mandar nada no body
 }

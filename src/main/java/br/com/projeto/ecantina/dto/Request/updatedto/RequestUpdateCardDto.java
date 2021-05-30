@@ -1,15 +1,21 @@
 package br.com.projeto.ecantina.dto.request.updatedto;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.Optional;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.CreditCardNumber;
 
+import br.com.projeto.ecantina.models.BankData;
 import br.com.projeto.ecantina.models.Card;
+import br.com.projeto.ecantina.repository.BankDataRepository;
 
 public class RequestUpdateCardDto {
+
+    private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
     
     @NotBlank(message = "{cardNumber.blank}")
     @CreditCardNumber(message = "{cardNumber.format}")
@@ -20,7 +26,7 @@ public class RequestUpdateCardDto {
     private String owner;
 
     @NotBlank(message = "{validThru.blank}")
-    private LocalDate validThru;
+    private String validThru;
 
     @NotBlank(message = "{cpf.blank}")
     @Size(max = 14, message = "{cpf.size}")
@@ -32,6 +38,8 @@ public class RequestUpdateCardDto {
 
     @NotBlank(message = "{bank.blank}")
     private String bank;
+
+    private BankData newBank;
 
     public String getBank() {
         return bank;
@@ -54,10 +62,27 @@ public class RequestUpdateCardDto {
     }
 
     public LocalDate getValidThru() {
-        return validThru;
+        return LocalDate.parse(this.validThru, formatter);
     }
 
-    // public Card update() {
+    public Card update(Optional<Card> cardFind, BankDataRepository bankDataRepository) {
         
-    // }
+        Card card = cardFind.get();
+        Optional<BankData> bankFind = bankDataRepository.findByName(getBank());
+
+        if(bankFind.isPresent()) {
+            card.setBank(bankFind.get());
+        } else {
+            newBank = new BankData(getBank());
+            card.setBank(newBank);
+            bankDataRepository.save(newBank);
+        }
+
+        card.setCardNumber(getCardNumber());
+        card.setCvv(getCvv());
+        card.setOwner(getOwner());
+        card.setValidThru(getValidThru());
+
+        return card;
+    }
 }

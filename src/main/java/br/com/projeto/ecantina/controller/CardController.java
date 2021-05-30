@@ -90,12 +90,20 @@ public class CardController {
                 .body(new ResponseErrors(notFound, HttpStatus.NOT_FOUND.value()));
     }
 
-    // @PatchMapping("/{id}")
-    // @Transactional
-    // public ResponseEntity<Object> update(@RequestBody RequestUpdateCardDto requestUpdateCardDto, @PathVariable Long id) {
+    @PatchMapping("/{id}")
+    @Transactional
+    public ResponseEntity<Object> update(@RequestBody RequestUpdateCardDto requestUpdateCardDto, @PathVariable Long id) {
 
-    //     Optional
-    // }
+        Optional<Card> cardFind = cardRepository.findById(id);
+        if (cardFind.isPresent()) {
+            Card card = requestUpdateCardDto.update(cardFind, bankDataRepository);
+            cardRepository.save(card);
+            return ResponseEntity.ok(new ResponseCardDto(card));
+        } 
+
+        return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                .body(new ResponseErrors(notFound, HttpStatus.NOT_FOUND.value()));
+    }
 
     @DeleteMapping("/{id}")
     @Transactional
