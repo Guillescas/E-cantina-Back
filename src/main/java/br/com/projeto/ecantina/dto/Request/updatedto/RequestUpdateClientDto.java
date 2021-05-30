@@ -1,4 +1,4 @@
-package br.com.projeto.ecantina.dto.request;
+package br.com.projeto.ecantina.dto.request.updatedto;
 
 import java.util.Optional;
 
@@ -9,7 +9,6 @@ import javax.validation.constraints.Size;
 import br.com.projeto.ecantina.config.exceptions.EmailNotValidException;
 import br.com.projeto.ecantina.models.Client;
 import br.com.projeto.ecantina.models.User;
-import br.com.projeto.ecantina.repository.ClientRepository;
 import br.com.projeto.ecantina.repository.UserRepository;
 
 public class RequestUpdateClientDto {
@@ -42,8 +41,7 @@ public class RequestUpdateClientDto {
         return name;
     }
 
-    public Client update(Long id, ClientRepository clientRepository, UserRepository userRepository) {
-        Optional<Client> client = clientRepository.findById(id);
+    public Client update(Optional<Client> client, UserRepository userRepository) {
 
         if (!client.get().getEmail().equals(getEmail())) {
             Optional<User> user = userRepository.findByEmail(getEmail());

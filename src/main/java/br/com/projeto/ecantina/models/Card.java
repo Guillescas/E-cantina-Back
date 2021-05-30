@@ -1,17 +1,20 @@
 package br.com.projeto.ecantina.models;
 
-import java.math.BigDecimal;
+import java.io.Serializable;
 import java.time.LocalDate;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
 @Entity(name = "card")
-public class Card {
+public class Card implements Serializable{
+
+  private static final Long serialVersionUID = 1L;
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -26,34 +29,28 @@ public class Card {
   @Column(updatable = false, nullable = false)
   private LocalDate validThru;
 
-  @Column(nullable = false)
-  private BigDecimal price;
-
   @Column(length = 3, nullable = false)
   private String cvv;
 
   @ManyToOne
-  BankData bank;
+  private BankData bank;
 
   public Card() {}
 
-  public Card(String cardNumber, String owner, LocalDate validThru, BigDecimal price, String cvv) {
+  public Card(String cardNumber, String owner, LocalDate validThru, String cvv) {
     this.cardNumber = cardNumber;
     this.owner = owner;
     this.validThru = validThru;
-    this.price = price;
     this.cvv = cvv;
   }
 
-  public Card(String cardNumber, String owner, LocalDate validThru, BigDecimal price, String cvv, BankData bank) {
+  public Card(String cardNumber, String owner, LocalDate validThru, String cvv, BankData bank) {
     this.cardNumber = cardNumber;
     this.owner = owner;
     this.validThru = validThru;
-    this.price = price;
     this.cvv = cvv;
     this.bank = bank;
   }
-
 
   @Override
   public int hashCode() {
@@ -79,7 +76,7 @@ public class Card {
       return false;
     return true;
   }
-  
+
   public BankData getBank() {
       return bank;
   }
@@ -90,10 +87,6 @@ public class Card {
 
   public Long getId() {
     return id;
-  }
-
-  public void setId(Long id) {
-    this.id = id;
   }
 
   public String getCardNumber() {
@@ -118,14 +111,6 @@ public class Card {
 
   public void setValidThru(LocalDate validThru) {
     this.validThru = validThru;
-  }
-
-  public BigDecimal getPrice() {
-    return price;
-  }
-
-  public void setPrice(BigDecimal price) {
-    this.price = price;
   }
 
   public String getCvv() {

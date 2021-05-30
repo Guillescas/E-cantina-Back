@@ -3,6 +3,7 @@ package br.com.projeto.ecantina.config.security;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Profile;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -18,6 +19,7 @@ import br.com.projeto.ecantina.repository.UserRepository;
 
 @Configuration
 @EnableWebSecurity
+@Profile("prod")
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Autowired
@@ -44,6 +46,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable();
 
+        String roleRestaurant = "RESTAURANT";
+
         AuthenticationTokenFilter authTokenFilter = new AuthenticationTokenFilter(tokenService, userRepository);
 
         http.authorizeRequests()
@@ -52,10 +56,10 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.POST, "/establishment").permitAll()
                 .antMatchers(HttpMethod.POST, "/authentication").permitAll()
                 .antMatchers(HttpMethod.POST, "/upload").permitAll()
-                .antMatchers(HttpMethod.PUT, "/restaurant/*").hasRole("RESTAURANT")
-                .antMatchers(HttpMethod.DELETE, "/restaurant/*").hasRole("RESTAURANT")
-                .antMatchers(HttpMethod.POST, "/product").hasRole("RESTAURANT")
-                .antMatchers(HttpMethod.POST, "/product/*").hasRole("RESTAURANT")
+                .antMatchers(HttpMethod.PUT, "/restaurant/*").hasRole(roleRestaurant)
+                .antMatchers(HttpMethod.DELETE, "/restaurant/*").hasRole(roleRestaurant)
+                .antMatchers(HttpMethod.POST, "/product").hasRole(roleRestaurant)
+                .antMatchers(HttpMethod.POST, "/product/*").hasRole(roleRestaurant)
                 .antMatchers(HttpMethod.GET, "/establishment").hasRole("ADMIN")
                 .anyRequest().authenticated()
                 .and()

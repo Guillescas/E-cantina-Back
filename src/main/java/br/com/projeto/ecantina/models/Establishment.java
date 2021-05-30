@@ -27,7 +27,7 @@ public class Establishment extends User {
     @JoinColumn(name = "establishment_id")
     private List<Restaurant> restaurants;
 
-    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Address address;
 
     
@@ -44,6 +44,31 @@ public class Establishment extends User {
         this.address = address;
         this.rent = rent;
         this.cnpj = cnpj;
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = super.hashCode();
+        result = prime * result + ((cnpj == null) ? 0 : cnpj.hashCode());
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (!super.equals(obj))
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        Establishment other = (Establishment) obj;
+        if (cnpj == null) {
+            if (other.cnpj != null)
+                return false;
+        } else if (!cnpj.equals(other.cnpj))
+            return false;
+        return true;
     }
 
     public String getCnpj() {

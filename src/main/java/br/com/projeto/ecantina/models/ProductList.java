@@ -1,5 +1,6 @@
 package br.com.projeto.ecantina.models;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 
 import javax.persistence.Column;
@@ -10,7 +11,9 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
 @Entity(name = "products_list")
-public class ProductList {
+public class ProductList implements Serializable {
+
+    private static final Long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

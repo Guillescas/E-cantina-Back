@@ -20,10 +20,10 @@ public class Restaurant extends User{
     @Column
     private BigDecimal rating;
 
-    private Boolean paid = true;
+    private Boolean paid;
     
     @Column
-    private Boolean open = false;
+    private Boolean open;
     
     @Column(length = 255)
     private String description;
@@ -56,12 +56,17 @@ public class Restaurant extends User{
         super(email, password, name, "restaurant");
         this.categories = category;
         this.description = description;
+        this.open = false;
+        this.paid = true;
     }
 
-    public Restaurant(String email, String password, String name, String cnpj, String description) {
+    public Restaurant(String email, String password, String name, String cnpj, Category category, String description) {
         super(email, password, name, "restaurant");
         this.cnpj = cnpj;
+        this.categories = category;
         this.description = description;
+        this.open = false;
+        this.paid = true;
     }
 
     @Override
@@ -87,6 +92,14 @@ public class Restaurant extends User{
         } else if (!cnpj.equals(other.cnpj))
             return false;
         return true;
+    }
+
+    public void setPaid(Boolean paid) {
+        this.paid = paid;
+    }
+
+    public void setCategories(Category categories) {
+        this.categories = categories;
     }
 
     public Boolean getPaid() {

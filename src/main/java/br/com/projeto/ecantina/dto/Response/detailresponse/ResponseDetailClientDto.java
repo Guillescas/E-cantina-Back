@@ -38,40 +38,20 @@ public class ResponseDetailClientDto {
         return email;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
     public String getName() {
         return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     public String getType() {
         return type;
     }
 
-    public void setType(String type) {
-        this.type = type;
-    }
-
     public String getCpf() {
         return cpf;
     }
 
-    public void setCpf(String cpf) {
-        this.cpf = cpf;
-    }
-
     public List<Address> getAddress() {
         return address;
-    }
-
-    public void setAddress(List<Address> address) {
-        this.address = address;
     }
 
     public Set<Order> getOrders() {
@@ -82,23 +62,11 @@ public class ResponseDetailClientDto {
         return cards;
     }
 
-    public void setCards(List<Card> cards) {
-        this.cards = cards;
-    }
-
     public List<LoyaltyCard> getLoyaltyCards() {
         return loyaltyCards;
     }
 
-    public void setLoyaltyCards(List<LoyaltyCard> loyaltyCards) {
-        this.loyaltyCards = loyaltyCards;
-    }
-
     public String getUrlImage() {
         return urlImage;
-    }
-
-    public void setUrlImage(String urlImage) {
-        this.urlImage = urlImage;
     }
 }

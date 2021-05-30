@@ -1,15 +1,13 @@
 package br.com.projeto.ecantina.config.errors;
 
-import java.nio.file.AccessDeniedException;
-
 import org.springframework.dao.InvalidDataAccessResourceUsageException;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.AuthenticationException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.context.request.WebRequest;
+
+import br.com.projeto.ecantina.config.exceptions.EmailNotValidException;
 
 @RestControllerAdvice
 public class ErrorHandlers {
@@ -35,17 +33,15 @@ public class ErrorHandlers {
     }
 
     @ResponseStatus(code = HttpStatus.BAD_REQUEST)
-    @ExceptionHandler(value = AuthenticationException.class)
-    public ResponseErrors handle(AuthenticationException exception) {
+    @ExceptionHandler(EmailNotValidException.class)
+    public ResponseErrors handle(EmailNotValidException exception, WebRequest request) {
 
-        String msg = exception.getLocalizedMessage();
+        String msg = exception.getMessage();
         exception.printStackTrace();
+
 
         return new ResponseErrors(msg, HttpStatus.BAD_REQUEST.value());
     }
 
-    @ExceptionHandler(AccessDeniedException.class)
-    public ResponseEntity<Object> handle(Exception e, WebRequest request) {
-        return new ResponseEntity<>("Acesso negado!", HttpStatus.FORBIDDEN);
-    }
+    //TODO HttpMessageNotReadableException : excecao de não mandar nada no body
 }

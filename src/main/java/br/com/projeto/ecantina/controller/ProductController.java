@@ -7,6 +7,7 @@ import javax.transaction.Transactional;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
@@ -43,6 +44,9 @@ public class ProductController {
     @Autowired
     ProductRepository productRepository;
 
+    @Value("Produto não encontrado")
+    private String notFound;
+
     @GetMapping
     public Page<ResponseProductDto> list(@PageableDefault(sort = "type") Pageable pageable,
             @RequestParam(required = false) Long restaurantId) {
@@ -63,7 +67,7 @@ public class ProductController {
         if (product.isPresent()) {
             return ResponseEntity.ok(new ResponseProductDto(product.get()));
         }
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ResponseErrors("Produto não encontrado", HttpStatus.NOT_FOUND.value()));
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ResponseErrors(notFound, HttpStatus.NOT_FOUND.value()));
     }
 
     @PostMapping
@@ -89,7 +93,7 @@ public class ProductController {
             Product product = requestUpdateProductDto.update(id, productRepository);
             return ResponseEntity.ok(new ResponseProductDto(product));
         }
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ResponseErrors("Produto não encontrado", HttpStatus.NOT_FOUND.value()));
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ResponseErrors(notFound, HttpStatus.NOT_FOUND.value()));
 
     }
 
@@ -102,7 +106,7 @@ public class ProductController {
             productRepository.delete(product.get());
             return ResponseEntity.ok().build();
         }
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ResponseErrors("Produto não encontrado", HttpStatus.NOT_FOUND.value()));
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ResponseErrors(notFound, HttpStatus.NOT_FOUND.value()));
 
     }
 }

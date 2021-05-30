@@ -1,5 +1,6 @@
 package br.com.projeto.ecantina.models;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -15,7 +16,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 
 @Entity(name = "orders")
-public class Order {
+public class Order implements Serializable{
+
+    private static final Long serialVersionUID = 1L;
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

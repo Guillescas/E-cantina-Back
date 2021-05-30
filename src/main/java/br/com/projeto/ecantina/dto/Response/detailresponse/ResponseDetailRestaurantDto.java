@@ -62,10 +62,6 @@ public class ResponseDetailRestaurantDto {
         return open;
     }
 
-    public void setOpen(Boolean open) {
-        this.open = open;
-    }
-
     public String getDescription() {
         return description;
     }

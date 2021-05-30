@@ -23,7 +23,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import br.com.projeto.ecantina.config.errors.ResponseErrors;
 import br.com.projeto.ecantina.dto.request.RequestClientDto;
-import br.com.projeto.ecantina.dto.request.RequestUpdateClientDto;
+import br.com.projeto.ecantina.dto.request.updatedto.RequestUpdateClientDto;
 import br.com.projeto.ecantina.dto.response.ResponseClientDto;
 import br.com.projeto.ecantina.dto.response.detailresponse.ResponseDetailClientDto;
 import br.com.projeto.ecantina.models.Client;
@@ -41,7 +41,7 @@ public class ClientController {
     @Autowired
     private UserRepository userRepository;
     
-    @Value("{client.notFound}")
+    @Value("Cliente não encontrado")
     private String notFound;
 
     @PostMapping
@@ -76,7 +76,7 @@ public class ClientController {
 
         Optional<Client> clientFind = clientRepository.findById(id);
         if (clientFind.isPresent()) {
-            Client client = requestUpdateClientDto.update(id, clientRepository, userRepository);
+            Client client = requestUpdateClientDto.update(clientFind, userRepository);
             return ResponseEntity.ok(new ResponseDetailClientDto(client));
         }
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ResponseErrors(notFound, HttpStatus.NOT_FOUND.value()));

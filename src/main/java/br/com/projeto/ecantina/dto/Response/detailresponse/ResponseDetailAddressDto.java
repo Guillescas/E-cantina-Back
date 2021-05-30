@@ -1,12 +1,12 @@
-package br.com.projeto.ecantina.dto.response;
-
-import org.springframework.data.domain.Page;
+package br.com.projeto.ecantina.dto.response.detailresponse;
 
 import br.com.projeto.ecantina.models.Address;
 
-public class ResponseAddressDto {
+public class ResponseDetailAddressDto {
 
-    private String street;
+    private Long id;
+
+    private String streetName;
 
     private String cep;
 
@@ -16,20 +16,25 @@ public class ResponseAddressDto {
 
     private String complement;
 
-    public ResponseAddressDto(Address address) {
-        this.street = address.getStreetName();
+    public ResponseDetailAddressDto(Address address) {
+        this.id = address.getId();
+        this.streetName = address.getStreetName();
         this.cep = address.getCep();
         this.neighborhood = address.getNeighborhood();
         this.number = address.getNumber();
         this.complement = address.getComplement();
     }
 
-    public String getStreet() {
-        return street;
-    }
-
     public String getCep() {
         return cep;
+    }
+
+    public String getComplement() {
+        return complement;
+    }
+
+    public Long getId() {
+        return id;
     }
 
     public String getNeighborhood() {
@@ -40,11 +45,7 @@ public class ResponseAddressDto {
         return number;
     }
 
-    public String getComplement() {
-        return complement;
-    }
-
-    public static Page<ResponseAddressDto> convert(Page<Address> allAddress) {
-        return allAddress.map(ResponseAddressDto::new);
+    public String getStreetName() {
+        return streetName;
     }
 }
