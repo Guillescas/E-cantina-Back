@@ -27,7 +27,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import br.com.projeto.ecantina.config.errors.ResponseErrors;
 import br.com.projeto.ecantina.dto.request.RequestProductDto;
-import br.com.projeto.ecantina.dto.request.RequestUpdateProductDto;
+import br.com.projeto.ecantina.dto.request.updatedto.RequestUpdateProductDto;
 import br.com.projeto.ecantina.dto.response.ResponseProductDto;
 import br.com.projeto.ecantina.models.Product;
 import br.com.projeto.ecantina.repository.ProductRepository;

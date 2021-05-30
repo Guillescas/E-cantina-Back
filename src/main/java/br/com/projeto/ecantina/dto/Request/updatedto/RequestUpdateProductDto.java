@@ -1,4 +1,4 @@
-package br.com.projeto.ecantina.dto.request;
+package br.com.projeto.ecantina.dto.request.updatedto;
 
 import java.math.BigDecimal;
 
