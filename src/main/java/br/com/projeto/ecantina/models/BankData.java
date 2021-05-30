@@ -1,5 +1,7 @@
 package br.com.projeto.ecantina.models;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -7,7 +9,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity(name= "bank_data")
-public class BankData {
+public class BankData implements Serializable {
+
+  private static final long serialVersionUID = 1L;
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -18,8 +22,7 @@ public class BankData {
 
   public BankData() {}
   
-  public BankData(Long id, String name) {
-    this.id = id;
+  public BankData(String name) {
     this.name = name;
   }
 

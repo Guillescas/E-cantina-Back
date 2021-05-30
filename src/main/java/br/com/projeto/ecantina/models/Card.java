@@ -29,34 +29,31 @@ public class Card implements Serializable{
   @Column(updatable = false, nullable = false)
   private LocalDate validThru;
 
-  @Column(nullable = false)
-  private BigDecimal price;
+  @ManyToOne
+  private Client client;
 
   @Column(length = 3, nullable = false)
   private String cvv;
 
   @ManyToOne
-  BankData bank;
+  private BankData bank;
 
   public Card() {}
 
-  public Card(String cardNumber, String owner, LocalDate validThru, BigDecimal price, String cvv) {
+  public Card(String cardNumber, String owner, LocalDate validThru, String cvv) {
     this.cardNumber = cardNumber;
     this.owner = owner;
     this.validThru = validThru;
-    this.price = price;
     this.cvv = cvv;
   }
 
-  public Card(String cardNumber, String owner, LocalDate validThru, BigDecimal price, String cvv, BankData bank) {
+  public Card(String cardNumber, String owner, LocalDate validThru, String cvv, BankData bank) {
     this.cardNumber = cardNumber;
     this.owner = owner;
     this.validThru = validThru;
-    this.price = price;
     this.cvv = cvv;
     this.bank = bank;
   }
-
 
   @Override
   public int hashCode() {
@@ -81,6 +78,10 @@ public class Card implements Serializable{
     } else if (!id.equals(other.id))
       return false;
     return true;
+  }
+
+  public Client getClient() {
+      return client;
   }
   
   public BankData getBank() {
@@ -121,14 +122,6 @@ public class Card implements Serializable{
 
   public void setValidThru(LocalDate validThru) {
     this.validThru = validThru;
-  }
-
-  public BigDecimal getPrice() {
-    return price;
-  }
-
-  public void setPrice(BigDecimal price) {
-    this.price = price;
   }
 
   public String getCvv() {
