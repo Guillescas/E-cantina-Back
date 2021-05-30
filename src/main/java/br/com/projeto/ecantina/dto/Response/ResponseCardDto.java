@@ -4,7 +4,6 @@ import java.time.LocalDate;
 
 import br.com.projeto.ecantina.models.BankData;
 import br.com.projeto.ecantina.models.Card;
-import br.com.projeto.ecantina.models.Client;
 
 public class ResponseCardDto {
 
@@ -16,8 +15,6 @@ public class ResponseCardDto {
 
     private LocalDate validThru;
 
-    private Client client;
-
     private String cvv;
 
     private BankData bank;
@@ -27,7 +24,6 @@ public class ResponseCardDto {
         this.cardNumber = card.getCardNumber();
         this.owner = card.getOwner();
         this.validThru = card.getValidThru();
-        this.client = card.getClient();
         this.cvv = card.getCvv();
         this.bank = card.getBank();
     }
@@ -38,10 +34,6 @@ public class ResponseCardDto {
 
     public String getCardNumber() {
         return cardNumber;
-    }
-
-    public Client getClient() {
-        return client;
     }
 
     public String getCvv() {

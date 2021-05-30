@@ -60,7 +60,7 @@ public class CardController {
         Optional<Client> cOptional = clientRepository.findById(clientId);
 
         if (cOptional.isPresent()) {
-            return cardRepository.findByClient(cOptional.get(), pageable);
+            return cardRepository.findByClient(clientId, pageable);
         }
 
         throw new NullPointerException("Cliente não encontrado");

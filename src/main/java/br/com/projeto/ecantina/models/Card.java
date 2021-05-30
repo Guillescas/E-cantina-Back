@@ -1,11 +1,11 @@
 package br.com.projeto.ecantina.models;
 
 import java.io.Serializable;
-import java.math.BigDecimal;
 import java.time.LocalDate;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -28,9 +28,6 @@ public class Card implements Serializable{
 
   @Column(updatable = false, nullable = false)
   private LocalDate validThru;
-
-  @ManyToOne
-  private Client client;
 
   @Column(length = 3, nullable = false)
   private String cvv;
@@ -80,10 +77,6 @@ public class Card implements Serializable{
     return true;
   }
 
-  public Client getClient() {
-      return client;
-  }
-  
   public BankData getBank() {
       return bank;
   }
