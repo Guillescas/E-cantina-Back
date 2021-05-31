@@ -30,6 +30,9 @@ public class Product implements Serializable {
     @Column(nullable = false)
     private BigDecimal price;
 
+    @Column
+    private String urlImage;
+
     public Product() {}
 
     public Product(String name, String type, BigDecimal price, String description) {
@@ -68,6 +71,14 @@ public class Product implements Serializable {
         } else if (!id.equals(other.id))
             return false;
         return true;
+    }
+    
+    public void setUrlImage(String urlImage) {
+        this.urlImage = urlImage;
+    }
+
+    public String getUrlImage() {
+        return urlImage;
     }
 
     public Long getId() {

@@ -19,7 +19,9 @@ import org.springframework.web.util.UriComponentsBuilder;
 import br.com.projeto.ecantina.config.components.ImageComponent;
 import br.com.projeto.ecantina.config.errors.ResponseErrors;
 import br.com.projeto.ecantina.dto.response.ResponseImageDto;
+import br.com.projeto.ecantina.models.Product;
 import br.com.projeto.ecantina.models.User;
+import br.com.projeto.ecantina.repository.ProductRepository;
 import br.com.projeto.ecantina.repository.UserRepository;
 
 @RestController
@@ -29,20 +31,38 @@ public class ImagesController {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private ProductRepository productRepository;
     
     @Autowired
-    private ImageComponent uploadImage;
+    private ImageComponent imageComponent;
 
     @PostMapping
     @Transactional
-    public ResponseEntity<Object> upload(@RequestParam MultipartFile image, @RequestParam Long userId,UriComponentsBuilder uriComponentsBuilder) {
+    public ResponseEntity<Object> upload(@RequestParam MultipartFile image, @RequestParam Long userId, @RequestParam(required = false) Long productId, UriComponentsBuilder uriComponentsBuilder) {
 
-        Optional<User> user = userRepository.findById(userId);
-        if (user.isPresent()) {
-            String fileName = uploadImage.saveImage(image, user.get());
+        Product product = null;
+        Optional<User> userFind = userRepository.findById(userId);
+
+        if(productId != null) {
+            Optional<Product> productFind = productRepository.findById(productId);
+            product = productFind.get();
+        }
+
+        if (userFind.isPresent()) {
+            String fileName = imageComponent.saveImage(image, userFind.get(), product);
+
+            if (product != null) {
+                product.setUrlImage(fileName);
+                productRepository.save(product);
+            } else {
+                userFind.get().setUrlImage(fileName);
+                userRepository.save(userFind.get());
+            }
     
             URI uri = uriComponentsBuilder.path(fileName).build().toUri();
-            return ResponseEntity.created(uri).body(new ResponseImageDto(image.getOriginalFilename()));
+            return ResponseEntity.created(uri).body(new ResponseImageDto(fileName));
         }
 
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ResponseErrors("Usuário não encontrado", HttpStatus.NOT_FOUND.value()));

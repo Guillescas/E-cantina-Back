@@ -42,6 +42,8 @@ public abstract class User implements UserDetails {
     @Column(updatable = false, nullable = false)
     private String type;
 
+    private String urlImage;
+
     @ManyToMany(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
     private List<UserType> userTypes;
 
@@ -96,6 +98,14 @@ public abstract class User implements UserDetails {
     public Collection<? extends GrantedAuthority> getAuthorities() {
 
         return this.userTypes;
+    }
+
+    public String getUrlImage() {
+        return urlImage;
+    }
+
+    public void setUrlImage(String urlImage) {
+        this.urlImage = urlImage;
     }
 
     public List<UserType> getUserTypes() {
