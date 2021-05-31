@@ -52,9 +52,6 @@ public class Client extends User {
     @JoinColumn(name = "client_id")
     private List<LoyaltyCard> loyaltyCards;
 
-    @Column
-    private String urlImage;
-
     public Client() {
     }
 
@@ -127,15 +124,7 @@ public class Client extends User {
     public void setAddress(List<Address> address) {
         this.address = address;
     }
-
-    public String getUrlImage() {
-        return urlImage;
-    }
-
-    public void setUrlImage(String urlImage) {
-        this.urlImage = urlImage;
-    }
-
+    
     @Override
     public String getUsername() {
         return getEmail();

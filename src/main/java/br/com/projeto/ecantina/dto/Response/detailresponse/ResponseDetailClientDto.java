@@ -31,7 +31,6 @@ public class ResponseDetailClientDto {
         this.orders = client.getOrders();
         this.cards = client.getCards();
         this.loyaltyCards = client.getLoyaltyCards();
-        this.urlImage = client.getUrlImage();
     }
 
     public String getEmail() {
