@@ -51,7 +51,6 @@ public class RequestUpdateClientDto {
                 client.get().setEmail(getEmail());
         }
         client.get().setCpf(getCpf());
-        client.get().setUrlImage(getUrlImage());
         client.get().setName(getName());
         return client.get();
 

@@ -20,20 +20,15 @@ import br.com.projeto.ecantina.repository.ClientRepository;
 import br.com.projeto.ecantina.repository.EstablishmentRepository;
 import br.com.projeto.ecantina.repository.ImageStorageRepository;
 import br.com.projeto.ecantina.repository.RestaurantRepository;
+import br.com.projeto.ecantina.repository.UserRepository;
 
 @RestController
 @CrossOrigin
 @RequestMapping("/upload")
 public class ImagesController {
 
-    // @Autowired
-    // ClientRepository clientRepository;
-
-    // @Autowired
-    // RestaurantRepository restaurantRepository;
-
-    // @Autowired
-    // EstablishmentRepository establishmentRepository;
+    @Autowired
+    private UserRepository userRepository;
     
     @Autowired
     private Image uploadImage;
