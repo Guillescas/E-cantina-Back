@@ -27,6 +27,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import br.com.projeto.ecantina.config.components.ImageComponent;
 import br.com.projeto.ecantina.config.errors.ResponseErrors;
 import br.com.projeto.ecantina.dto.request.RequestRestaurantDto;
 import br.com.projeto.ecantina.dto.request.updatedto.RequestUpdateRestaurantDto;
@@ -56,6 +57,9 @@ public class RestaurantController {
 
     @Autowired
     CategoryRepository categoryRepository;
+
+    @Autowired
+    ImageComponent imageComponent;
 
     @Value("Restaurante não encontrado")
     private String notFound;
@@ -125,6 +129,7 @@ public class RestaurantController {
         Optional<Restaurant> restaurantFind = restaurantRepository.findById(id);
 
         if(restaurantFind.isPresent()) {
+            imageComponent.deleteImageUser(restaurantFind.get());
             restaurantRepository.delete(restaurantFind.get());
             return ResponseEntity.ok().build();
         }

@@ -39,7 +39,7 @@ public class ImagesController {
     private ImageComponent imageComponent;
 
     @PostMapping
-    @Transactional
+    @Transactional // TODO separar upload para cada controller ao inves de um unico
     public ResponseEntity<Object> upload(@RequestParam MultipartFile image, @RequestParam Long userId, @RequestParam(required = false) Long productId, UriComponentsBuilder uriComponentsBuilder) {
 
         Product product = null;

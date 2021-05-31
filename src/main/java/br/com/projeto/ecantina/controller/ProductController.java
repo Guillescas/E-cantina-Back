@@ -25,6 +25,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import br.com.projeto.ecantina.config.components.ImageComponent;
 import br.com.projeto.ecantina.config.errors.ResponseErrors;
 import br.com.projeto.ecantina.dto.request.RequestProductDto;
 import br.com.projeto.ecantina.dto.request.updatedto.RequestUpdateProductDto;
@@ -43,6 +44,9 @@ public class ProductController {
 
     @Autowired
     ProductRepository productRepository;
+
+    @Autowired
+    ImageComponent imageComponent;
 
     @Value("Produto não encontrado")
     private String notFound;
@@ -103,6 +107,7 @@ public class ProductController {
 
         Optional<Product> product = productRepository.findById(id);
         if (product.isPresent()) {
+            imageComponent.deleteImageProduct(product.get());
             productRepository.delete(product.get());
             return ResponseEntity.ok().build();
         }

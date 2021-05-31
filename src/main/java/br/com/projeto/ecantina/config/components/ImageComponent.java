@@ -19,17 +19,28 @@ public class ImageComponent {
     @Value("${image.directory-images}")
     private String directoryImages;
 
+    public void deleteImageUser(User user) {
+        if (user.getType() == "restaurant") {
+            
+            delete(user.getUrlImage(), this.directoryImages);
+        }
+    }
+
+    public void deleteImageProduct(Product product) {
+        delete(product.getUrlImage(), this.directoryImages);
+    }
+
     public String saveImage(MultipartFile image, User user, Product product) {
         Path directory = createDirectoryPath(this.directoryImages + "/images", user, product);
         verifyIfAlreadyHaveImage(directory.toString(), user, product);
         return this.save(directory, image);
     }
 
-    private void verifyIfAlreadyHaveImage(String directory, User user, Product product) {  
+    private void verifyIfAlreadyHaveImage(String directory, User user, Product product) {
         String image = directory.split("images")[0];
         try {
             if (user.getUrlImage() != null) {
-                if(product != null) {
+                if (product != null) {
                     Path file = Paths.get(image + product.getUrlImage());
                     Files.deleteIfExists(file);
                 } else {
@@ -64,10 +75,11 @@ public class ImageComponent {
         String root = absolutePath.normalize().toString();
 
         if (user.getType().equals("restaurant")) {
-            if(product != null) {
-                directoryPath = Paths.get(root,String.join("/", directory, user.getType(), user.getId().toString(), "products"));
+            if (product != null) {
+                directoryPath = Paths.get(root,
+                        String.join("/", directory, user.getType(), user.getId().toString(), "products"));
             } else {
-                directoryPath = Paths.get(root,String.join("/", directory, user.getType(), user.getId().toString()));
+                directoryPath = Paths.get(root, String.join("/", directory, user.getType(), user.getId().toString()));
             }
         } else {
             directoryPath = Paths.get(root, String.format("%s/%s", directory, user.getType()));
@@ -75,11 +87,21 @@ public class ImageComponent {
         return directoryPath;
     }
 
-    public String fileFormat(MultipartFile file) {
+    private String fileFormat(MultipartFile file) {
         // TODO return error if not a image
         String fileName = file.getOriginalFilename();
         String fileFormat = fileName.substring(fileName.length() - 4, fileName.length());
 
         return fileFormat;
+    }
+
+    private void delete(String urlImage, String directory) {
+        try {
+            Path file = Paths.get("").toAbsolutePath().resolve(directory).resolve(urlImage);
+            Files.deleteIfExists(file);
+        } catch (IOException e) {
+            e.printStackTrace();
+            throw new RuntimeException("Erro ao deletar imagens");
+        }
     }
 }
