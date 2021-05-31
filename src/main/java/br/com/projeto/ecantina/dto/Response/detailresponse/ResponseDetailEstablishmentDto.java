@@ -21,6 +21,8 @@ public class ResponseDetailEstablishmentDto {
 
     private BigDecimal rent;
 
+    private String urlImage;
+
     private List<Restaurant> restaurants;
 
     private Address address;
@@ -34,6 +36,11 @@ public class ResponseDetailEstablishmentDto {
         this.rent = establishment.getRent();
         this.restaurants = establishment.getRestaurants();
         this.address = establishment.getAddress();
+        this.urlImage = establishment.getUrlImage();
+    }
+    
+    public String getUrlImage() {
+        return urlImage;
     }
 
     public Address getAddress() {

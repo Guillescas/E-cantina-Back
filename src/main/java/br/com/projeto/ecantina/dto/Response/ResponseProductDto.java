@@ -22,6 +22,10 @@ public class ResponseProductDto {
         this.price = product.getPrice();
     }
 
+    public Long getId() {
+        return id;
+    }
+
     public String getType() {
         return type;
     }

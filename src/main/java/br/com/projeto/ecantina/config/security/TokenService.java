@@ -32,6 +32,7 @@ public class TokenService {
                 .claim("email", userLogin.getEmail())
                 .claim("name", userLogin.getName())
                 .claim("type", userLogin.getType())
+                .claim("urlImage", userLogin.getUrlImage())
                 .setIssuedAt(today)
                 .setExpiration(dateExpiration)
                 .signWith(SignatureAlgorithm.HS256, secret)
