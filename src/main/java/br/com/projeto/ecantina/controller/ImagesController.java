@@ -20,7 +20,6 @@ import br.com.projeto.ecantina.config.components.ImageComponent;
 import br.com.projeto.ecantina.config.errors.ResponseErrors;
 import br.com.projeto.ecantina.dto.response.ResponseImageDto;
 import br.com.projeto.ecantina.models.User;
-import br.com.projeto.ecantina.repository.ImageStorageRepository;
 import br.com.projeto.ecantina.repository.UserRepository;
 
 @RestController
@@ -34,22 +33,15 @@ public class ImagesController {
     @Autowired
     private ImageComponent uploadImage;
 
-    @Autowired
-    ImageStorageRepository imageStorageRepository;
-
     @PostMapping
-    @Transactional // TODO insert a path variable to identify the user that is uploading.
+    @Transactional
     public ResponseEntity<Object> upload(@RequestParam MultipartFile image, @RequestParam Long userId,UriComponentsBuilder uriComponentsBuilder) {
 
-
         Optional<User> user = userRepository.findById(userId);
-
         if (user.isPresent()) {
-            // TODO insert the user id here.
-            uploadImage.saveImage(image, imageStorageRepository);
+            String fileName = uploadImage.saveImage(image, user.get());
     
-    
-            URI uri = uriComponentsBuilder.path("/upload/{originalFilename}").buildAndExpand(image.getOriginalFilename()).toUri();
+            URI uri = uriComponentsBuilder.path(fileName).build().toUri();
             return ResponseEntity.created(uri).body(new ResponseImageDto(image.getOriginalFilename()));
         }
 
