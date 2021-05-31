@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.context.request.WebRequest;
 
 import br.com.projeto.ecantina.config.exceptions.EmailNotValidException;
+import br.com.projeto.ecantina.config.exceptions.ImageTypeMismatchException;
 
 @RestControllerAdvice
 public class ErrorHandlers {
@@ -17,7 +18,6 @@ public class ErrorHandlers {
     public ResponseErrors handle(NullPointerException exception) {
 
         String msg = exception.getMessage();
-        exception.printStackTrace();
 
         return new ResponseErrors(msg, HttpStatus.NOT_FOUND.value());
     }
@@ -27,7 +27,6 @@ public class ErrorHandlers {
     public ResponseErrors handle(InvalidDataAccessResourceUsageException exception) {
 
         String msg = exception.getMessage();
-        exception.printStackTrace();
 
         return new ResponseErrors(msg, HttpStatus.NOT_FOUND.value());
     }
@@ -37,10 +36,17 @@ public class ErrorHandlers {
     public ResponseErrors handle(EmailNotValidException exception, WebRequest request) {
 
         String msg = exception.getMessage();
-        exception.printStackTrace();
-
 
         return new ResponseErrors(msg, HttpStatus.BAD_REQUEST.value());
+    }
+
+    @ResponseStatus(code = HttpStatus.UNSUPPORTED_MEDIA_TYPE)
+    @ExceptionHandler(ImageTypeMismatchException.class)
+    public ResponseErrors handle(ImageTypeMismatchException exception) {
+
+        String msg = exception.getMessage();
+
+        return new ResponseErrors(msg, HttpStatus.UNSUPPORTED_MEDIA_TYPE.value());
     }
 
     //TODO HttpMessageNotReadableException : excecao de não mandar nada no body
