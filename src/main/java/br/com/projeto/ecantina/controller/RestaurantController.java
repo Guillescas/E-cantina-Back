@@ -130,6 +130,9 @@ public class RestaurantController {
 
         if(restaurantFind.isPresent()) {
             imageComponent.deleteImageUser(restaurantFind.get());
+            restaurantFind.get().getProducts().forEach(product -> {
+                imageComponent.deleteImageProduct(product);
+            });
             restaurantRepository.delete(restaurantFind.get());
             return ResponseEntity.ok().build();
         }

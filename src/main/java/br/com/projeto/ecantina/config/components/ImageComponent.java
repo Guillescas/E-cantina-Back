@@ -20,14 +20,15 @@ public class ImageComponent {
     private String directoryImages;
 
     public void deleteImageUser(User user) {
-        if (user.getType() == "restaurant") {
-            
+        if (user.getUrlImage() != null) {
             delete(user.getUrlImage(), this.directoryImages);
         }
     }
 
     public void deleteImageProduct(Product product) {
-        delete(product.getUrlImage(), this.directoryImages);
+        if (product.getUrlImage() != null) {
+            delete(product.getUrlImage(), this.directoryImages);
+        }
     }
 
     public String saveImage(MultipartFile image, User user, Product product) {
@@ -74,16 +75,12 @@ public class ImageComponent {
         Path absolutePath = Paths.get("").toAbsolutePath();
         String root = absolutePath.normalize().toString();
 
-        if (user.getType().equals("restaurant")) {
-            if (product != null) {
-                directoryPath = Paths.get(root,
-                        String.join("/", directory, user.getType(), user.getId().toString(), "products"));
-            } else {
-                directoryPath = Paths.get(root, String.join("/", directory, user.getType(), user.getId().toString()));
-            }
+        if (product != null) {
+            directoryPath = Paths.get(root, String.join("/", directory, "products"));
         } else {
-            directoryPath = Paths.get(root, String.format("%s/%s", directory, user.getType()));
+            directoryPath = Paths.get(root, String.join("/", directory, user.getType()));
         }
+
         return directoryPath;
     }
 
