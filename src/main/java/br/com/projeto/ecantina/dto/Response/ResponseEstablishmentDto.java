@@ -12,6 +12,7 @@ public class ResponseEstablishmentDto {
     private String name;
     private Integer capacity;
     private Address address;
+    private String urlImage;
 
     public ResponseEstablishmentDto(Establishment establishment) {
         this.id = establishment.getId();
@@ -19,6 +20,11 @@ public class ResponseEstablishmentDto {
         this.name = establishment.getName();
         this.capacity = establishment.getCapacity();
         this.address = establishment.getAddress();
+        this.urlImage = establishment.getUrlImage();
+    }
+
+    public String getUrlImage() {
+        return urlImage;
     }
 
     public Address getAddress() {

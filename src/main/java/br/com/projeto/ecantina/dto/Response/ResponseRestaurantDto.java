@@ -11,12 +11,18 @@ public class ResponseRestaurantDto {
     private String email;
     private String name;
     private Category category;
+    private String urlImage;
 
     public ResponseRestaurantDto(Restaurant restaurant) {
         this.id = restaurant.getId();
         this.email = restaurant.getEmail();
         this.name = restaurant.getName();
         this.category = restaurant.getCategories();
+        this.urlImage = restaurant.getUrlImage();
+    }
+
+    public String getUrlImage() {
+        return urlImage;
     }
 
     public Long getId() {

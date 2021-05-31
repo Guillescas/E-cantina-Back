@@ -25,6 +25,8 @@ public class ResponseDetailRestaurantDto {
 
     private Category categories;
 
+    private String urlImage;
+
     private Set<LoyaltyCard> loyaltyCards;
 
     private Set<Order> orders;
@@ -44,6 +46,11 @@ public class ResponseDetailRestaurantDto {
         this.paid = restaurant.getPaid();
         this.products = restaurant.getProducts();
         this.rating = restaurant.getRating();
+        this.urlImage = restaurant.getUrlImage();
+    }
+
+    public String getUrlImage() {
+        return urlImage;
     }
 
     public String getName() {
