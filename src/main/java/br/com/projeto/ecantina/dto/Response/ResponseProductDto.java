@@ -8,12 +8,14 @@ import br.com.projeto.ecantina.models.Product;
 
 public class ResponseProductDto {
     
+    private Long id;
     private String type;
     private String name;
     private String description;
     private BigDecimal price;
 
     public ResponseProductDto(Product product) {
+        this.id = product.getId();
         this.name = product.getName();
         this.description = product.getDescription();
         this.type = product.getType();
@@ -38,7 +40,5 @@ public class ResponseProductDto {
 
     public static Page<ResponseProductDto> convert(Page<Product> products) {
         return products.map(ResponseProductDto::new);
-    }
-
-    
+    } 
 }
