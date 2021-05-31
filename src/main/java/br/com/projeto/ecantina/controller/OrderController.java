@@ -49,7 +49,7 @@ public class OrderController {
     @Autowired
     OrderRepository orderRepository;
 
-    @GetMapping // FIXME mudar get para retorno dinamico com restaurante ao invez de lista de pedidos em restaurante.
+    @GetMapping // FIXME mudar para retorno dinamico com clientId e restaurantId.
     public Page<ResponseOrderDto> list(@PageableDefault(sort = "createdAt") Pageable pageable, @RequestParam(required = false) Long clientId) {
 
         if(clientId != null) {

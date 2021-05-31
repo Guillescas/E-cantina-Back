@@ -17,9 +17,9 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 
 import br.com.projeto.ecantina.repository.UserRepository;
 
+@Profile("prod")
 @Configuration
 @EnableWebSecurity
-@Profile("prod")
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Autowired

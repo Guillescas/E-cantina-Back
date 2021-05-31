@@ -25,10 +25,10 @@ import br.com.projeto.ecantina.dto.response.TokenDto;
 import br.com.projeto.ecantina.models.User;
 import br.com.projeto.ecantina.repository.UserRepository;
 
+@Profile("prod")
 @RestController
 @RequestMapping("/authentication")
 @CrossOrigin
-@Profile("prod")
 public class LoginController {
 
     @Autowired

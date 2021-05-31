@@ -84,24 +84,17 @@
 			<version>0.9.1</version>
 		</dependency>
 
-		<!-- <dependency>
-			<groupId>br.com.caelum.stella</groupId>
-			<artifactId>caelum-stella-core</artifactId>
-			<version>2.1.2</version>
+		<dependency>
+			<groupId>com.google.zxing</groupId>
+			<artifactId>core</artifactId>
+			<version>3.4.1</version>
 		</dependency>
 
 		<dependency>
-			<groupId>br.com.caelum.stella</groupId>
-			<artifactId>caelum-stella-bean-validation</artifactId>
-			<version>2.1.2</version>
+			<groupId>com.google.zxing</groupId>
+			<artifactId>javase</artifactId>
+			<version>3.4.1</version>
 		</dependency>
-		
-
-		<dependency>
-			<groupId>br.com.caelum.stella</groupId>
-			<artifactId>caelum-stella-hibernate-user-types</artifactId>
-			<version>2.1.2</version>
-		</dependency> -->
 	</dependencies>
 
 	<build>
