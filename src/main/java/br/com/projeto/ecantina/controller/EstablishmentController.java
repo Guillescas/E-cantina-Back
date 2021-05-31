@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import br.com.projeto.ecantina.config.components.ImageComponent;
 import br.com.projeto.ecantina.config.errors.ResponseErrors;
 import br.com.projeto.ecantina.dto.request.RequestEstablishmentDto;
 import br.com.projeto.ecantina.dto.request.updatedto.RequestUpdateEstablishmentDto;
@@ -43,6 +44,9 @@ public class EstablishmentController {
 
     @Autowired
     UserRepository userRepository;
+
+    @Autowired
+    ImageComponent imageComponent;
 
     @Value("Estabelecimento não encontrado")
     private String notFound;
@@ -99,6 +103,7 @@ public class EstablishmentController {
 
         Optional<Establishment> establishmentFind = establishmentRepository.findById(id);
         if (establishmentFind.isPresent()) {
+            imageComponent.deleteImageUser(establishmentFind.get());
             establishmentRepository.delete(establishmentFind.get());
             return ResponseEntity.ok().build();
         }
