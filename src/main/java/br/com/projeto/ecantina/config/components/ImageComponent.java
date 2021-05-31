@@ -1,4 +1,4 @@
-package br.com.projeto.ecantina.models.storage;
+package br.com.projeto.ecantina.config.components;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -13,20 +13,21 @@ import br.com.projeto.ecantina.dto.request.RequestUploadDto;
 import br.com.projeto.ecantina.repository.ImageStorageRepository;
 
 @Component
-public class Image {
+public class ImageComponent {
 
     @Value("${image.directory-images}")
     private String directoryImages;
 
-    public void saveImage(MultipartFile image, Long id, ImageStorageRepository imageStorageRepository) {
-        String fileName = this.save(this.directoryImages, image, id);
+    public void saveImage(MultipartFile image, ImageStorageRepository imageStorageRepository) {
+        String fileName = this.save(this.directoryImages, image);
         this.saveDataBase(imageStorageRepository, fileName);
     }
 
-    public String save(String directory, MultipartFile file, Long id) {
+    public String save(String directory, MultipartFile file) {
         // TODO make change in the file name.
         Path absolutePath = Paths.get("").toAbsolutePath();
         System.out.println(absolutePath.normalize().toString());
+        
 
         String root = absolutePath.normalize().toString();
 
@@ -36,12 +37,11 @@ public class Image {
     
 
         try {
-
             Files.createDirectories(directoryPath);
             Files.copy(file.getInputStream(), filePath);
             return file.getOriginalFilename();
         } catch (IOException ex) {
-
+            ex.printStackTrace();
             throw new RuntimeException("Problemas na tentativa de salvar arquivo");
         }
     }
