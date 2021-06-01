@@ -61,7 +61,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.DELETE, "/restaurant/*").hasRole(roleRestaurant)
                 .antMatchers(HttpMethod.POST, "/product").hasRole(roleRestaurant)
                 .antMatchers(HttpMethod.POST, "/product/*").hasRole(roleRestaurant)
-                .antMatchers(HttpMethod.GET, "/establishment").hasRole("ADMIN")
                 .anyRequest().authenticated()
                 .and()
                     .exceptionHandling().authenticationEntryPoint(authenticationEntryPoint())
