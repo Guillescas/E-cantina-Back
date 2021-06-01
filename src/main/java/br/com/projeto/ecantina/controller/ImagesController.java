@@ -7,11 +7,13 @@ import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.util.UriComponentsBuilder;
@@ -38,9 +40,9 @@ public class ImagesController {
     @Autowired
     private ImageComponent imageComponent;
 
-    @PostMapping
     @Transactional
-    public ResponseEntity<Object> upload(@RequestParam MultipartFile image, @RequestParam Long userId, @RequestParam(required = false) Long productId, UriComponentsBuilder uriComponentsBuilder) {
+    @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public ResponseEntity<Object> upload(@RequestPart MultipartFile image, @RequestParam Long userId, @RequestParam(required = false) Long productId, UriComponentsBuilder uriComponentsBuilder) {
 
         Product product = null;
         Optional<User> userFind = userRepository.findById(userId);

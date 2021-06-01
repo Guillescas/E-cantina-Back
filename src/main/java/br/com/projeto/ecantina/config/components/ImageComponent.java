@@ -69,8 +69,8 @@ public class ImageComponent {
         try {
             Files.createDirectories(directory);
             Files.copy(file.getInputStream(), filePath, StandardCopyOption.REPLACE_EXISTING);
-            String[] paths = filePath.toString().split("/E-cantina-Back/");
-            return paths[1].substring(26);
+            String[] paths = filePath.toString().split("/src/");
+            return paths[1].substring(21);
         } catch (IOException ex) {
             ex.printStackTrace();
             throw new FileSystemNotFoundException("Problemas na tentativa de salvar arquivo");
