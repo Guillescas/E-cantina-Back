@@ -1,12 +1,7 @@
 package br.com.projeto.ecantina.models;
 
+import javax.persistence.*;
 import java.io.Serializable;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 
 /**
  * <p> Represents the {@code compound key} that we have in the system.

@@ -1,15 +1,8 @@
 package br.com.projeto.ecantina.models;
 
+import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDate;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
 
 @Entity(name = "card")
 public class Card implements Serializable {

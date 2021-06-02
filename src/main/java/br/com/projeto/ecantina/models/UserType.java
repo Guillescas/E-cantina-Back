@@ -1,11 +1,11 @@
 package br.com.projeto.ecantina.models;
 
+import org.springframework.security.core.GrantedAuthority;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-
-import org.springframework.security.core.GrantedAuthority;
 
 @Entity
 public class UserType implements GrantedAuthority {
