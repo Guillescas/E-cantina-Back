@@ -1,10 +1,10 @@
 package br.com.projeto.ecantina.dto.request;
 
-import java.util.Optional;
-
 import br.com.projeto.ecantina.models.Product;
 import br.com.projeto.ecantina.models.ProductList;
 import br.com.projeto.ecantina.repository.ProductRepository;
+
+import java.util.Optional;
 
 public class RequestProductsListDto {
     

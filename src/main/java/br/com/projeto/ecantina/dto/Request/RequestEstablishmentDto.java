@@ -1,17 +1,12 @@
 package br.com.projeto.ecantina.dto.request;
 
-import java.math.BigDecimal;
-
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Positive;
-import javax.validation.constraints.Size;
-
 import br.com.projeto.ecantina.config.validation.notations.EmailEquals;
 import br.com.projeto.ecantina.models.Address;
 import br.com.projeto.ecantina.models.Establishment;
 import br.com.projeto.ecantina.models.UserType;
+
+import javax.validation.constraints.*;
+import java.math.BigDecimal;
 
 public class RequestEstablishmentDto {
 

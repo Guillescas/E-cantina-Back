@@ -1,16 +1,15 @@
 package br.com.projeto.ecantina.dto.request;
 
-import java.math.BigDecimal;
-import java.util.Optional;
+import br.com.projeto.ecantina.models.Product;
+import br.com.projeto.ecantina.models.Restaurant;
+import br.com.projeto.ecantina.repository.RestaurantRepository;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 import javax.validation.constraints.Size;
-
-import br.com.projeto.ecantina.models.Product;
-import br.com.projeto.ecantina.models.Restaurant;
-import br.com.projeto.ecantina.repository.RestaurantRepository;
+import java.math.BigDecimal;
+import java.util.Optional;
 
 public class RequestProductDto {
     
