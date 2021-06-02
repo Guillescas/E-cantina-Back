@@ -1,12 +1,5 @@
 package br.com.projeto.ecantina.dto.request;
 
-import java.util.Optional;
-
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
-
 import br.com.projeto.ecantina.config.validation.notations.EmailEquals;
 import br.com.projeto.ecantina.models.Category;
 import br.com.projeto.ecantina.models.Establishment;
@@ -14,6 +7,12 @@ import br.com.projeto.ecantina.models.Restaurant;
 import br.com.projeto.ecantina.models.UserType;
 import br.com.projeto.ecantina.repository.CategoryRepository;
 import br.com.projeto.ecantina.repository.EstablishmentRepository;
+
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+import java.util.Optional;
 
 public class RequestRestaurantDto {
     

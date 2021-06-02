@@ -1,13 +1,5 @@
 package br.com.projeto.ecantina.dto.request;
 
-import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-
-import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonFormat.Feature;
-
 import br.com.projeto.ecantina.models.Client;
 import br.com.projeto.ecantina.models.Order;
 import br.com.projeto.ecantina.models.ProductList;
@@ -15,6 +7,13 @@ import br.com.projeto.ecantina.models.Restaurant;
 import br.com.projeto.ecantina.repository.ClientRepository;
 import br.com.projeto.ecantina.repository.ProductRepository;
 import br.com.projeto.ecantina.repository.RestaurantRepository;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonFormat.Feature;
+
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 
 public class RequestOrderDto {
 

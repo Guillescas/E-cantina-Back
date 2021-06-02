@@ -1,11 +1,10 @@
 package br.com.projeto.ecantina.dto.response.detailresponse;
 
-import java.math.BigDecimal;
-import java.time.format.DateTimeFormatter;
-
+import br.com.projeto.ecantina.models.Order;
 import org.springframework.data.annotation.Transient;
 
-import br.com.projeto.ecantina.models.Order;
+import java.math.BigDecimal;
+import java.time.format.DateTimeFormatter;
 
 public class ResponseDetailOrderDto {
 

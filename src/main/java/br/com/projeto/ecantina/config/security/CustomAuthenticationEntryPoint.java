@@ -1,18 +1,15 @@
 package br.com.projeto.ecantina.config.security;
 
-import java.io.IOException;
+import br.com.projeto.ecantina.config.errors.ResponseErrors;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import io.jsonwebtoken.ExpiredJwtException;
+import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.web.AuthenticationEntryPoint;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import com.fasterxml.jackson.databind.ObjectMapper;
-
-import org.springframework.security.core.AuthenticationException;
-import org.springframework.security.web.AuthenticationEntryPoint;
-
-import br.com.projeto.ecantina.config.errors.ResponseErrors;
-import io.jsonwebtoken.ExpiredJwtException;
+import java.io.IOException;
 
 public class CustomAuthenticationEntryPoint implements AuthenticationEntryPoint {
 

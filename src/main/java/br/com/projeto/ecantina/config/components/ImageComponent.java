@@ -1,19 +1,14 @@
 package br.com.projeto.ecantina.config.components;
 
-import java.io.IOException;
-import java.nio.file.FileSystemNotFoundException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.nio.file.StandardCopyOption;
-
+import br.com.projeto.ecantina.config.exceptions.ImageTypeMismatchException;
+import br.com.projeto.ecantina.models.Product;
+import br.com.projeto.ecantina.models.User;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 
-import br.com.projeto.ecantina.config.exceptions.ImageTypeMismatchException;
-import br.com.projeto.ecantina.models.Product;
-import br.com.projeto.ecantina.models.User;
+import java.io.IOException;
+import java.nio.file.*;
 
 @Component
 public class ImageComponent {

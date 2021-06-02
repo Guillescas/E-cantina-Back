@@ -1,11 +1,10 @@
 package br.com.projeto.ecantina.repository;
 
-import java.util.Optional;
-
-import org.springframework.data.jpa.repository.JpaRepository;
-
 import br.com.projeto.ecantina.models.Client;
 import br.com.projeto.ecantina.models.User;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import java.util.Optional;
 
 public interface ClientRepository extends JpaRepository<Client, Long> {
     

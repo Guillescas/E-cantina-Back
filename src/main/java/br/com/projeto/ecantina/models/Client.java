@@ -1,12 +1,11 @@
 package br.com.projeto.ecantina.models;
 
-import java.util.List;
-import java.util.Set;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
+import java.util.List;
+import java.util.Set;
 
 /**
  * <p>

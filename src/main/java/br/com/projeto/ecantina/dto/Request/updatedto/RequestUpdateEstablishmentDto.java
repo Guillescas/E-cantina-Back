@@ -1,12 +1,12 @@
 package br.com.projeto.ecantina.dto.request.updatedto;
 
-import java.math.BigDecimal;
-import java.util.Optional;
-
 import br.com.projeto.ecantina.config.exceptions.EmailNotValidException;
 import br.com.projeto.ecantina.models.Establishment;
 import br.com.projeto.ecantina.models.User;
 import br.com.projeto.ecantina.repository.UserRepository;
+
+import java.math.BigDecimal;
+import java.util.Optional;
 
 public class RequestUpdateEstablishmentDto {
     

@@ -1,10 +1,9 @@
 package br.com.projeto.ecantina.repository;
 
-import java.util.Optional;
-
+import br.com.projeto.ecantina.models.Category;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import br.com.projeto.ecantina.models.Category;
+import java.util.Optional;
 
 public interface CategoryRepository extends JpaRepository<Category, Long>{
 

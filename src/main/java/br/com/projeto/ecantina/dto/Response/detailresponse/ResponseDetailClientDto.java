@@ -1,13 +1,9 @@
 package br.com.projeto.ecantina.dto.response.detailresponse;
 
+import br.com.projeto.ecantina.models.*;
+
 import java.util.List;
 import java.util.Set;
-
-import br.com.projeto.ecantina.models.Address;
-import br.com.projeto.ecantina.models.Card;
-import br.com.projeto.ecantina.models.Client;
-import br.com.projeto.ecantina.models.LoyaltyCard;
-import br.com.projeto.ecantina.models.Order;
 
 public class ResponseDetailClientDto {
     

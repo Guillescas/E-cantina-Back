@@ -1,9 +1,9 @@
 package br.com.projeto.ecantina.dto.response;
 
-import java.time.LocalDate;
-
 import br.com.projeto.ecantina.models.BankData;
 import br.com.projeto.ecantina.models.Card;
+
+import java.time.LocalDate;
 
 public class ResponseCardDto {
 

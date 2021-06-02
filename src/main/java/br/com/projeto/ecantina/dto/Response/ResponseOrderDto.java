@@ -1,14 +1,13 @@
 package br.com.projeto.ecantina.dto.response;
 
-import java.math.BigDecimal;
-import java.time.format.DateTimeFormatter;
-import java.util.List;
-
+import br.com.projeto.ecantina.models.Order;
+import br.com.projeto.ecantina.models.ProductList;
 import org.springframework.data.annotation.Transient;
 import org.springframework.data.domain.Page;
 
-import br.com.projeto.ecantina.models.Order;
-import br.com.projeto.ecantina.models.ProductList;
+import java.math.BigDecimal;
+import java.time.format.DateTimeFormatter;
+import java.util.List;
 
 public class ResponseOrderDto {
     

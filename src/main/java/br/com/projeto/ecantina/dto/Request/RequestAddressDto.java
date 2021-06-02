@@ -1,14 +1,13 @@
 package br.com.projeto.ecantina.dto.request;
 
-import java.util.Optional;
+import br.com.projeto.ecantina.models.Address;
+import br.com.projeto.ecantina.models.Client;
+import br.com.projeto.ecantina.repository.ClientRepository;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-
-import br.com.projeto.ecantina.models.Address;
-import br.com.projeto.ecantina.models.Client;
-import br.com.projeto.ecantina.repository.ClientRepository;
+import java.util.Optional;
 
 public class RequestAddressDto {
 
