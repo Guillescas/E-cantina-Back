@@ -1,6 +1,9 @@
 # Vs code
 .vscode
 
+# Ideia
+.idea
+
 ### Maven ###
 target/
 pom.xml.tag
