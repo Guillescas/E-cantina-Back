@@ -1,17 +1,16 @@
 package br.com.projeto.ecantina.dto.request.updatedto;
 
-import java.math.BigDecimal;
-import java.util.Optional;
-
-import javax.validation.constraints.Email;
-import javax.validation.constraints.Size;
-
 import br.com.projeto.ecantina.config.exceptions.EmailNotValidException;
 import br.com.projeto.ecantina.models.Category;
 import br.com.projeto.ecantina.models.Restaurant;
 import br.com.projeto.ecantina.models.User;
 import br.com.projeto.ecantina.repository.CategoryRepository;
 import br.com.projeto.ecantina.repository.UserRepository;
+
+import javax.validation.constraints.Email;
+import javax.validation.constraints.Size;
+import java.math.BigDecimal;
+import java.util.Optional;
 
 public class RequestUpdateRestaurantDto {
 
