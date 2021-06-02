@@ -4,9 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1078cb63-f225-425d-8c3a-0d9efa2312d5" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-    </list>
+    <list default="true" id="1078cb63-f225-425d-8c3a-0d9efa2312d5" name="Default Changelist" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -47,7 +45,7 @@
   </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="834a9bef-eae3-4e22-990c-fa45ebaf5798" name="Default Changelist" comment="" />
+      <changelist id="1078cb63-f225-425d-8c3a-0d9efa2312d5" name="Default Changelist" comment="" />
       <created>1622524258276</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
@@ -55,6 +53,7 @@
       <workItem from="1622524259603" duration="262000" />
       <workItem from="1622524529290" duration="216000" />
       <workItem from="1622561433497" duration="5852000" />
+      <workItem from="1622676690752" duration="98000" />
     </task>
     <servers />
   </component>
@@ -71,5 +70,6 @@
         </entry>
       </map>
     </option>
+    <option name="oldMeFiltersMigrated" value="true" />
   </component>
 </project>
