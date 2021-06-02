@@ -1,10 +1,9 @@
 package br.com.projeto.ecantina.repository;
 
-import java.util.Optional;
-
+import br.com.projeto.ecantina.models.BankData;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import br.com.projeto.ecantina.models.BankData;
+import java.util.Optional;
 
 public interface BankDataRepository extends JpaRepository<BankData, Long> {
     

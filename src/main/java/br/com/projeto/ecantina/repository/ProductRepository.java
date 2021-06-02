@@ -1,11 +1,10 @@
 package br.com.projeto.ecantina.repository;
 
+import br.com.projeto.ecantina.models.Product;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
-
-import br.com.projeto.ecantina.models.Product;
 
 public interface ProductRepository extends JpaRepository<Product, Long> {
 
