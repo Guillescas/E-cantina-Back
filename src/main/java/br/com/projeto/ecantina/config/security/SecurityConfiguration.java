@@ -52,6 +52,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         AuthenticationTokenFilter authTokenFilter = new AuthenticationTokenFilter(tokenService, userRepository);
 
         http.authorizeRequests()
+                .antMatchers(HttpMethod.GET, "/establishment").permitAll()
                 .antMatchers(HttpMethod.POST, "/client").permitAll()
                 .antMatchers(HttpMethod.POST, "/restaurant").permitAll()
                 .antMatchers(HttpMethod.POST, "/establishment").permitAll()
