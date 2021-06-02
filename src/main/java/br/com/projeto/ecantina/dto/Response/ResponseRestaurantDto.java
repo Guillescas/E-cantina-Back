@@ -1,9 +1,8 @@
 package br.com.projeto.ecantina.dto.response;
 
-import org.springframework.data.domain.Page;
-
 import br.com.projeto.ecantina.models.Category;
 import br.com.projeto.ecantina.models.Restaurant;
+import org.springframework.data.domain.Page;
 
 public class ResponseRestaurantDto {
     

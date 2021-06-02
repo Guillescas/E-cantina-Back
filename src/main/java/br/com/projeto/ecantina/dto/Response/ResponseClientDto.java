@@ -1,11 +1,10 @@
 package br.com.projeto.ecantina.dto.response;
 
-import java.util.List;
-
-import org.springframework.data.domain.Page;
-
 import br.com.projeto.ecantina.models.Address;
 import br.com.projeto.ecantina.models.Client;
+import org.springframework.data.domain.Page;
+
+import java.util.List;
 
 public class ResponseClientDto {
     

@@ -1,10 +1,9 @@
 package br.com.projeto.ecantina.dto.response;
 
-import java.math.BigDecimal;
-
+import br.com.projeto.ecantina.models.Product;
 import org.springframework.data.domain.Page;
 
-import br.com.projeto.ecantina.models.Product;
+import java.math.BigDecimal;
 
 public class ResponseProductDto {
     

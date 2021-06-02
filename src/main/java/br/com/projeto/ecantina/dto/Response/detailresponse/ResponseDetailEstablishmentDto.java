@@ -1,11 +1,11 @@
 package br.com.projeto.ecantina.dto.response.detailresponse;
 
-import java.math.BigDecimal;
-import java.util.List;
-
 import br.com.projeto.ecantina.models.Address;
 import br.com.projeto.ecantina.models.Establishment;
 import br.com.projeto.ecantina.models.Restaurant;
+
+import java.math.BigDecimal;
+import java.util.List;
 
 public class ResponseDetailEstablishmentDto {
 
