@@ -1,0 +1,17 @@
+{"properties": [
+  {
+    "name": "image.directory-images",
+    "type": "java.lang.String",
+    "description": "Is the project folder for the images"
+  },
+  {
+    "name": "ecantina.jwt.expiration",
+    "type": "java.lang.String",
+    "description": "Is the time that the token expires in the system"
+  },
+  {
+    "name": "ecantina.jwt.secret",
+    "type": "java.lang.String",
+    "description": "Is the secret of the token"
+  }
+]}
