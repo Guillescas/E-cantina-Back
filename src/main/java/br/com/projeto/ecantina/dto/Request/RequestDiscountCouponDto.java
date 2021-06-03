@@ -17,6 +17,8 @@ import br.com.projeto.ecantina.repository.RestaurantRepository;
 
 public class RequestDiscountCouponDto {
 
+    //TODO validations
+
     private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
     private String code;

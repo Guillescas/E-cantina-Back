@@ -25,6 +25,7 @@ public class RequestRestaurantDto {
     @Size(min = 8, message = "{password.size}")
     private String password;
 
+    // TODO verify if the name of restaurant is equal
     @NotBlank(message = "{name.blank}")
     private String name;
 
