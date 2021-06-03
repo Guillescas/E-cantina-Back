@@ -28,9 +28,9 @@ public class Restaurant extends User{
     @ManyToOne(cascade = CascadeType.PERSIST)
     private Category categories;
 
-    @OneToMany
-    @JoinColumn(name = "restaurant_id")
-    private Set<LoyaltyCard> loyaltyCards;
+    // @OneToMany
+    // @JoinColumn(name = "restaurant_id")
+    // private Set<LoyaltyCard> loyaltyCards;
 
     @OneToMany
     @JoinColumn(name = "restaurant_id")
@@ -104,9 +104,9 @@ public class Restaurant extends User{
         return discountCoupon;
     }
 
-    public Set<LoyaltyCard> getLoyaltyCards() {
-        return loyaltyCards;
-    }
+    // public Set<LoyaltyCard> getLoyaltyCards() {
+    //     return loyaltyCards;
+    // }
 
     public Set<Order> getOrders() {
         return orders;

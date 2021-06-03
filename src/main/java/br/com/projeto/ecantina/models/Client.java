@@ -1,11 +1,12 @@
 package br.com.projeto.ecantina.models;
 
+import java.util.List;
+import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
-import java.util.List;
-import java.util.Set;
 
 /**
  * <p>
@@ -51,6 +52,10 @@ public class Client extends User {
     @JoinColumn(name = "client_id")
     private List<LoyaltyCard> loyaltyCards;
 
+    @OneToMany
+    @JoinColumn(name = "client_id")
+    private List<Rating> ratings;
+
     public Client() {
     }
 
@@ -94,6 +99,10 @@ public class Client extends User {
         } else if (!cpf.equals(other.cpf))
             return false;
         return true;
+    }
+
+    public List<Rating> getRatings() {
+        return ratings;
     }
 
     public List<LoyaltyCard> getLoyaltyCards() {

@@ -15,8 +15,14 @@ public class DiscountCoupon implements Serializable {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
+  @Column(length = 6, nullable = false)
+  private String code;
+
   @Column(nullable = false)
   private BigDecimal value;
+
+  @Column(nullable = false)
+  private Boolean used = false;
 
   @Column(updatable = false, nullable = false)
   private LocalDate finishedAt;
@@ -27,14 +33,19 @@ public class DiscountCoupon implements Serializable {
 
   public DiscountCoupon() {}
 
-  public DiscountCoupon(BigDecimal value, LocalDate finishedAt) {
+  public DiscountCoupon(String code, BigDecimal value, LocalDate finishedAt, List<Product> products) {
+    this.code = code;
     this.value = value;
     this.finishedAt = finishedAt;
+    this.products = products;
   }
 
-  public DiscountCoupon(String value, LocalDate finishedAt) {
-    this.value = new BigDecimal(value);
-    this.finishedAt = finishedAt;
+  public String getCode() {
+      return code;
+  }
+
+  public Boolean getUsed() {
+      return used;
   }
 
   public Long getId() {

@@ -27,6 +27,10 @@ public class ProductList implements Serializable {
 
     public ProductList() {}
 
+    public ProductList(Product product) {
+        this.product = product;
+    }
+
     public ProductList(Integer quantity, Product product) {
         this.quantity = quantity;
         this.product = product;
