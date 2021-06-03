@@ -61,6 +61,5 @@ public class ImagesController {
         }
 
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ResponseErrors("Usuário não encontrado", HttpStatus.NOT_FOUND.value()));
-
     }
 }

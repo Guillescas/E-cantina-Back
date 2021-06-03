@@ -41,10 +41,9 @@ public class ClientController {
 
         Client client = requestClientDto.convertClient();
         clientRepository.save(client);
-        URI uri = uriComponentsBuilder.path("/client/{id}").buildAndExpand(client.getId()).toUri();
+        URI uri = uriComponentsBuilder.path("/client/{id}").buildAndExpand(client.getId()).toUri();                
 
         return ResponseEntity.created(uri).body(new ResponseClientDto(client));
-
     }
 
     @GetMapping("/{id}")

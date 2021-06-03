@@ -20,7 +20,7 @@ public class RequestClientDto {
     private String password;
 
     @NotBlank(message = "{name.blank}")
-    private String name;
+    private String name; 
 
     public String getEmail() {
         return email;
