@@ -21,6 +21,9 @@ public class DiscountCoupon implements Serializable {
   @Column(nullable = false)
   private BigDecimal value;
 
+  @Column(nullable = false)
+  private Boolean used = false;
+
   @Column(updatable = false, nullable = false)
   private LocalDate finishedAt;
 
@@ -30,10 +33,19 @@ public class DiscountCoupon implements Serializable {
 
   public DiscountCoupon() {}
 
-  public DiscountCoupon(String code, BigDecimal value, LocalDate finishedAt) {
+  public DiscountCoupon(String code, BigDecimal value, LocalDate finishedAt, List<Product> products) {
     this.code = code;
     this.value = value;
     this.finishedAt = finishedAt;
+    this.products = products;
+  }
+
+  public String getCode() {
+      return code;
+  }
+
+  public Boolean getUsed() {
+      return used;
   }
 
   public Long getId() {
