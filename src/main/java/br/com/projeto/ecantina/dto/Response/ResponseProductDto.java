@@ -12,6 +12,7 @@ public class ResponseProductDto {
     private String name;
     private String description;
     private BigDecimal price;
+    private String urlImage;
 
     public ResponseProductDto(Product product) {
         this.id = product.getId();
@@ -19,6 +20,11 @@ public class ResponseProductDto {
         this.description = product.getDescription();
         this.type = product.getType();
         this.price = product.getPrice();
+        this.urlImage = product.getUrlImage();
+    }
+
+    public String getUrlImage() {
+        return urlImage;
     }
 
     public Long getId() {
