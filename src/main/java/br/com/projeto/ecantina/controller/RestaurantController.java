@@ -6,6 +6,7 @@ import br.com.projeto.ecantina.dto.request.RequestRestaurantDto;
 import br.com.projeto.ecantina.dto.request.updatedto.RequestUpdateRestaurantDto;
 import br.com.projeto.ecantina.dto.response.ResponseRestaurantDto;
 import br.com.projeto.ecantina.dto.response.detailresponse.ResponseDetailRestaurantDto;
+import br.com.projeto.ecantina.models.Category;
 import br.com.projeto.ecantina.models.Establishment;
 import br.com.projeto.ecantina.models.Restaurant;
 import br.com.projeto.ecantina.repository.CategoryRepository;
@@ -56,18 +57,25 @@ public class RestaurantController {
     @GetMapping
     public Page<ResponseRestaurantDto> list(@RequestParam(required = false) String nameRestaurant,
             @RequestParam(required = false) String nameEstablishment,
+            @RequestParam(required = false) String nameCategory,
             @PageableDefault(sort = "id", direction = Direction.ASC, size = 10) Pageable pageable) {
 
+        Establishment establishment = null;
+        Category category = null;
+        Optional<Category> categoryOptional = categoryRepository.findByName(nameCategory);
         Optional<Establishment> establishmentOptional = establishmentRepository.findByName(nameEstablishment);
 
-        Establishment establishment = null;
         if (establishmentOptional.isPresent()) {
             establishment = establishmentOptional.get();
+        }
+        if (categoryOptional.isPresent()) {
+            category = categoryOptional.get();
         }
 
         Page<Restaurant> allRestaurants = restaurantRepository
                 .findAll(Specification.where(SpecificationRestaurant.restaurantName(nameRestaurant))
-                        .or(SpecificationRestaurant.establishmentId(establishment)), pageable);
+                        .or(SpecificationRestaurant.establishment(establishment))
+                        .or(SpecificationRestaurant.categories(category)), pageable);
         return ResponseRestaurantDto.convert(allRestaurants);
     }
 
@@ -98,17 +106,20 @@ public class RestaurantController {
 
     @PatchMapping("/{id}")
     @Transactional
-    public ResponseEntity<Object> update(@PathVariable Long id,@Valid @RequestBody RequestUpdateRestaurantDto requestUpdateRestaurantDto) {
+    public ResponseEntity<Object> update(@PathVariable Long id,
+            @Valid @RequestBody RequestUpdateRestaurantDto requestUpdateRestaurantDto) {
 
         Optional<Restaurant> restaurantFind = restaurantRepository.findById(id);
 
-        if(restaurantFind.isPresent()) {
-            Restaurant restaurant = requestUpdateRestaurantDto.update(restaurantFind, userRepository, categoryRepository);
+        if (restaurantFind.isPresent()) {
+            Restaurant restaurant = requestUpdateRestaurantDto.update(restaurantFind, userRepository,
+                    categoryRepository);
             restaurantRepository.save(restaurant);
             return ResponseEntity.ok(new ResponseDetailRestaurantDto(restaurant));
         }
 
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ResponseErrors(notFound, HttpStatus.NOT_FOUND.value()));
+        return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                .body(new ResponseErrors(notFound, HttpStatus.NOT_FOUND.value()));
     }
 
     @DeleteMapping("/{id}")
@@ -117,7 +128,7 @@ public class RestaurantController {
 
         Optional<Restaurant> restaurantFind = restaurantRepository.findById(id);
 
-        if(restaurantFind.isPresent()) {
+        if (restaurantFind.isPresent()) {
             imageComponent.deleteImageUser(restaurantFind.get());
             restaurantFind.get().getProducts().forEach(product -> {
                 imageComponent.deleteImageProduct(product);
@@ -126,6 +137,7 @@ public class RestaurantController {
             return ResponseEntity.ok().build();
         }
 
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ResponseErrors(notFound, HttpStatus.NOT_FOUND.value()));
+        return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                .body(new ResponseErrors(notFound, HttpStatus.NOT_FOUND.value()));
     }
 }

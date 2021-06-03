@@ -38,10 +38,14 @@ public class DiscountCouponController {
     private RestaurantRepository restaurantRepository;
 
     @GetMapping
-    public List<ResponseDiscountCouponDto> list(@RequestParam Long restaurantId) {
+    public List<ResponseDiscountCouponDto> list(@RequestParam(required = false) String restaurantName) {
 
-        List<DiscountCoupon> allDiscountCoupon = discountCouponRepository.findByRestaurantId(restaurantId);
+        if (restaurantName == null) {
+            List<DiscountCoupon> allDiscountCoupon = discountCouponRepository.findByRestaurantName(restaurantName);
+            return ResponseDiscountCouponDto.convert(allDiscountCoupon);
+        }
 
+        List<DiscountCoupon> allDiscountCoupon = discountCouponRepository.findAll();
         return ResponseDiscountCouponDto.convert(allDiscountCoupon);
     }
 
@@ -66,7 +70,7 @@ public class DiscountCouponController {
         return ResponseEntity.created(uri).body(new ResponseDiscountCouponDto(discountCoupon));
     }
 
-    @PatchMapping("/{id}") // TODO Patch cupom de disconto
+    @PatchMapping("/{id}") // TODO Patch cupom de desconto
     // public ResponseEntity<Object> update(@RequestBody RequestUpdateDiscountCouponDto requestUpdateDiscountCouponDto) {
 
     // }

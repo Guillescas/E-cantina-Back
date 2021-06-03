@@ -9,7 +9,7 @@ import br.com.projeto.ecantina.models.DiscountCoupon;
 
 public interface DiscountCouponRepository extends JpaRepository<DiscountCoupon, Long> {
 
-    @Query(nativeQuery = true, value = "SELECT * FROM discount_coupon dc WHERE restaurant_id = ?1")
-    List<DiscountCoupon> findByRestaurantId(Long restaurantId);
+    @Query(nativeQuery = true, value = "SELECT * FROM discount_coupon dc INNER JOIN user u ON u.id = dc.restaurant_id WHERE u.name LIKE %?1%")
+    List<DiscountCoupon> findByRestaurantName(String restaurantName);
     
 }
