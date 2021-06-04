@@ -25,18 +25,25 @@ public class ResponseRestaurantDto {
         this.name = restaurant.getName();
         this.category = restaurant.getCategories();
         this.urlImage = restaurant.getUrlImage();
-        if (restaurant.getRatings() != null) {
+        if (!restaurant.getRatings().isEmpty()) {
             this.ratings = restaurant.getRatings();
             this.averageRating = getAverageRating(this.ratings);
         }
     }
 
     public BigDecimal getAverageRating(List<Rating> ratings) {
-        BigDecimal totalSum = BigDecimal.ZERO;
-        for (Rating rating : ratings) {
-           totalSum = totalSum.add(rating.getValue());
+        if (!getRatings().isEmpty() && getRatings().size() != 0) {
+            BigDecimal totalSum = BigDecimal.ZERO;
+            for (Rating rating : ratings) {
+                totalSum = totalSum.add(rating.getValue());
+            }
+            return totalSum.divide(new BigDecimal(ratings.size()));
         }
-        return totalSum.divide(new BigDecimal(ratings.size()));
+        return BigDecimal.ZERO;
+    }
+
+    public List<Rating> getRatings() {
+        return ratings;
     }
 
     public String getUrlImage() {
