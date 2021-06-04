@@ -80,8 +80,6 @@ public class RequestUpdateRestaurantDto {
             restaurant.setDescription(getDescription());
         if (this.name != null && !getName().isBlank())
             restaurant.setName(getName());
-        if (this.rating != null)
-            restaurant.setRating(getRating());
         if (this.paid != null)
             restaurant.setPaid(getPaid());
         if (this.open != null)

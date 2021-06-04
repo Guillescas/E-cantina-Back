@@ -1,16 +1,20 @@
 package br.com.projeto.ecantina.dto.response.detailresponse;
 
-import br.com.projeto.ecantina.models.*;
-
-import java.math.BigDecimal;
 import java.util.List;
 import java.util.Set;
+
+import br.com.projeto.ecantina.models.Category;
+import br.com.projeto.ecantina.models.DiscountCoupon;
+import br.com.projeto.ecantina.models.Order;
+import br.com.projeto.ecantina.models.Product;
+import br.com.projeto.ecantina.models.Rating;
+import br.com.projeto.ecantina.models.Restaurant;
 
 public class ResponseDetailRestaurantDto {
 
     private String name;
     
-    private BigDecimal rating;
+    private List<Rating> rating;
 
     private Boolean paid;
     
@@ -37,7 +41,7 @@ public class ResponseDetailRestaurantDto {
         this.orders = restaurant.getOrders();
         this.paid = restaurant.getPaid();
         this.products = restaurant.getProducts();
-        this.rating = restaurant.getRating();
+        this.rating = restaurant.getRatings();
         this.urlImage = restaurant.getUrlImage();
     }
 
@@ -49,7 +53,7 @@ public class ResponseDetailRestaurantDto {
         return name;
     }
 
-    public BigDecimal getRating() {
+    public List<Rating> getRating() {
         return rating;
     }
 

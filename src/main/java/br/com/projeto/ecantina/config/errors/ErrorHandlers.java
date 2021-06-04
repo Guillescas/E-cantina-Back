@@ -11,6 +11,7 @@ import org.springframework.web.context.request.WebRequest;
 import br.com.projeto.ecantina.config.exceptions.EmailNotValidException;
 import br.com.projeto.ecantina.config.exceptions.ImageTypeMismatchException;
 import br.com.projeto.ecantina.config.exceptions.InvalidLoyaltyCardException;
+import br.com.projeto.ecantina.config.exceptions.InvalidRatingException;
 
 @RestControllerAdvice
 public class ErrorHandlers {
@@ -63,6 +64,15 @@ public class ErrorHandlers {
     @ResponseStatus(code = HttpStatus.BAD_REQUEST)
     @ExceptionHandler(InvalidLoyaltyCardException.class)
     public ResponseErrors handle(InvalidLoyaltyCardException exception) {
+
+        String msg = exception.getMessage();
+
+        return new ResponseErrors(msg, HttpStatus.BAD_REQUEST.value());
+    }
+
+    @ResponseStatus(code = HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(InvalidRatingException.class)
+    public ResponseErrors handle(InvalidRatingException exception) {
 
         String msg = exception.getMessage();
 

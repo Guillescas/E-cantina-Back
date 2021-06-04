@@ -40,8 +40,7 @@ public class RequestCardDto {
     private String bank;
 
     public String getBank() {
-        //TODO consertar case sensitive para salvar na database;
-        return bank;
+        return bank.toUpperCase();
     }
 
     public String getCardNumber() {

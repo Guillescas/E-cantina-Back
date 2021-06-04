@@ -1,11 +1,21 @@
 package br.com.projeto.ecantina.models;
 
-import javax.persistence.*;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 @Entity(name = "orders")
 public class Order implements Serializable{
@@ -34,6 +44,10 @@ public class Order implements Serializable{
     @Column
     private BigDecimal total;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="client_id")
+    private Client client;
+
     @OneToMany(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "order_id")
     private List<ProductList> productLists = new ArrayList<>();
@@ -47,10 +61,11 @@ public class Order implements Serializable{
         this.finishAt = LocalDate.now().plusDays(2);
     }
 
-    public Order(String observation, BigDecimal total, List<ProductList> productLists) {
+    public Order(Client client, String observation, BigDecimal total, List<ProductList> productLists) {
         this.observation = observation;
         this.total = total;
         this.productLists = productLists;
+        this.client = client;
         this.createdAt = LocalDate.now();
         this.finishAt = LocalDate.now().plusDays(2);
     }
@@ -78,6 +93,10 @@ public class Order implements Serializable{
         } else if (!id.equals(other.id))
             return false;
         return true;
+    }
+
+    public Client getClient() {
+        return client;
     }
 
     public List<ProductList> getProductLists() {
