@@ -1,6 +1,9 @@
 package br.com.projeto.ecantina.models;
 
 import javax.persistence.*;
+
+import br.com.projeto.ecantina.config.exceptions.InvalidLoyaltyCardException;
+
 import java.io.Serializable;
 import java.time.LocalDate;
 
@@ -27,6 +30,9 @@ public class LoyaltyCard implements Serializable {
 
     @Column(nullable = false)
     private Integer ordersDone;
+
+    @ManyToOne
+    private Client client;
 
     @ManyToOne
     private Restaurant restaurant;
@@ -68,6 +74,14 @@ public class LoyaltyCard implements Serializable {
         return true;
     }
 
+    public Client getClient() {
+        return client;
+    }
+
+    public void setClient(Client client) {
+        this.client = client;
+    }
+
     public Integer getOrdersDone() {
         return ordersDone;
     }
@@ -89,6 +103,13 @@ public class LoyaltyCard implements Serializable {
             return true;
         else
             return false;
+    }
+
+    public void increaseOrdersDone() {
+        if (this.getOrdersDone() >= this.getTotalOrder())
+            this.ordersDone++;
+        else
+            throw new InvalidLoyaltyCardException("Limite do cartão já atingido");
     }
 
     public void setValid(Boolean valid) {

@@ -49,4 +49,5 @@ public class ErrorHandlers {
     }
 
     //TODO HttpMessageNotReadableException : excecao de não mandar nada no body
+    //TODO InvalidLoyaltyCardException
 }

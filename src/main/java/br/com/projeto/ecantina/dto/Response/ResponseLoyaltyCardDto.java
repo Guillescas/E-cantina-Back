@@ -1,7 +1,10 @@
 package br.com.projeto.ecantina.dto.response;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
+import br.com.projeto.ecantina.models.Client;
 import br.com.projeto.ecantina.models.LoyaltyCard;
 import br.com.projeto.ecantina.models.Restaurant;
 
@@ -20,6 +23,8 @@ public class ResponseLoyaltyCardDto {
     private Integer ordersDone;
 
     private Restaurant restaurant;
+
+    private Client client;
     
     public ResponseLoyaltyCardDto(LoyaltyCard loyaltyCard) {
         this.id = loyaltyCard.getId();
@@ -28,6 +33,11 @@ public class ResponseLoyaltyCardDto {
         this.totalOrder = loyaltyCard.getTotalOrder();
         this.ordersDone = loyaltyCard.getOrdersDone();
         this.restaurant = loyaltyCard.getRestaurant();
+        this.client = loyaltyCard.getClient();
+    }
+    
+    public Client getClient() {
+        return client;
     }
 
     public LocalDate getDateCreated() {
@@ -56,5 +66,13 @@ public class ResponseLoyaltyCardDto {
 
     public LocalDate getValidThru() {
         return validThru;
+    }
+
+    public static List<ResponseLoyaltyCardDto> convert(List<LoyaltyCard> loyaltyCards) {
+        List<ResponseLoyaltyCardDto> responseLoyaltyCardDtos = new ArrayList<>();
+        loyaltyCards.forEach(lc -> {
+            responseLoyaltyCardDtos.add(new ResponseLoyaltyCardDto(lc));
+        });
+        return responseLoyaltyCardDtos;
     }
 }

@@ -50,10 +50,6 @@ public class Client extends User {
 
     @OneToMany
     @JoinColumn(name = "client_id")
-    private List<LoyaltyCard> loyaltyCards;
-
-    @OneToMany
-    @JoinColumn(name = "client_id")
     private List<Rating> ratings;
 
     public Client() {
@@ -103,10 +99,6 @@ public class Client extends User {
 
     public List<Rating> getRatings() {
         return ratings;
-    }
-
-    public List<LoyaltyCard> getLoyaltyCards() {
-        return loyaltyCards;
     }
 
     public List<Card> getCards() {
