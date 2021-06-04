@@ -1,16 +1,17 @@
 package br.com.projeto.ecantina.dto.request.updatedto;
 
+import java.math.BigDecimal;
+import java.util.Optional;
+
+import javax.validation.constraints.Email;
+import javax.validation.constraints.Size;
+
 import br.com.projeto.ecantina.config.exceptions.EmailNotValidException;
 import br.com.projeto.ecantina.models.Category;
 import br.com.projeto.ecantina.models.Restaurant;
 import br.com.projeto.ecantina.models.User;
 import br.com.projeto.ecantina.repository.CategoryRepository;
 import br.com.projeto.ecantina.repository.UserRepository;
-
-import javax.validation.constraints.Email;
-import javax.validation.constraints.Size;
-import java.math.BigDecimal;
-import java.util.Optional;
 
 public class RequestUpdateRestaurantDto {
 
@@ -23,9 +24,6 @@ public class RequestUpdateRestaurantDto {
 
     @Size(max = 255, message = "{description.size}")
     private String description;
-
-    // @NotNull(message = "{establishmentName.blank}")
-    // private String establishmentName;
 
     private String category;
 
@@ -63,11 +61,6 @@ public class RequestUpdateRestaurantDto {
         return rating;
     }
 
-    // TODO ver com o gui sobre estabelecimento mudar
-    // public String getEstablishmentName() {
-    // return establishmentName;
-    // }
-
     public String getName() {
         return this.name;
     }
@@ -80,8 +73,6 @@ public class RequestUpdateRestaurantDto {
             restaurant.setDescription(getDescription());
         if (this.name != null && !getName().isBlank())
             restaurant.setName(getName());
-        if (this.rating != null)
-            restaurant.setRating(getRating());
         if (this.paid != null)
             restaurant.setPaid(getPaid());
         if (this.open != null)

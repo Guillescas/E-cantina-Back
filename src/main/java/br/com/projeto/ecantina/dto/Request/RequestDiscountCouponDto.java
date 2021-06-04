@@ -7,6 +7,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import javax.validation.constraints.DecimalMax;
+import javax.validation.constraints.DecimalMin;
+import javax.validation.constraints.Future;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonFormat.Feature;
 
@@ -17,16 +23,18 @@ import br.com.projeto.ecantina.repository.RestaurantRepository;
 
 public class RequestDiscountCouponDto {
 
-    //TODO validations
-
     private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
+    @Size(min = 4, message = "${code.size}")
     private String code;
 
+    @DecimalMax(value = "100", message = "${valueCopoun.decimalMax}")
+    @DecimalMin(value = "0.1", message = "${valueCopoun.decimalMin}")
     private BigDecimal value;
 
     private String finishedAt;
 
+    @NotNull
     private Long restaurantId;
 
     @JsonFormat(with = Feature.ACCEPT_SINGLE_VALUE_AS_ARRAY)
@@ -36,6 +44,7 @@ public class RequestDiscountCouponDto {
         return code;
     }
 
+    @Future
     public LocalDate getFinishedAt() {
         return LocalDate.parse(this.finishedAt, formatter);
     }

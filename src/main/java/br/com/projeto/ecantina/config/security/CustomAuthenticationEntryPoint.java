@@ -28,11 +28,6 @@ public class CustomAuthenticationEntryPoint implements AuthenticationEntryPoint 
         try {
             String token = req.getHeader("Authorization").split(" ")[1];
             timeExpired(token);
-            res.setContentType(contentType);
-            res.setStatus(401);
-
-            ObjectMapper mapper = new ObjectMapper();
-            res.getWriter().write(mapper.writeValueAsString(new ResponseErrors("Acesso Negado: Token Expirado", 401)));
         } catch (ExpiredJwtException exp) {
             res.setContentType(contentType);
             res.setStatus(401);

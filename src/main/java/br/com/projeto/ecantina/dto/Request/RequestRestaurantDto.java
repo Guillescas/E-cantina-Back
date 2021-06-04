@@ -1,6 +1,7 @@
 package br.com.projeto.ecantina.dto.request;
 
 import br.com.projeto.ecantina.config.validation.notations.EmailEquals;
+import br.com.projeto.ecantina.config.validation.notations.NameEquals;
 import br.com.projeto.ecantina.models.Category;
 import br.com.projeto.ecantina.models.Establishment;
 import br.com.projeto.ecantina.models.Restaurant;
@@ -25,7 +26,7 @@ public class RequestRestaurantDto {
     @Size(min = 8, message = "{password.size}")
     private String password;
 
-    // TODO verify if the name of restaurant is equal
+    @NameEquals
     @NotBlank(message = "{name.blank}")
     private String name;
 

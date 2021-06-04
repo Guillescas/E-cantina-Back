@@ -1,26 +1,39 @@
 package br.com.projeto.ecantina.controller;
 
+import java.net.URI;
+import java.util.Optional;
+
+import javax.transaction.Transactional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
+import org.springframework.data.web.PageableDefault;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.util.UriComponentsBuilder;
+
 import br.com.projeto.ecantina.config.errors.ResponseErrors;
 import br.com.projeto.ecantina.dto.request.RequestOrderDto;
 import br.com.projeto.ecantina.dto.response.ResponseOrderDto;
 import br.com.projeto.ecantina.dto.response.detailresponse.ResponseDetailOrderDto;
+import br.com.projeto.ecantina.models.Client;
 import br.com.projeto.ecantina.models.Order;
 import br.com.projeto.ecantina.repository.ClientRepository;
 import br.com.projeto.ecantina.repository.OrderRepository;
 import br.com.projeto.ecantina.repository.ProductRepository;
 import br.com.projeto.ecantina.repository.RestaurantRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.web.PageableDefault;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
-import org.springframework.web.util.UriComponentsBuilder;
-
-import javax.transaction.Transactional;
-import java.net.URI;
-import java.util.Optional;
+import br.com.projeto.ecantina.specification.SpecificationOrder;
 
 @RestController
 @RequestMapping("/order")
@@ -39,17 +52,17 @@ public class OrderController {
     @Autowired
     OrderRepository orderRepository;
 
-    @GetMapping // FIXME mudar para retorno dinamico com clientId e restaurantId.
+    @GetMapping 
     public Page<ResponseOrderDto> list(@PageableDefault(sort = "createdAt") Pageable pageable, @RequestParam(required = false) Long clientId) {
 
+        Client client = null;
+
         if(clientId != null) {
-            Page<Order> orders = orderRepository.findByClient(clientId, pageable);
-            return ResponseOrderDto.convert(orders);
-        } else {
-            // Pageable pageable = new Pageable()
-            Page<Order> orders = orderRepository.findAll(pageable);
-            return ResponseOrderDto.convert(orders);
+            client = clientRepository.getOne(clientId);
         }
+
+        Page<Order> orders = orderRepository.findAll(Specification.where(SpecificationOrder.client(client)), pageable);
+        return ResponseOrderDto.convert(orders);
     }
 
     @PostMapping

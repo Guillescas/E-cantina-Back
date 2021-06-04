@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -21,9 +22,11 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import br.com.projeto.ecantina.config.errors.ResponseErrors;
 import br.com.projeto.ecantina.dto.request.RequestDiscountCouponDto;
+import br.com.projeto.ecantina.dto.request.updatedto.RequestUpdateDiscountCouponDto;
 import br.com.projeto.ecantina.dto.response.ResponseDiscountCouponDto;
 import br.com.projeto.ecantina.models.DiscountCoupon;
 import br.com.projeto.ecantina.repository.DiscountCouponRepository;
+import br.com.projeto.ecantina.repository.ProductRepository;
 import br.com.projeto.ecantina.repository.RestaurantRepository;
 
 @RestController
@@ -36,6 +39,12 @@ public class DiscountCouponController {
 
     @Autowired
     private RestaurantRepository restaurantRepository;
+
+    @Autowired
+    private ProductRepository productRepository;
+
+    @Value("O cupom de desconto não foi encontrado")
+    private String notFound;
 
     @GetMapping
     public List<ResponseDiscountCouponDto> list(@RequestParam(required = false) String restaurantName) {
@@ -70,10 +79,18 @@ public class DiscountCouponController {
         return ResponseEntity.created(uri).body(new ResponseDiscountCouponDto(discountCoupon));
     }
 
-    @PatchMapping("/{id}") // TODO Patch cupom de desconto
-    // public ResponseEntity<Object> update(@RequestBody RequestUpdateDiscountCouponDto requestUpdateDiscountCouponDto) {
+    @PatchMapping("/{id}")
+    public ResponseEntity<Object> update(@PathVariable Long id, @RequestBody RequestUpdateDiscountCouponDto requestUpdateDiscountCouponDto) {
+        
+        Optional<DiscountCoupon> discountCouponFind = discountCouponRepository.findById(id);
+        if (discountCouponFind.isPresent()) {
+            DiscountCoupon discountCoupon = requestUpdateDiscountCouponDto.update(discountCouponFind.get(), productRepository);
+            discountCouponRepository.save(discountCoupon);
+            return ResponseEntity.ok(new ResponseDiscountCouponDto(discountCoupon));
+        }
 
-    // }
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ResponseErrors(notFound, HttpStatus.NOT_FOUND.value()));
+    }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Object> delete(@PathVariable Long id) {
@@ -84,6 +101,6 @@ public class DiscountCouponController {
             return ResponseEntity.ok().build();
         }
 
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ResponseErrors("Cupom de desconto não encontrado", HttpStatus.NOT_FOUND.value()));
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ResponseErrors(notFound, HttpStatus.NOT_FOUND.value()));
     }
 }

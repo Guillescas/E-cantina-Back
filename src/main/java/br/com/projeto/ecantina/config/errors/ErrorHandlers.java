@@ -1,13 +1,17 @@
 package br.com.projeto.ecantina.config.errors;
 
-import br.com.projeto.ecantina.config.exceptions.EmailNotValidException;
-import br.com.projeto.ecantina.config.exceptions.ImageTypeMismatchException;
 import org.springframework.dao.InvalidDataAccessResourceUsageException;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.context.request.WebRequest;
+
+import br.com.projeto.ecantina.config.exceptions.EmailNotValidException;
+import br.com.projeto.ecantina.config.exceptions.ImageTypeMismatchException;
+import br.com.projeto.ecantina.config.exceptions.InvalidLoyaltyCardException;
+import br.com.projeto.ecantina.config.exceptions.InvalidRatingException;
 
 @RestControllerAdvice
 public class ErrorHandlers {
@@ -48,5 +52,30 @@ public class ErrorHandlers {
         return new ResponseErrors(msg, HttpStatus.UNSUPPORTED_MEDIA_TYPE.value());
     }
 
-    //TODO HttpMessageNotReadableException : excecao de não mandar nada no body
+    @ResponseStatus(code = HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(HttpMessageNotReadableException.class)
+    public ResponseErrors handle(HttpMessageNotReadableException exception) {
+
+        String msg = exception.getMessage();
+
+        return new ResponseErrors(msg, HttpStatus.BAD_REQUEST.value());
+    }
+
+    @ResponseStatus(code = HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(InvalidLoyaltyCardException.class)
+    public ResponseErrors handle(InvalidLoyaltyCardException exception) {
+
+        String msg = exception.getMessage();
+
+        return new ResponseErrors(msg, HttpStatus.BAD_REQUEST.value());
+    }
+
+    @ResponseStatus(code = HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(InvalidRatingException.class)
+    public ResponseErrors handle(InvalidRatingException exception) {
+
+        String msg = exception.getMessage();
+
+        return new ResponseErrors(msg, HttpStatus.BAD_REQUEST.value());
+    }
 }

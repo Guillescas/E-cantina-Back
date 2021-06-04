@@ -1,13 +1,15 @@
 package br.com.projeto.ecantina.dto.response;
 
-import br.com.projeto.ecantina.models.Order;
-import br.com.projeto.ecantina.models.ProductList;
-import org.springframework.data.annotation.Transient;
-import org.springframework.data.domain.Page;
-
 import java.math.BigDecimal;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
+
+import org.springframework.data.annotation.Transient;
+import org.springframework.data.domain.Page;
+
+import br.com.projeto.ecantina.models.Client;
+import br.com.projeto.ecantina.models.Order;
+import br.com.projeto.ecantina.models.ProductList;
 
 public class ResponseOrderDto {
     
@@ -23,6 +25,8 @@ public class ResponseOrderDto {
 
     private BigDecimal total;
 
+    private Client client;
+
     private List<ProductList> productLists;
 
     @Transient
@@ -36,6 +40,10 @@ public class ResponseOrderDto {
         this.valid = order.getValid();
         this.total = order.getTotal();
         this.productLists = order.getProductLists();
+    }
+
+    public Client getClient() {
+        return client;
     }
 
     public Boolean getFinished() {

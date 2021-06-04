@@ -3,6 +3,7 @@ package br.com.projeto.ecantina.models;
 import java.util.List;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
@@ -36,25 +37,21 @@ public class Client extends User {
     @Column(length = 14, nullable = true)
     private String cpf;
 
-    @OneToMany
+    @OneToMany(cascade = CascadeType.REMOVE)
     @JoinColumn(name = "client_id")
     private List<Address> address;
 
-    @OneToMany
+    @OneToMany(cascade = CascadeType.REMOVE)
     @JoinColumn(name = "client_id")
     private Set<Order> orders;
 
-    @OneToMany
+    @OneToMany(cascade = CascadeType.REMOVE)
     @JoinColumn(name = "client_id")
     private List<Card> cards;
 
-    @OneToMany
+    @OneToMany(cascade = CascadeType.REMOVE)
     @JoinColumn(name = "client_id")
-    private List<LoyaltyCard> loyaltyCards;
-
-    @OneToMany
-    @JoinColumn(name = "client_id")
-    private List<Rating> ratings;
+    private Set<Rating> ratings;
 
     public Client() {
     }
@@ -101,12 +98,8 @@ public class Client extends User {
         return true;
     }
 
-    public List<Rating> getRatings() {
+    public Set<Rating> getRatings() {
         return ratings;
-    }
-
-    public List<LoyaltyCard> getLoyaltyCards() {
-        return loyaltyCards;
     }
 
     public List<Card> getCards() {

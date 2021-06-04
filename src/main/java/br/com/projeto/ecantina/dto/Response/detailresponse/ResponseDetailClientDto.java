@@ -15,7 +15,6 @@ public class ResponseDetailClientDto {
     private List<Address> address;
     private Set<Order> orders;
     private List<Card> cards;
-    private List<LoyaltyCard> loyaltyCards;
     private String urlImage;
 
     public ResponseDetailClientDto(Client client) {
@@ -26,7 +25,6 @@ public class ResponseDetailClientDto {
         this.address = client.getAddress();
         this.orders = client.getOrders();
         this.cards = client.getCards();
-        this.loyaltyCards = client.getLoyaltyCards();
         this.urlImage = client.getUrlImage();
     }
 
@@ -56,10 +54,6 @@ public class ResponseDetailClientDto {
 
     public List<Card> getCards() {
         return cards;
-    }
-
-    public List<LoyaltyCard> getLoyaltyCards() {
-        return loyaltyCards;
     }
 
     public String getUrlImage() {
