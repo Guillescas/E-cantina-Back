@@ -79,7 +79,7 @@ public class DiscountCouponController {
         return ResponseEntity.created(uri).body(new ResponseDiscountCouponDto(discountCoupon));
     }
 
-    @PatchMapping("/{id}") // TODO Patch cupom de desconto
+    @PatchMapping("/{id}")
     public ResponseEntity<Object> update(@PathVariable Long id, @RequestBody RequestUpdateDiscountCouponDto requestUpdateDiscountCouponDto) {
         
         Optional<DiscountCoupon> discountCouponFind = discountCouponRepository.findById(id);
