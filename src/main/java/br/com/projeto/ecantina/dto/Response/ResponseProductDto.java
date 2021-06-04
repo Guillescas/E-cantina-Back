@@ -1,9 +1,12 @@
 package br.com.projeto.ecantina.dto.response;
 
-import br.com.projeto.ecantina.models.Product;
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.data.domain.Page;
 
-import java.math.BigDecimal;
+import br.com.projeto.ecantina.models.Product;
 
 public class ResponseProductDto {
     
@@ -49,5 +52,13 @@ public class ResponseProductDto {
 
     public static Page<ResponseProductDto> convert(Page<Product> products) {
         return products.map(ResponseProductDto::new);
+    } 
+
+    public static List<ResponseProductDto> convert(List<Product> products) {
+        List<ResponseProductDto> productDtos = new ArrayList<>();
+        products.forEach(product -> {
+            productDtos.add(new ResponseProductDto(product));
+        });
+        return productDtos;
     } 
 }

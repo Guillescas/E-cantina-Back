@@ -37,7 +37,8 @@ public abstract class User implements UserDetails {
     @ManyToMany(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
     private List<UserType> userTypes;
 
-    protected User() {}
+    protected User() {
+    }
 
     protected User(String email, String password, String name, String type) {
         this.email = email;
@@ -53,7 +54,6 @@ public abstract class User implements UserDetails {
         int result = 1;
         result = prime * result + ((email == null) ? 0 : email.hashCode());
         result = prime * result + ((id == null) ? 0 : id.hashCode());
-        result = prime * result + ((password == null) ? 0 : password.hashCode());
         return result;
     }
 
@@ -66,20 +66,15 @@ public abstract class User implements UserDetails {
         if (getClass() != obj.getClass())
             return false;
         User other = (User) obj;
-        if (email == null) {
-            if (other.email != null)
-                return false;
-        } else if (!email.equals(other.email))
-            return false;
         if (id == null) {
             if (other.id != null)
                 return false;
         } else if (!id.equals(other.id))
             return false;
-        if (password == null) {
-            if (other.password != null)
+        if (email == null) {
+            if (other.email != null)
                 return false;
-        } else if (!password.equals(other.password))
+        } else if (!email.equals(other.email))
             return false;
         return true;
     }

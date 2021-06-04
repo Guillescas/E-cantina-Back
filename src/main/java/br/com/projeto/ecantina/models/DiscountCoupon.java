@@ -1,11 +1,20 @@
 package br.com.projeto.ecantina.models;
 
-import javax.persistence.*;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Set;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
+
+//TODO valid discount coupon
 @Entity(name="discount_coupon")
 public class DiscountCoupon implements Serializable {
 
@@ -22,10 +31,16 @@ public class DiscountCoupon implements Serializable {
   private BigDecimal value;
 
   @Column(nullable = false)
-  private Boolean used = false;
+  private Boolean valid;
+
+  @Column(nullable = false)
+  private LocalDate createdAt;
 
   @Column(updatable = false, nullable = false)
   private LocalDate finishedAt;
+
+  @OneToMany
+  private Set<Client> UsedByClients;
 
   @OneToMany
   @JoinColumn(name = "discount_coupon_id")
@@ -37,15 +52,27 @@ public class DiscountCoupon implements Serializable {
     this.code = code;
     this.value = value;
     this.finishedAt = finishedAt;
+    this.valid = true;
     this.products = products;
+    this.createdAt = LocalDate.now();
   }
 
   public String getCode() {
       return code;
   }
 
-  public Boolean getUsed() {
-      return used;
+  public Set<Client> getUsedByClients() {
+      return UsedByClients;
+  }
+  
+  public LocalDate getCreatedAt() {
+      return createdAt;
+  }
+
+  public Boolean getValid(Client client) {
+      if (getUsedByClients() != null && client != null)
+        return (getFinishedAt().isAfter(getCreatedAt()) && getUsedByClients().contains(client));
+      return (getFinishedAt().isAfter(getCreatedAt()));
   }
 
   public Long getId() {

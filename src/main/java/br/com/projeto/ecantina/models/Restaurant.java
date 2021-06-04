@@ -30,10 +30,6 @@ public class Restaurant extends User{
     @ManyToOne(cascade = CascadeType.PERSIST)
     private Category categories;
 
-    // @OneToMany
-    // @JoinColumn(name = "restaurant_id")
-    // private Set<LoyaltyCard> loyaltyCards;
-
     @OneToMany
     @JoinColumn(name = "restaurant_id")
     private Set<Order> orders;
@@ -109,10 +105,6 @@ public class Restaurant extends User{
     public List<DiscountCoupon> getDiscountCoupon() {
         return discountCoupon;
     }
-
-    // public Set<LoyaltyCard> getLoyaltyCards() {
-    //     return loyaltyCards;
-    // }
 
     public Set<Order> getOrders() {
         return orders;

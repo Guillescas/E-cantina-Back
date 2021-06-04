@@ -16,23 +16,20 @@ public class ResponseDiscountCouponDto {
 
     private BigDecimal value;
 
-    private Boolean used;
-
     private LocalDate finishedAt;
 
-    private List<Product> products;
+    private Boolean valid;
 
     public ResponseDiscountCouponDto(DiscountCoupon discountCoupon) {
         this.id = discountCoupon.getId();
         this.code = discountCoupon.getCode();
         this.value = discountCoupon.getValue();
         this.finishedAt = discountCoupon.getFinishedAt();
-        this.products = discountCoupon.getProducts();
-        this.used = discountCoupon.getUsed();
+        this.valid = discountCoupon.getValid(null);
     }
 
-    public Boolean getUsed() {
-        return used;
+    public Boolean getValid() {
+        return valid;
     }
     
     public String getCode() {
@@ -45,10 +42,6 @@ public class ResponseDiscountCouponDto {
     
     public Long getId() {
         return id;
-    }
-
-    public List<Product> getProducts() {
-        return products;
     }
 
     public BigDecimal getValue() {

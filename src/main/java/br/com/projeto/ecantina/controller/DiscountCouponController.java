@@ -25,6 +25,7 @@ import br.com.projeto.ecantina.dto.request.RequestDiscountCouponDto;
 import br.com.projeto.ecantina.dto.request.updatedto.RequestUpdateDiscountCouponDto;
 import br.com.projeto.ecantina.dto.response.ResponseDiscountCouponDto;
 import br.com.projeto.ecantina.models.DiscountCoupon;
+import br.com.projeto.ecantina.repository.ClientRepository;
 import br.com.projeto.ecantina.repository.DiscountCouponRepository;
 import br.com.projeto.ecantina.repository.ProductRepository;
 import br.com.projeto.ecantina.repository.RestaurantRepository;
@@ -43,6 +44,9 @@ public class DiscountCouponController {
     @Autowired
     private ProductRepository productRepository;
 
+    @Autowired
+    private ClientRepository clientRepository;
+
     @Value("O cupom de desconto não foi encontrado")
     private String notFound;
 
@@ -58,10 +62,10 @@ public class DiscountCouponController {
         return ResponseDiscountCouponDto.convert(allDiscountCoupon);
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<Object> detail(@PathVariable Long id) {
+    @GetMapping("/{code}")
+    public ResponseEntity<Object> detail(@PathVariable String code) {
 
-        Optional<DiscountCoupon> discountFind = discountCouponRepository.findById(id);
+        Optional<DiscountCoupon> discountFind = discountCouponRepository.findByCode(code);
         if (discountFind.isPresent()) {
             return ResponseEntity.ok(new ResponseDiscountCouponDto(discountFind.get()));
         }
@@ -84,7 +88,7 @@ public class DiscountCouponController {
         
         Optional<DiscountCoupon> discountCouponFind = discountCouponRepository.findById(id);
         if (discountCouponFind.isPresent()) {
-            DiscountCoupon discountCoupon = requestUpdateDiscountCouponDto.update(discountCouponFind.get(), productRepository);
+            DiscountCoupon discountCoupon = requestUpdateDiscountCouponDto.update(discountCouponFind.get(), productRepository, clientRepository);
             discountCouponRepository.save(discountCoupon);
             return ResponseEntity.ok(new ResponseDiscountCouponDto(discountCoupon));
         }

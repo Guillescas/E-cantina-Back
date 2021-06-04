@@ -16,6 +16,7 @@ import javax.validation.constraints.Size;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonFormat.Feature;
 
+import br.com.projeto.ecantina.config.validation.notations.NameEquals;
 import br.com.projeto.ecantina.models.DiscountCoupon;
 import br.com.projeto.ecantina.models.Product;
 import br.com.projeto.ecantina.models.Restaurant;
@@ -25,7 +26,8 @@ public class RequestDiscountCouponDto {
 
     private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
-    @Size(min = 4, message = "${code.size}")
+    @NameEquals
+    @Size(min = 6, max = 6,message = "${code.size}")
     private String code;
 
     @DecimalMax(value = "100", message = "${valueCopoun.decimalMax}")
