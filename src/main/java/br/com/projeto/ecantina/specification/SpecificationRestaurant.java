@@ -20,6 +20,6 @@ public class SpecificationRestaurant {
 
     public static Specification<Restaurant> categories(Category category) {
         return (root, criteriaQuery, criteriaBuilder) ->
-            criteriaBuilder.equal(root.get("category"), category);
+            criteriaBuilder.equal(root.get("categories"), category);
     }
 }
