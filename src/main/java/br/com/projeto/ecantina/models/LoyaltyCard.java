@@ -99,17 +99,16 @@ public class LoyaltyCard implements Serializable {
     }
 
     public Boolean getValid() {
-        if (getValidThru().isAfter(getDateCreated()))
-            return true;
-        else
-            return false;
+        return (this.getValidThru().isAfter(getDateCreated()) && this.getOrdersDone() >= this.getTotalOrder());
     }
 
     public void increaseOrdersDone() {
         if (this.getOrdersDone() >= this.getTotalOrder())
             this.ordersDone++;
-        else
+        else {
+            this.valid = false;
             throw new InvalidLoyaltyCardException("Limite do cartão já atingido");
+        }
     }
 
     public void setValid(Boolean valid) {
