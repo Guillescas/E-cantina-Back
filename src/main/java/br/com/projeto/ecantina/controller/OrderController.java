@@ -51,20 +51,7 @@ public class OrderController {
     
     @Autowired
     OrderRepository orderRepository;
-
-    @GetMapping 
-    public Page<ResponseOrderDto> list(@PageableDefault(sort = "createdAt") Pageable pageable, @RequestParam(required = false) Long clientId) {
-
-        Client client = null;
-
-        if(clientId != null) {
-            client = clientRepository.getOne(clientId);
-        }
-
-        Page<Order> orders = orderRepository.findAll(Specification.where(SpecificationOrder.client(client)), pageable);
-        return ResponseOrderDto.convert(orders);
-    }
-
+    
     @PostMapping
     @Transactional
     public ResponseEntity<ResponseOrderDto> create(@RequestBody RequestOrderDto requestOrderDto, UriComponentsBuilder uriComponentsBuilder) {
