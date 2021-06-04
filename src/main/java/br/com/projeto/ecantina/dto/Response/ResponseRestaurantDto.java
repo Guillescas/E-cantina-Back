@@ -16,6 +16,7 @@ public class ResponseRestaurantDto {
     private String name;
     private Category category;
     private String urlImage;
+    private String description;
     private BigDecimal averageRating;
     private List<Rating> ratings;
 
@@ -25,6 +26,7 @@ public class ResponseRestaurantDto {
         this.name = restaurant.getName();
         this.category = restaurant.getCategories();
         this.urlImage = restaurant.getUrlImage();
+        this.description = restaurant.getDescription();
         if (restaurant.getRatings() != null && !restaurant.getRatings().isEmpty()) {
             this.ratings = restaurant.getRatings();
             this.averageRating = getAverageRating(this.ratings);
@@ -40,6 +42,10 @@ public class ResponseRestaurantDto {
             return totalSum.divide(new BigDecimal(ratings.size()));
         }
         return BigDecimal.ZERO;
+    }
+    
+    public String getDescription() {
+        return description;
     }
 
     public List<Rating> getRatings() {
