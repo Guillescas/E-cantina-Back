@@ -25,7 +25,7 @@ public class ResponseRestaurantDto {
         this.name = restaurant.getName();
         this.category = restaurant.getCategories();
         this.urlImage = restaurant.getUrlImage();
-        if (!restaurant.getRatings().isEmpty()) {
+        if (restaurant.getRatings() != null && !restaurant.getRatings().isEmpty()) {
             this.ratings = restaurant.getRatings();
             this.averageRating = getAverageRating(this.ratings);
         }
