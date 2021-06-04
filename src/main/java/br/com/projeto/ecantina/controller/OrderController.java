@@ -6,10 +6,6 @@ import java.util.Optional;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.jpa.domain.Specification;
-import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -19,7 +15,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
@@ -27,13 +22,11 @@ import br.com.projeto.ecantina.config.errors.ResponseErrors;
 import br.com.projeto.ecantina.dto.request.RequestOrderDto;
 import br.com.projeto.ecantina.dto.response.ResponseOrderDto;
 import br.com.projeto.ecantina.dto.response.detailresponse.ResponseDetailOrderDto;
-import br.com.projeto.ecantina.models.Client;
 import br.com.projeto.ecantina.models.Order;
 import br.com.projeto.ecantina.repository.ClientRepository;
 import br.com.projeto.ecantina.repository.OrderRepository;
 import br.com.projeto.ecantina.repository.ProductRepository;
 import br.com.projeto.ecantina.repository.RestaurantRepository;
-import br.com.projeto.ecantina.specification.SpecificationOrder;
 
 @RestController
 @RequestMapping("/order")
