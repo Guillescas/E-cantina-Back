@@ -1,8 +1,14 @@
 package br.com.projeto.ecantina.models;
 
-import javax.persistence.*;
 import java.io.Serializable;
 import java.math.BigDecimal;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 
 @Entity(name = "products_list")
 public class ProductList implements Serializable {
@@ -22,6 +28,9 @@ public class ProductList implements Serializable {
     @Column 
     private BigDecimal total;
 
+    @Column
+    private String description;
+
     @ManyToOne
     private Product product;
 
@@ -31,10 +40,11 @@ public class ProductList implements Serializable {
         this.product = product;
     }
 
-    public ProductList(Integer quantity, Product product) {
+    public ProductList(Integer quantity, String description,Product product) {
         this.quantity = quantity;
         this.product = product;
         this.value = product.getPrice();
+        this.description = description;
         this.total = getValue().multiply(new BigDecimal(getQuantity()));
     }
 
@@ -61,6 +71,10 @@ public class ProductList implements Serializable {
         } else if (!id.equals(other.id))
             return false;
         return true;
+    }
+
+    public String getDescription() {
+        return description;
     }
 
     public BigDecimal getTotal() {

@@ -12,8 +12,16 @@ public class RequestProductsListDto {
 
     private Integer quantity;
 
+    private String description;
+
     public Long getProductId() {
         return productId;
+    }
+
+    public String getDescription() {
+        if (this.description == null)
+            return "";
+        return description;
     }
 
     public Integer getQuantity() {
@@ -24,7 +32,7 @@ public class RequestProductsListDto {
         Optional<Product> product = productRepository.findById(getProductId());
 
         if(product.isPresent()) {
-            return new ProductList(getQuantity(), product.get());
+            return new ProductList(getQuantity(), getDescription(), product.get());
         } else {
             throw new NullPointerException("Produto:Não foi encontrado esse produto");
         }
