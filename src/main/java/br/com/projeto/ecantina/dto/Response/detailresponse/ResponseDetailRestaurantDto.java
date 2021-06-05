@@ -12,6 +12,8 @@ import br.com.projeto.ecantina.models.Restaurant;
 
 public class ResponseDetailRestaurantDto {
 
+    private Long id;
+
     private String name;
     
     private List<Rating> rating;
@@ -33,6 +35,7 @@ public class ResponseDetailRestaurantDto {
     private List<DiscountCoupon> discountCoupon;
 
     public ResponseDetailRestaurantDto(Restaurant restaurant) {
+        this.id = restaurant.getId();
         this.name = restaurant.getName();
         this.discountCoupon = restaurant.getDiscountCoupon();
         this.categories = restaurant.getCategories();
@@ -43,6 +46,10 @@ public class ResponseDetailRestaurantDto {
         this.products = restaurant.getProducts();
         this.rating = restaurant.getRatings();
         this.urlImage = restaurant.getUrlImage();
+    }
+    
+    public Long getId() {
+        return id;
     }
 
     public String getUrlImage() {
