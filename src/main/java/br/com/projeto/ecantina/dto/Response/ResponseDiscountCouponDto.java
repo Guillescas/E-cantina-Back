@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import br.com.projeto.ecantina.models.DiscountCoupon;
-import br.com.projeto.ecantina.models.Product;
 
 public class ResponseDiscountCouponDto {
 

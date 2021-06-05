@@ -1,25 +1,30 @@
 package br.com.projeto.ecantina.dto.request;
 
-import br.com.projeto.ecantina.models.Client;
-import br.com.projeto.ecantina.models.Order;
-import br.com.projeto.ecantina.models.ProductList;
-import br.com.projeto.ecantina.models.Restaurant;
-import br.com.projeto.ecantina.repository.ClientRepository;
-import br.com.projeto.ecantina.repository.ProductRepository;
-import br.com.projeto.ecantina.repository.RestaurantRepository;
-import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonFormat.Feature;
-
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonFormat.Feature;
+
+import br.com.projeto.ecantina.models.Client;
+import br.com.projeto.ecantina.models.DiscountCoupon;
+import br.com.projeto.ecantina.models.Order;
+import br.com.projeto.ecantina.models.ProductList;
+import br.com.projeto.ecantina.models.Restaurant;
+import br.com.projeto.ecantina.repository.ClientRepository;
+import br.com.projeto.ecantina.repository.DiscountCouponRepository;
+import br.com.projeto.ecantina.repository.ProductRepository;
+import br.com.projeto.ecantina.repository.RestaurantRepository;
 
 public class RequestOrderDto {
 
     private Long clientId;
 
     private Long restaurantId;
+
+    private Long discountId;
 
     private String observation;
 
@@ -38,29 +43,43 @@ public class RequestOrderDto {
         return restaurantId;
     }
 
+    public Long getDiscountId() {
+        return discountId;
+    }
+
     public List<RequestProductsListDto> getRequestProductLists() {
         return productList;
     }
 
-    private BigDecimal getTotal(List<ProductList> productLists) {
+    private BigDecimal getTotal(List<ProductList> productLists, Optional<DiscountCoupon> discount) {
         BigDecimal total = BigDecimal.valueOf(0);
         
         for (ProductList product : productLists) {
             total = total.add(product.getTotal());
         }
 
+        if (discount.isPresent()) {
+            if (Boolean.TRUE.equals(discount.get().getPercent())) {
+                BigDecimal value = total.divide(discount.get().getValue());
+                total = total.subtract(value);
+            } else {
+                total = total.subtract(discount.get().getValue());
+            }
+        }
+        
         return total;
     }
 
     public Order convert(ClientRepository clientRepository, RestaurantRepository restaurantRepository,
-            ProductRepository productRepository) {
+            ProductRepository productRepository, DiscountCouponRepository discountCouponRepository) {
 
         Optional<Client> client = clientRepository.findById(getClientId());
         Optional<Restaurant> restaurant = restaurantRepository.findById(getRestaurantId());
+        Optional<DiscountCoupon> discount = discountCouponRepository.findById(getDiscountId());
 
         if(client.isPresent() && restaurant.isPresent()) {
             List<ProductList> productLists = createListProducts(productRepository);
-            BigDecimal total = getTotal(productLists);
+            BigDecimal total = getTotal(productLists, discount);
             Order order = new Order(getObservation(), total, productLists);
 
             client.get().getOrders().add(order);

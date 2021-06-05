@@ -35,6 +35,8 @@ public class RequestDiscountCouponDto {
     private BigDecimal value;
 
     private String finishedAt;
+    
+    private Boolean percent;
 
     @NotNull
     private Long restaurantId;
@@ -44,6 +46,10 @@ public class RequestDiscountCouponDto {
 
     public String getCode() {
         return code;
+    }
+
+    public Boolean getPercent() {
+        return percent;
     }
 
     @Future
@@ -69,7 +75,7 @@ public class RequestDiscountCouponDto {
 
         if(restaurantFind.isPresent()) {
             List<Product> productsList = createListProducts(getProducts(), restaurantFind.get());
-            DiscountCoupon discountCoupon = new DiscountCoupon(getCode(), getValue(), getFinishedAt(), productsList);
+            DiscountCoupon discountCoupon = new DiscountCoupon(getCode(), getValue(), getFinishedAt(), getPercent(),productsList);
             restaurantFind.get().getDiscountCoupon().add(discountCoupon);
             return discountCoupon;
         } 

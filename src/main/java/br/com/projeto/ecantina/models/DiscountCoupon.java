@@ -34,6 +34,9 @@ public class DiscountCoupon implements Serializable {
   private Boolean valid;
 
   @Column(nullable = false)
+  private Boolean percent;
+
+  @Column(nullable = false)
   private LocalDate createdAt;
 
   @Column(updatable = false, nullable = false)
@@ -48,13 +51,18 @@ public class DiscountCoupon implements Serializable {
 
   public DiscountCoupon() {}
 
-  public DiscountCoupon(String code, BigDecimal value, LocalDate finishedAt, List<Product> products) {
+  public DiscountCoupon(String code, BigDecimal value, LocalDate finishedAt, Boolean percent, List<Product> products) {
     this.code = code;
     this.value = value;
     this.finishedAt = finishedAt;
+    this.percent = percent;
     this.valid = true;
     this.products = products;
     this.createdAt = LocalDate.now();
+  }
+
+  public Boolean getPercent() {
+      return percent;
   }
 
   public String getCode() {
@@ -113,6 +121,8 @@ public class DiscountCoupon implements Serializable {
   }
 
   public BigDecimal getValue() {
+    if (getPercent())
+      return value.divide(new BigDecimal(100));
     return value;
   }
 
