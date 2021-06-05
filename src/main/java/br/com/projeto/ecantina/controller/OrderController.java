@@ -24,6 +24,7 @@ import br.com.projeto.ecantina.dto.response.ResponseOrderDto;
 import br.com.projeto.ecantina.dto.response.detailresponse.ResponseDetailOrderDto;
 import br.com.projeto.ecantina.models.Order;
 import br.com.projeto.ecantina.repository.ClientRepository;
+import br.com.projeto.ecantina.repository.DiscountCouponRepository;
 import br.com.projeto.ecantina.repository.OrderRepository;
 import br.com.projeto.ecantina.repository.ProductRepository;
 import br.com.projeto.ecantina.repository.RestaurantRepository;
@@ -34,22 +35,25 @@ import br.com.projeto.ecantina.repository.RestaurantRepository;
 public class OrderController {
 
     @Autowired
-    ClientRepository clientRepository;
+    private ClientRepository clientRepository;
 
     @Autowired
-    RestaurantRepository restaurantRepository;
+    private RestaurantRepository restaurantRepository;
 
     @Autowired
-    ProductRepository productRepository;
+    private ProductRepository productRepository;
     
     @Autowired
-    OrderRepository orderRepository;
+    private OrderRepository orderRepository;
+
+    @Autowired
+    private DiscountCouponRepository discountCouponRepository;
     
     @PostMapping
     @Transactional
     public ResponseEntity<ResponseOrderDto> create(@RequestBody RequestOrderDto requestOrderDto, UriComponentsBuilder uriComponentsBuilder) {
 
-        Order order = requestOrderDto.convert(clientRepository, restaurantRepository, productRepository);
+        Order order = requestOrderDto.convert(clientRepository, restaurantRepository, productRepository, discountCouponRepository);
         orderRepository.save(order);
         URI uri = uriComponentsBuilder.path("/order/{id}").buildAndExpand(order.getId()).toUri();
 
