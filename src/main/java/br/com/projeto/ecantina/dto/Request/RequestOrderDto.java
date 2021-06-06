@@ -73,9 +73,14 @@ public class RequestOrderDto {
     public Order convert(ClientRepository clientRepository, RestaurantRepository restaurantRepository,
             ProductRepository productRepository, DiscountCouponRepository discountCouponRepository) {
 
+        Optional<DiscountCoupon> discount;
         Optional<Client> client = clientRepository.findById(getClientId());
         Optional<Restaurant> restaurant = restaurantRepository.findById(getRestaurantId());
-        Optional<DiscountCoupon> discount = discountCouponRepository.findById(getDiscountId());
+        if (this.discountId != null) {
+            discount = discountCouponRepository.findById(getDiscountId());
+        } else {
+            discount = Optional.empty();
+        }
 
         if(client.isPresent() && restaurant.isPresent()) {
             List<ProductList> productLists = createListProducts(productRepository);
@@ -84,6 +89,9 @@ public class RequestOrderDto {
 
             client.get().getOrders().add(order);
             restaurant.get().getOrders().add(order);
+            if (discount.isPresent()) {
+                discount.get().getUsedByClients().add(client.get());
+            }
 
             return order;
         } else {

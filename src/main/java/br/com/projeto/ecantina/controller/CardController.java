@@ -61,10 +61,10 @@ public class CardController {
             UriComponentsBuilder uriComponentsBuilder) {
 
         Card card = requestCardDto.convert(clientRepository, bankDataRepository);
-        cardRepository.save(card);
+        // cardRepository.save(card);
 
-        URI uri = uriComponentsBuilder.path("/card/{id}").buildAndExpand(card.getId()).toUri();
-        return ResponseEntity.created(uri).body(new ResponseCardDto(card));
+        // URI uri = uriComponentsBuilder.path("/card/{id}").buildAndExpand(card.getId()).toUri();
+        return ResponseEntity.ok().body(new ResponseCardDto(card));
     }
 
     @GetMapping("/{id}")
