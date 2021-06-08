@@ -17,6 +17,8 @@ public class ResponseCardDto {
 
     private String cvv;
 
+    private String nickname;
+
     private BankData bank;
 
     public ResponseCardDto(Card card) {
@@ -26,6 +28,11 @@ public class ResponseCardDto {
         this.validThru = card.getValidThru();
         this.cvv = card.getCvv();
         this.bank = card.getBank();
+        this.nickname = card.getNickname();
+    }
+
+    public String getNickname() {
+        return nickname;
     }
 
     public BankData getBank() {

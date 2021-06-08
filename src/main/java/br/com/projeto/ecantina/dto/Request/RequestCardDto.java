@@ -21,6 +21,8 @@ public class RequestCardDto {
     @CreditCardNumber(message = "{cardNumber.format}")
     private String cardNumber;
 
+    private String nickname;
+
     @Size(max = 50, message = "{owner.size}")
     @NotBlank(message = "{owner.blank}")
     private String owner;
@@ -59,6 +61,10 @@ public class RequestCardDto {
         return owner;
     }
 
+    public String getNickname() {
+        return nickname;
+    }
+
     public LocalDate getValidThru() {
         return LocalDate.parse(this.validThru, formatter);
     }
@@ -70,13 +76,13 @@ public class RequestCardDto {
 
         if (clientFind.isPresent()) {
             if (bankData.isPresent()) {
-                Card card = new Card(getCardNumber(), getOwner(), getValidThru(), getCvv(), bankData.get());
+                Card card = new Card(getCardNumber(), getOwner(), getValidThru(), getCvv(), getNickname(),bankData.get());
                 clientFind.get().getCards().add(card);
                 return card;
             } else {
                 BankData newBank = new BankData(getBank());
                 bankDataRepository.save(newBank);
-                Card card = new Card(getCardNumber(), getOwner(), getValidThru(), getCvv(), newBank);
+                Card card = new Card(getCardNumber(), getOwner(), getValidThru(), getCvv(), getNickname(),newBank);
                 clientFind.get().getCards().add(card);
                 return card;
             }

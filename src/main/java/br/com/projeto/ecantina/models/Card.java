@@ -13,6 +13,9 @@ public class Card implements Serializable {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
+  @Column(length = 50)
+  private String nickname;
+
   @Column(length = 19, nullable = false)
   private String cardNumber;
 
@@ -37,12 +40,13 @@ public class Card implements Serializable {
     this.cvv = cvv;
   }
 
-  public Card(String cardNumber, String owner, LocalDate validThru, String cvv, BankData bank) {
+  public Card(String cardNumber, String owner, LocalDate validThru, String cvv, String nickname,BankData bank) {
     this.cardNumber = cardNumber;
     this.owner = owner;
     this.validThru = validThru;
     this.cvv = cvv;
     this.bank = bank;
+    this.nickname = nickname;
   }
 
   @Override
@@ -68,6 +72,10 @@ public class Card implements Serializable {
     } else if (!id.equals(other.id))
       return false;
     return true;
+  }
+
+  public String getNickname() {
+      return nickname;
   }
 
   public BankData getBank() {
