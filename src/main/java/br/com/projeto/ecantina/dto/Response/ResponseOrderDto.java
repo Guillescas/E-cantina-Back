@@ -43,7 +43,7 @@ public class ResponseOrderDto {
         this.restaurant = new ResponseRestaurantDto(order.getRestaurant());
     }
 
-    public ResponseRestaurantDto getRestaurantDto() {
+    public ResponseRestaurantDto getRestaurant() {
         return restaurant;
     }
 
