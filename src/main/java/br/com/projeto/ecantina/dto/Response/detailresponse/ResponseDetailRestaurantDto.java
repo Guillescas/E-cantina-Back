@@ -2,6 +2,7 @@ package br.com.projeto.ecantina.dto.response.detailresponse;
 
 import java.util.List;
 
+import br.com.projeto.ecantina.dto.response.ResponseDiscountCouponDto;
 import br.com.projeto.ecantina.dto.response.ResponseRestaurantOrdersDto;
 import br.com.projeto.ecantina.models.Category;
 import br.com.projeto.ecantina.models.DiscountCoupon;
@@ -31,12 +32,12 @@ public class ResponseDetailRestaurantDto {
 
     private List<Product> products;
 
-    private List<DiscountCoupon> discountCoupon;
+    private List<ResponseDiscountCouponDto> discountCoupon;
 
     public ResponseDetailRestaurantDto(Restaurant restaurant) {
         this.id = restaurant.getId();
         this.name = restaurant.getName();
-        this.discountCoupon = restaurant.getDiscountCoupon();
+        this.discountCoupon = ResponseDiscountCouponDto.convert(restaurant.getDiscountCoupon());
         this.categories = restaurant.getCategories();
         this.description = restaurant.getDescription();
         this.open = restaurant.getOpen();
@@ -87,7 +88,7 @@ public class ResponseDetailRestaurantDto {
         return products;
     }
 
-    public List<DiscountCoupon> getDiscountCoupon() {
+    public List<ResponseDiscountCouponDto> getDiscountCoupon() {
         return discountCoupon;
     }
 }
