@@ -2,6 +2,7 @@ package br.com.projeto.ecantina.dto.response;
 
 import java.math.BigDecimal;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.data.annotation.Transient;
@@ -76,5 +77,15 @@ public class ResponseOrderDto {
 
     public static Page<ResponseOrderDto> convert(Page<Order> orders) {
         return orders.map(ResponseOrderDto::new);
-    }    
+    } 
+    
+    public static List<ResponseOrderDto> convert(List<Order> orders) {
+        List<ResponseOrderDto> ordersDto = new ArrayList<>();
+
+        orders.forEach(order -> {
+            ordersDto.add(new ResponseOrderDto(order));
+        });
+
+        return ordersDto;
+    }   
 }
