@@ -29,11 +29,11 @@ public class ResponseRestaurantDto {
         this.description = restaurant.getDescription();
         if (restaurant.getRatings() != null && !restaurant.getRatings().isEmpty()) {
             this.ratings = restaurant.getRatings();
-            this.averageRating = getAverageRating(this.ratings);
+            this.averageRating = calculateAverage(this.ratings);
         }
     }
 
-    public BigDecimal getAverageRating(List<Rating> ratings) {
+    public BigDecimal calculateAverage(List<Rating> ratings) {
         if (!getRatings().isEmpty() && getRatings().size() != 0) {
             BigDecimal totalSum = BigDecimal.ZERO;
             for (Rating rating : ratings) {
@@ -42,6 +42,10 @@ public class ResponseRestaurantDto {
             return totalSum.divide(new BigDecimal(ratings.size()));
         }
         return BigDecimal.ZERO;
+    }
+
+    public BigDecimal getAverageRating() {
+        return averageRating;
     }
     
     public String getDescription() {

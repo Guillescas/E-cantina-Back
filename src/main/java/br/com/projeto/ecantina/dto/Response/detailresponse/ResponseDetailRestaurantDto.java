@@ -5,7 +5,6 @@ import java.util.List;
 import br.com.projeto.ecantina.dto.response.ResponseDiscountCouponDto;
 import br.com.projeto.ecantina.dto.response.ResponseRestaurantOrdersDto;
 import br.com.projeto.ecantina.models.Category;
-import br.com.projeto.ecantina.models.DiscountCoupon;
 import br.com.projeto.ecantina.models.Product;
 import br.com.projeto.ecantina.models.Rating;
 import br.com.projeto.ecantina.models.Restaurant;
