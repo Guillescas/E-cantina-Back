@@ -27,7 +27,7 @@ public class ResponseOrderDto {
 
     private List<ProductList> productLists;
 
-    private ResponseRestaurantDto restaurantDto;
+    private ResponseRestaurantDto restaurant;
 
     @Transient
     private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
@@ -40,11 +40,11 @@ public class ResponseOrderDto {
         this.valid = order.getValid();
         this.total = order.getTotal();
         this.productLists = order.getProductLists();
-        this.restaurantDto = new ResponseRestaurantDto(order.getRestaurant());
+        this.restaurant = new ResponseRestaurantDto(order.getRestaurant());
     }
 
     public ResponseRestaurantDto getRestaurantDto() {
-        return restaurantDto;
+        return restaurant;
     }
 
     public Boolean getFinished() {
