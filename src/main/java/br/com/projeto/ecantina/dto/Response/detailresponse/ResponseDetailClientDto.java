@@ -1,9 +1,11 @@
 package br.com.projeto.ecantina.dto.response.detailresponse;
 
-import br.com.projeto.ecantina.models.*;
-
 import java.util.List;
-import java.util.Set;
+
+import br.com.projeto.ecantina.dto.response.ResponseRestaurantOrdersDto;
+import br.com.projeto.ecantina.models.Address;
+import br.com.projeto.ecantina.models.Card;
+import br.com.projeto.ecantina.models.Client;
 
 public class ResponseDetailClientDto {
     
@@ -13,7 +15,7 @@ public class ResponseDetailClientDto {
     private String cpf;
 
     private List<Address> address;
-    private Set<Order> orders;
+    private List<ResponseRestaurantOrdersDto> orders;
     private List<Card> cards;
     private String urlImage;
 
@@ -23,7 +25,7 @@ public class ResponseDetailClientDto {
         this.cpf = client.getCpf();
         this.type = client.getType();
         this.address = client.getAddress();
-        this.orders = client.getOrders();
+        this.orders = ResponseRestaurantOrdersDto.convert(client.getOrders());
         this.cards = client.getCards();
         this.urlImage = client.getUrlImage();
     }
@@ -48,7 +50,7 @@ public class ResponseDetailClientDto {
         return address;
     }
 
-    public Set<Order> getOrders() {
+    public List<ResponseRestaurantOrdersDto> getOrders() {
         return orders;
     }
 

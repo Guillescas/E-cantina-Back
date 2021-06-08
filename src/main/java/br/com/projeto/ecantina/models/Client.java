@@ -43,7 +43,7 @@ public class Client extends User {
 
     @OneToMany(cascade = CascadeType.REMOVE)
     @JoinColumn(name = "client_id")
-    private Set<Order> orders;
+    private List<Order> orders;
 
     @OneToMany(cascade = CascadeType.REMOVE)
     @JoinColumn(name = "client_id")
@@ -106,7 +106,7 @@ public class Client extends User {
         return cards;
     }
 
-    public Set<Order> getOrders() {
+    public List<Order> getOrders() {
         return orders;
     }
 
