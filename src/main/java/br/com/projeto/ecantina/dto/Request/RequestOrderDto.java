@@ -85,7 +85,7 @@ public class RequestOrderDto {
         if(client.isPresent() && restaurant.isPresent()) {
             List<ProductList> productLists = createListProducts(productRepository);
             BigDecimal total = getTotal(productLists, discount);
-            Order order = new Order(getObservation(), total, productLists);
+            Order order = new Order(getObservation(), total, productLists, restaurant.get());
 
             client.get().getOrders().add(order);
             restaurant.get().getOrders().add(order);

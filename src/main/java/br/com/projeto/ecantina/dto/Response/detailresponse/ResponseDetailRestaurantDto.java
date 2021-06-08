@@ -1,11 +1,10 @@
 package br.com.projeto.ecantina.dto.response.detailresponse;
 
 import java.util.List;
-import java.util.Set;
 
+import br.com.projeto.ecantina.dto.response.ResponseRestaurantOrdersDto;
 import br.com.projeto.ecantina.models.Category;
 import br.com.projeto.ecantina.models.DiscountCoupon;
-import br.com.projeto.ecantina.models.Order;
 import br.com.projeto.ecantina.models.Product;
 import br.com.projeto.ecantina.models.Rating;
 import br.com.projeto.ecantina.models.Restaurant;
@@ -28,7 +27,7 @@ public class ResponseDetailRestaurantDto {
 
     private String urlImage;
 
-    private Set<Order> orders;
+    private List<ResponseRestaurantOrdersDto> orders;
 
     private List<Product> products;
 
@@ -41,7 +40,7 @@ public class ResponseDetailRestaurantDto {
         this.categories = restaurant.getCategories();
         this.description = restaurant.getDescription();
         this.open = restaurant.getOpen();
-        this.orders = restaurant.getOrders();
+        this.orders = ResponseRestaurantOrdersDto.convert(restaurant.getOrders());
         this.paid = restaurant.getPaid();
         this.products = restaurant.getProducts();
         this.rating = restaurant.getRatings();
@@ -80,7 +79,7 @@ public class ResponseDetailRestaurantDto {
         return categories;
     }
 
-    public Set<Order> getOrders() {
+    public List<ResponseRestaurantOrdersDto> getOrders() {
         return orders;
     }
 

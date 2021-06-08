@@ -13,6 +13,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
 @Entity(name = "orders")
@@ -39,6 +40,9 @@ public class Order implements Serializable{
     @Column(nullable = false)
     private Boolean valid = true;
 
+    @ManyToOne
+    private Restaurant restaurant;
+
     @Column
     private BigDecimal total;
 
@@ -55,12 +59,13 @@ public class Order implements Serializable{
         this.finishAt = LocalDate.now().plusDays(2);
     }
 
-    public Order(String observation, BigDecimal total, List<ProductList> productLists) {
+    public Order(String observation, BigDecimal total, List<ProductList> productLists, Restaurant restaurant) {
         this.observation = observation;
         this.total = total;
         this.productLists = productLists;
         this.createdAt = LocalDate.now();
         this.finishAt = LocalDate.now().plusDays(2);
+        this.restaurant = restaurant;
     }
 
     @Override
@@ -86,6 +91,10 @@ public class Order implements Serializable{
         } else if (!id.equals(other.id))
             return false;
         return true;
+    }
+
+    public Restaurant getRestaurant() {
+        return restaurant;
     }
 
     public List<ProductList> getProductLists() {

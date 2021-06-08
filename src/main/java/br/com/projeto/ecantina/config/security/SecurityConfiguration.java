@@ -69,7 +69,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .and()
                     .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
-                .   addFilterBefore(authTokenFilter, UsernamePasswordAuthenticationFilter.class);
+                    .addFilterBefore(authTokenFilter, UsernamePasswordAuthenticationFilter.class);
     }
 
     @Override
@@ -83,8 +83,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         web.ignoring()
             .antMatchers("/resources/**", "/static/**")
             .antMatchers(HttpMethod.GET, "/images/**")
-            .antMatchers(HttpMethod.GET, "/client/**")
-            .antMatchers(HttpMethod.GET, "/product/**")
-            .antMatchers(HttpMethod.GET, "/restaurant/**");
+            .antMatchers(HttpMethod.GET, "/images/client/**")
+            .antMatchers(HttpMethod.GET, "/images/product/**")
+            .antMatchers(HttpMethod.GET, "/images/restaurant/**");
     }
 }

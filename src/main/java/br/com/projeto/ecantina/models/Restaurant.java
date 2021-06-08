@@ -32,7 +32,7 @@ public class Restaurant extends User{
 
     @OneToMany
     @JoinColumn(name = "restaurant_id")
-    private Set<Order> orders;
+    private List<Order> orders;
     
     @OneToMany(cascade = CascadeType.REMOVE)
     @JoinColumn(name = "restaurant_id")
@@ -106,7 +106,7 @@ public class Restaurant extends User{
         return discountCoupon;
     }
 
-    public Set<Order> getOrders() {
+    public List<Order> getOrders() {
         return orders;
     }
 
