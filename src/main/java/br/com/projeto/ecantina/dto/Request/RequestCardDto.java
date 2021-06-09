@@ -41,6 +41,8 @@ public class RequestCardDto {
     @NotBlank(message = "{bank.blank}")
     private String bank;
 
+    private Long clientId;
+
     public String getBank() {
         return bank.toUpperCase();
     }
@@ -65,13 +67,17 @@ public class RequestCardDto {
         return nickname;
     }
 
+    public Long getClientId() {
+        return clientId;
+    }
+
     public LocalDate getValidThru() {
         return LocalDate.parse(this.validThru, formatter);
     }
 
     public Card convert(ClientRepository clientRepository, BankDataRepository bankDataRepository) {
 
-        Optional<Client> clientFind = clientRepository.findByCpf(getCpfClient());
+        Optional<Client> clientFind = clientRepository.findById(getClientId());
         Optional<BankData> bankData = bankDataRepository.findByName(getBank());
 
         if (clientFind.isPresent()) {
