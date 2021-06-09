@@ -1,6 +1,7 @@
 package br.com.projeto.ecantina.dto.response;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.List;
 
 import org.springframework.data.domain.Page;
@@ -39,7 +40,7 @@ public class ResponseRestaurantDto {
             for (Rating rating : ratings) {
                 totalSum = totalSum.add(rating.getValue());
             }
-            return totalSum.divide(new BigDecimal(ratings.size()));
+            return totalSum.divide(new BigDecimal(ratings.size()), RoundingMode.HALF_EVEN);
         }
         return BigDecimal.ZERO;
     }
