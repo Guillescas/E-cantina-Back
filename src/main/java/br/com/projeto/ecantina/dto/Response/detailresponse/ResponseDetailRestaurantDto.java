@@ -15,6 +15,7 @@ public class ResponseDetailRestaurantDto {
 
     private Long id;
     private String name;
+    private String email;
     private List<Rating> ratings;
     private Boolean paid;
     private Boolean open;
@@ -29,6 +30,7 @@ public class ResponseDetailRestaurantDto {
     public ResponseDetailRestaurantDto(Restaurant restaurant) {
         this.id = restaurant.getId();
         this.name = restaurant.getName();
+        this.email = restaurant.getEmail();
         this.discountCoupon = ResponseDiscountCouponDto.convert(restaurant.getDiscountCoupon());
         this.categories = restaurant.getCategories();
         this.description = restaurant.getDescription();
@@ -52,6 +54,10 @@ public class ResponseDetailRestaurantDto {
             return totalSum.divide(new BigDecimal(ratings.size()), RoundingMode.HALF_EVEN);
         }
         return BigDecimal.ZERO;
+    }
+
+    public String getEmail() {
+        return email;
     }
 
     public BigDecimal getAverageRating() {
