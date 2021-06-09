@@ -1,5 +1,6 @@
 package br.com.projeto.ecantina.dto.response.detailresponse;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import br.com.projeto.ecantina.dto.response.ResponseDiscountCouponDto;
@@ -12,26 +13,17 @@ import br.com.projeto.ecantina.models.Restaurant;
 public class ResponseDetailRestaurantDto {
 
     private Long id;
-
     private String name;
-    
-    private List<Rating> rating;
-
+    private List<Rating> ratings;
     private Boolean paid;
-    
     private Boolean open;
-    
     private String description;
-
     private Category categories;
-
     private String urlImage;
-
     private List<ResponseRestaurantOrdersDto> orders;
-
     private List<Product> products;
-
     private List<ResponseDiscountCouponDto> discountCoupon;
+    private BigDecimal averageRating;
 
     public ResponseDetailRestaurantDto(Restaurant restaurant) {
         this.id = restaurant.getId();
@@ -43,8 +35,26 @@ public class ResponseDetailRestaurantDto {
         this.orders = ResponseRestaurantOrdersDto.convert(restaurant.getOrders());
         this.paid = restaurant.getPaid();
         this.products = restaurant.getProducts();
-        this.rating = restaurant.getRatings();
+        this.ratings = restaurant.getRatings();
         this.urlImage = restaurant.getUrlImage();
+        if (restaurant.getRatings() != null && !restaurant.getRatings().isEmpty()) {
+            this.averageRating = calculateAverage(this.ratings);
+        }
+    }
+
+    public BigDecimal calculateAverage(List<Rating> ratings) {
+        if (!getRatings().isEmpty() && getRatings().size() != 0) {
+            BigDecimal totalSum = BigDecimal.ZERO;
+            for (Rating rating : ratings) {
+                totalSum = totalSum.add(rating.getValue());
+            }
+            return totalSum.divide(new BigDecimal(ratings.size()));
+        }
+        return BigDecimal.ZERO;
+    }
+
+    public BigDecimal getAverageRating() {
+        return averageRating;
     }
     
     public Long getId() {
@@ -59,8 +69,8 @@ public class ResponseDetailRestaurantDto {
         return name;
     }
 
-    public List<Rating> getRating() {
-        return rating;
+    public List<Rating> getRatings() {
+        return ratings;
     }
 
     public Boolean getPaid() {
